@@ -69,11 +69,30 @@ namespace WebApi.Controllers
             return Created($"/users/{newUser.Id}", newUser);
         }
 
-        //[HttpPut]
-        //public IActionResult OverwriteUser()
-        //{
+        [HttpPut("{id}")]
+        public IActionResult OverwriteUser(int id, CreateUserDto dto)
+        {
+            User? user = _users.FirstOrDefault(user => user.Id == id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            user.Name = dto.Name;
+            user.Email = dto.Email;
+            return Ok();
+        }
 
-        //}
+        [HttpPatch("{name}")]
+        public IActionResult ChangeUserName(string name)
+        {
+            return Ok();
+        }
+
+        [HttpPatch("{email}")]
+        public IActionResult ChangeUserEmail(string email)
+        {
+            return Ok();
+        }
 
     }
 }
