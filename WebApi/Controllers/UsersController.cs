@@ -93,16 +93,20 @@ namespace WebApi.Controllers
             return Ok(CreateUserDto(user));
         }
 
-        [HttpPatch("{name}")]
-        public IActionResult ChangeUserName(string name)
+        [HttpPatch("{id}")]
+        public IActionResult ChangeUserName(int id, string? name, string? email)
         {
-            return Ok();
-        }
+            User? user = _users.FirstOrDefault(user => user.Id == id);
+            if (user == null)
+                return BadRequest();
 
-        [HttpPatch("{email}")]
-        public IActionResult ChangeUserEmail(string email)
-        {
-            return Ok();
+            if (name != null)
+                user.Name = name;
+
+            if(email != null)
+                user.Email = email;
+
+            return Ok(CreateUserDto(user));
         }
 
     }
