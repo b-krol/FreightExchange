@@ -13,7 +13,7 @@ namespace WebApi.Controllers
     {
         private static UserDto CreateUserDto(User user)
         {
-            return new UserDto { Name = user.Name, Email = user.Email };
+            return new UserDto { Name = user.Name, Email = user.Email, Id = user.Id };
         }
 
         private static List<User> _users = new List<User>()
