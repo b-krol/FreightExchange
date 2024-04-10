@@ -1,4 +1,6 @@
-﻿namespace WebApi.Controllers
+﻿using System;
+
+namespace Application.JobOffers
 {
     public class JobOfferDto
     {

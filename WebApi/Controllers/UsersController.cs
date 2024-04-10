@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.User;
+using Application.Users;
+using Domain.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-using WebApi.Controllers.Entities;
 
 namespace WebApi.Controllers
 {
@@ -11,103 +13,78 @@ namespace WebApi.Controllers
     [ApiController]
     public class UsersController : BaseApiController
     {
-        private static UserDto CreateUserDto(User user)
-        {
-            return new UserDto { Name = user.Name, Email = user.Email, Id = user.Id };
-        }
+        private IUserService UserService { get; }
 
-        private static List<User> _users = new List<User>()
+        public UsersController(IUserService userService) 
         {
-            new Entities.User()
-            {
-                Id = 1,
-                Name = "Test",
-                Email = "Test"
-            },
-            new Entities.User()
-            {
-                Id = 2,
-                Name = "Test2",
-                Email = "Test2"
-            }
-        };
-
-        private static int _idCount = _users.Count + 1;
+            UserService = userService;
+        }        
 
         [HttpGet]
         public IEnumerable<UserDto> GetUsers()
         {
-            var usersDto = new List<UserDto>();
-            foreach (var user in _users)
-            {
-                usersDto.Add(CreateUserDto(user));
-            }
-            return usersDto;
+            return UserService.GetAll();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
-            User? user = _users.FirstOrDefault(user => user.Id == id);
-            if (user == null)
+            try
             {
-                return BadRequest();
+                return Ok(UserService.GetById(id));
             }
-            return Ok(CreateUserDto(user));
+            catch(UserNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteUserById(int id)
         {
-            User? user = _users.FirstOrDefault(user => user.Id == id);
-            if (user == null)
+            try
             {
-                return BadRequest();
-            }
-            if (_users.Remove(user))
-            {
+                UserService.Delete(UserService.GetById(id));
                 return Ok();
             }
-            //TODO what if item is not succesfully removed || log information?
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            catch(UserNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
+            catch (UserNotDeletedException exception) 
+            {
+                return StatusCode(500, exception.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult CreateUser(UserDto dto)
         {
-            User newUser = new User() { Id = _idCount++, Name = dto.Name, Email = dto.Email };
-            _users.Add(newUser);
-            return Created($"{Request.GetEncodedUrl()}/{newUser.Id}", CreateUserDto(newUser));
+            int id = UserService.Create(dto);
+            return Created($"{Request.GetEncodedUrl()}/{id}", UserService.GetById(id));
         }
 
         [HttpPut("{id}")]
-        public IActionResult OverwriteUser(int id, UserDto dto)
+        public IActionResult UpdateUser(int id, UserDto dto) //TODO co z id???
         {
-            User? user = _users.FirstOrDefault(user => user.Id == id);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            user.Name = dto.Name;
-            user.Email = dto.Email;
-            return Ok(CreateUserDto(user));
+            return Ok(UserService.Update(dto));
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult ChangeUserName(int id, string? name, string? email)
-        {
-            User? user = _users.FirstOrDefault(user => user.Id == id);
-            if (user == null)
-                return BadRequest();
+        //[HttpPatch("{id}")]
+        //public IActionResult ChangeUserName(int id, string? name, string? email)
+        //{
+        //    User? user = _users.FirstOrDefault(user => user.Id == id);
+        //    if (user == null)
+        //        return BadRequest();
 
-            if (name != null)
-                user.Name = name;
+        //    if (name != null)
+        //        user.Name = name;
 
-            if(email != null)
-                user.Email = email;
+        //    if(email != null)
+        //        user.Email = email;
 
-            return Ok(CreateUserDto(user));
-        }
+        //    return Ok(CreateUserDto(user));
+        //}
 
     }
 }

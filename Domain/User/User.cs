@@ -1,4 +1,4 @@
-﻿namespace WebApi.Controllers.Entities
+﻿namespace Domain.User
 {
     public class User
     {

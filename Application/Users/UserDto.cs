@@ -1,4 +1,4 @@
-﻿namespace WebApi.Controllers
+﻿namespace Application.Users
 {
     public class UserDto
     {

@@ -1,4 +1,6 @@
-﻿namespace WebApi.Controllers.Entities
+﻿using System;
+
+namespace Domain.JobOffer
 {
     public class JobOffer
     {
