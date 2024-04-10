@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Controllers
 {
-    public class CreateUserDto
+    public class UserDto
     {
 
         public string Name { get; set; }

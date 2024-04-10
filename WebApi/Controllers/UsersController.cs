@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -8,8 +9,12 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FreightExchangeController : BaseApiController
+    public class UsersController : BaseApiController
     {
+        private static UserDto CreateUserDto(User user)
+        {
+            return new UserDto { Name = user.Name, Email = user.Email };
+        }
 
         private static List<User> _users = new List<User>()
         {
@@ -30,20 +35,25 @@ namespace WebApi.Controllers
         private static int _idCount = _users.Count + 1;
 
         [HttpGet]
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserDto> GetUsers()
         {
-            return _users;
+            var usersDto = new List<UserDto>();
+            foreach (var user in _users)
+            {
+                usersDto.Add(CreateUserDto(user));
+            }
+            return usersDto;
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
-            User? us = _users.FirstOrDefault(user => user.Id == id);
-            if (us == null)
+            User? user = _users.FirstOrDefault(user => user.Id == id);
+            if (user == null)
             {
                 return BadRequest();
             }
-            return Ok(us);
+            return Ok(CreateUserDto(user));
         }
 
         [HttpDelete("{id}")]
@@ -58,19 +68,20 @@ namespace WebApi.Controllers
             {
                 return Ok();
             }
-            return Ok();//TODO what if item is not succesfully removed
+            //TODO what if item is not succesfully removed || log information?
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPost]
-        public IActionResult CreateUser(CreateUserDto dto)
+        public IActionResult CreateUser(UserDto dto)
         {
             User newUser = new User() { Id = _idCount++, Name = dto.Name, Email = dto.Email };
             _users.Add(newUser);
-            return Created($"/users/{newUser.Id}", newUser);
+            return Created($"{Request.GetEncodedUrl()}/{newUser.Id}", CreateUserDto(newUser));
         }
 
         [HttpPut("{id}")]
-        public IActionResult OverwriteUser(int id, CreateUserDto dto)
+        public IActionResult OverwriteUser(int id, UserDto dto)
         {
             User? user = _users.FirstOrDefault(user => user.Id == id);
             if (user == null)
@@ -79,7 +90,7 @@ namespace WebApi.Controllers
             }
             user.Name = dto.Name;
             user.Email = dto.Email;
-            return Ok();
+            return Ok(CreateUserDto(user));
         }
 
         [HttpPatch("{name}")]
