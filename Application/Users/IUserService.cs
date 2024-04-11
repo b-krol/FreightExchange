@@ -11,7 +11,7 @@ namespace Application.Users
     {
         IEnumerable<UserDto> GetAll();
         UserDto GetById(int id);
-        void Delete(UserDto user);
+        void Delete(int id);
         int Create(UserDto user);
         UserDto Update(UserDto user);
     }

@@ -1,4 +1,5 @@
-﻿using Application.JobOffer;
+﻿using Application.JobOffers;
+using Application.Users;
 using Domain.JobOffer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -11,123 +12,54 @@ namespace WebApi.Controllers
     [ApiController]
     public class JobOffersController : ControllerBase
     {
-        private static JobOfferDto CreateJobOfferDto(JobOffer jobOffer)
+
+        private IJobOfferService JobOfferService { get; }
+
+        public JobOffersController(IJobOfferService jobOfferService)
         {
-            if (jobOffer.ExeciutionStatus == JobOfferExeciutionStatus.Active)
-                return new JobOfferDto()
-                {
-                    Id = jobOffer.Id,
-                    FounderId = jobOffer.FounderId,
-                    GoodsName = jobOffer.GoodsName,
-                    StartingAdress = jobOffer.StartingAdress,
-                    DestinationAdress = jobOffer.DestinationAdress,
-                    Distance = jobOffer.Distance,
-                    Weight = jobOffer.Weight,
-                    MaximumPrice = jobOffer.MaximumPrice,
-                    EndDate = jobOffer.EndDate,
-                    IsActive = true
-                };
-            return new JobOfferDto()
-            {
-                Id = jobOffer.Id,
-                FounderId = jobOffer.FounderId,
-                GoodsName = jobOffer.GoodsName,
-                StartingAdress = jobOffer.StartingAdress,
-                DestinationAdress = jobOffer.DestinationAdress,
-                Distance = jobOffer.Distance,
-                Weight = jobOffer.Weight,
-                MaximumPrice = jobOffer.MaximumPrice,
-                EndDate = jobOffer.EndDate,
-                IsActive = false
-            };
+            JobOfferService = jobOfferService;
         }
-
-        private static List<JobOffer> _jobs = new List<JobOffer>()
-        {
-            new JobOffer()
-            {
-                Id = 1,
-                FounderId = 1,
-                GoodsName = "Palety",
-                StartingAdress = "Radom ul. Jana Pawła II 3",
-                DestinationAdress = "Gdynia al. Niewiadoma",
-                Distance = 524,
-                Weight = 9.5f,
-                MaximumPrice = 1000,
-                EndDate = DateTime.Now - new TimeSpan(0, 0, 30),
-                ExeciutionStatus = JobOfferExeciutionStatus.Success
-            }
-            ,
-            new JobOffer()
-            {
-                Id = 2,
-                FounderId = 1,
-                GoodsName = "Palety",
-                StartingAdress = "Radom ul. Jana Pawła II 3",
-                DestinationAdress = "Gdynia al. Niewiadoma",
-                Distance = 524,
-                Weight = 9.5f,
-                MaximumPrice = 1000,
-                EndDate = DateTime.Now + new TimeSpan(0, 0, 30),
-                ExeciutionStatus = JobOfferExeciutionStatus.Active
-            }
-        };
-
-        private static int _idCount = _jobs.Count + 1;
-
         [HttpGet]
         public IEnumerable<JobOfferDto> GetJobOffers()
         {
-            var jobOfferDtos = new List<JobOfferDto>();
-            foreach (var user in _jobs)
-            {
-                jobOfferDtos.Add(CreateJobOfferDto(user));
-            }
-            return jobOfferDtos;
+            return JobOfferService.GetAll();
         }
 
         [HttpGet("Active")]
         public IEnumerable<JobOfferDto> GetActiveJobOffers()
         {
-            var jobOfferDtos = new List<JobOfferDto>();
-            foreach (var user in _jobs)
+            var jobOffers = new List<JobOfferDto>();
+            foreach(var jobOffer in GetJobOffers())
             {
-                if(user.ExeciutionStatus == JobOfferExeciutionStatus.Active)
-                    jobOfferDtos.Add(CreateJobOfferDto(user));
+                if((bool)jobOffer.IsActive)
+                    jobOffers.Add(jobOffer);
             }
-            return jobOfferDtos;
+            return jobOffers;
         }
 
         [HttpGet("Finished")]
         public IEnumerable<JobOfferDto> GetFinishedJobOffers()
         {
-            var jobOfferDtos = new List<JobOfferDto>();
-            foreach (var user in _jobs)
+            var jobOffers = new List<JobOfferDto>();
+            foreach (var jobOffer in GetJobOffers())
             {
-                if (user.ExeciutionStatus != JobOfferExeciutionStatus.Active)
-                    jobOfferDtos.Add(CreateJobOfferDto(user));
+                if (!(bool)jobOffer.IsActive)
+                    jobOffers.Add(jobOffer);
             }
-            return jobOfferDtos;
+            return jobOffers;
         }
 
         [HttpPost]
         public IActionResult CreateJobOffer(JobOfferDto jobOfferDto)
         {
-            JobOffer newJobOffer = new JobOffer()
-            { 
-                Id = _idCount++,
-                FounderId = jobOfferDto.FounderId,
-                GoodsName = jobOfferDto.GoodsName,
-                StartingAdress = jobOfferDto.StartingAdress,
-                DestinationAdress = jobOfferDto.DestinationAdress,
-                Distance = jobOfferDto.Distance,
-                Weight = jobOfferDto.Weight,
-                MaximumPrice = jobOfferDto.MaximumPrice,
-                EndDate = jobOfferDto.EndDate,
-                ExeciutionStatus = JobOfferExeciutionStatus.Active
-            };
-            _jobs.Add(newJobOffer);
-            return Created($"{Request.GetEncodedUrl()}/{newJobOffer.Id}", CreateJobOfferDto(newJobOffer));
+            var newJobOfferId = JobOfferService.Create(jobOfferDto);
+            return Created($"{Request.GetEncodedUrl()}/{newJobOfferId}", JobOfferService.GetById(newJobOfferId));
+        }
+
+        [HttpPut]
+        public IActionResult UpdateJobOffer(JobOfferDto jobOfferDto)
+        {
+            return Ok(JobOfferService.Update(jobOfferDto));
         }
 
     }

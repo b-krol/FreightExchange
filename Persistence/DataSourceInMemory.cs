@@ -4,6 +4,7 @@ using Domain.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,12 +13,12 @@ namespace Persistence
     internal class DataSourceInMemory : IDataSource
     {
 
-        private static List<JobOffer> _jobs = new List<JobOffer>()
+        private static List<JobOffer> Jobs = new List<JobOffer>()
         {
             new JobOffer()
             {
                 Id = 1,
-                FounderId = 1,
+                Founder = Users.First(),
                 GoodsName = "Palety",
                 StartingAdress = "Radom ul. Jana Pawła II 3",
                 DestinationAdress = "Gdynia al. Niewiadoma",
@@ -31,7 +32,7 @@ namespace Persistence
             new JobOffer()
             {
                 Id = 2,
-                FounderId = 1,
+                Founder = Users.Last(),
                 GoodsName = "Palety",
                 StartingAdress = "Radom ul. Jana Pawła II 3",
                 DestinationAdress = "Gdynia al. Niewiadoma",
@@ -43,7 +44,7 @@ namespace Persistence
             }
         };
 
-        private List<User> _users = new List<User>()
+        private static List<User> Users = new List<User>()
         {
             new User()
             {
@@ -65,16 +66,6 @@ namespace Persistence
         }
 
         public int CreateUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteJobOffer(JobOffer jobOffer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteUser(User user)
         {
             throw new NotImplementedException();
         }
@@ -105,6 +96,16 @@ namespace Persistence
         }
 
         public User UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataSource.DeleteJobOffer(JobOffer jobOffer)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDataSource.DeleteUser(User user)
         {
             throw new NotImplementedException();
         }

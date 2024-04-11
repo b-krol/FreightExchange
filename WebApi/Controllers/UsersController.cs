@@ -1,5 +1,4 @@
-﻿using Application.User;
-using Application.Users;
+﻿using Application.Users;
 using Domain.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -44,7 +43,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                UserService.Delete(UserService.GetById(id));
+                UserService.Delete(id);
                 return Ok();
             }
             catch(UserNotFoundException exception)
@@ -58,16 +57,16 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDto dto)
+        public IActionResult CreateUser(UserDto userDto)
         {
-            int id = UserService.Create(dto);
+            int id = UserService.Create(userDto);
             return Created($"{Request.GetEncodedUrl()}/{id}", UserService.GetById(id));
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, UserDto dto) //TODO co z id???
+        [HttpPut]
+        public IActionResult UpdateUser(UserDto userDto)
         {
-            return Ok(UserService.Update(dto));
+            return Ok(UserService.Update(userDto));
         }
 
         //[HttpPatch("{id}")]

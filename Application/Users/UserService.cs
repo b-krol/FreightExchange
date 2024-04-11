@@ -23,16 +23,15 @@ namespace Application.Users
 
         public int Create(UserDto user)
         {
-            User newUser = new User() { Id = (Source.GetUsers().Count() + 1), Name = user.Name, Email = user.Email }; //TODO przyznawanie id nowo tworzonym userom
-            Source.CreateUser(newUser);
-            return newUser.Id;
+            User newUser = new User() { Id = 0, Name = user.Name, Email = user.Email };
+            return Source.CreateUser(newUser);
         }
 
-        public void Delete(UserDto user)
+        public void Delete(int id)
         {
             try
             {
-                Source.DeleteUser(new User() { Id = (Source.GetUsers().Count() + 1), Name = user.Name, Email = user.Email });//TODO przyznawanie id nowo tworzonym userom
+                Source.DeleteUser(Source.GetUserById(id));
             }
             catch(UserNotDeletedException) 
             {
@@ -46,17 +45,17 @@ namespace Application.Users
 
         public IEnumerable<UserDto> GetAll()
         {
-            var usersDto = new List<UserDto>();
+            var userDtos = new List<UserDto>();
             foreach (var user in Source.GetUsers())
             {
-                usersDto.Add(CreateUserDto(user));
+                userDtos.Add(CreateUserDto(user));
             }
-            return usersDto;
+            return userDtos;
         }
 
         public UserDto GetById(int id)
         {
-            User? user = Source.GetUsers().FirstOrDefault(user => user.Id == id);
+            User? user = Source.GetUserById(id);
             if (user == null)
             {
                 throw new UserNotFoundException();
@@ -66,7 +65,15 @@ namespace Application.Users
 
         public UserDto Update(UserDto user)
         {
-            return CreateUserDto(Source.UpdateUser(new User() { Id = (int)user.Id, Name = user.Name, Email = user.Email }));
+            try
+            {
+                int newUserId = Source.UpdateUser(new User() { Id = (int)user.Id, Name = user.Name, Email = user.Email });
+                return GetById(newUserId);
+            }
+            catch (UserNotFoundException)
+            {
+                throw;
+            }
         }
     }
 }
