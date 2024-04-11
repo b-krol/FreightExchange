@@ -90,12 +90,12 @@ namespace Persistence
             throw new NotImplementedException();
         }
 
-        public JobOffer UpdateJobOffer(JobOffer jobOffer)
+        public int UpdateJobOffer(JobOffer jobOffer)
         {
             throw new NotImplementedException();
         }
 
-        public User UpdateUser(User user)
+        public int UpdateUser(User user)
         {
             throw new NotImplementedException();
         }
