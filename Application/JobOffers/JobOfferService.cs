@@ -51,14 +51,7 @@ namespace Application.JobOffers
         {
             JobOffer newJobOffer = new JobOffer();
             newJobOffer.Id = 0;
-            try
-            {
-                newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
-            }
-            catch (UserNotFoundException)
-            {
-                //TODO nie można utworzyć obiektu JobOffer, bo nie ma użytkownika o id podanym w DTO
-            }
+             newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
             newJobOffer.GoodsName = jobOfferDto.GoodsName;
             newJobOffer.StartingAdress = jobOfferDto.StartingAdress;
             newJobOffer.DestinationAdress = jobOfferDto.DestinationAdress;
@@ -73,18 +66,7 @@ namespace Application.JobOffers
 
         public void Delete(int id)
         {
-            try
-            {
-                Source.DeleteJobOffer(Source.GetJobOfferById(id));
-            }
-            catch (JobOfferNotFoundException)
-            {
-                throw;
-            }
-            catch (JobOfferNotDeletedException)
-            {
-                throw;
-            }
+            Source.DeleteJobOffer(Source.GetJobOfferById(id));
         }
 
         public IEnumerable<JobOfferDto> GetAll()
@@ -99,11 +81,7 @@ namespace Application.JobOffers
 
         public JobOfferDto GetById(int id)
         {
-            JobOffer? jobOffer =  Source.GetJobOfferById(id);
-            if (jobOffer == null)
-            {
-                throw new JobOfferNotFoundException();
-            }
+            JobOffer jobOffer =  Source.GetJobOfferById(id);
             return CreateJobOfferDto(jobOffer);
         }
 
@@ -111,14 +89,7 @@ namespace Application.JobOffers
         {
             JobOffer newJobOffer = new JobOffer();
             newJobOffer.Id = 0;
-            try
-            {
-                newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
-            }
-            catch (UserNotFoundException)
-            {
-                //TODO nie można utworzyć obiektu JobOffer, bo nie ma użytkownika o id podanym w DTO
-            }
+            newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
             newJobOffer.GoodsName = jobOfferDto.GoodsName;
             newJobOffer.StartingAdress = jobOfferDto.StartingAdress;
             newJobOffer.DestinationAdress = jobOfferDto.DestinationAdress;
@@ -127,15 +98,8 @@ namespace Application.JobOffers
             newJobOffer.MaximumPrice = jobOfferDto.MaximumPrice;
             newJobOffer.EndDate = jobOfferDto.EndDate; //TODO co kiedy data zakończenia ma miejsce w przeszłości
             newJobOffer.ExeciutionStatus = JobOfferExeciutionStatus.Active;
-            try
-            {
-                int newJobOfferId = Source.UpdateJobOffer(newJobOffer);
-                return GetById(newJobOfferId);
-            }
-            catch (JobOfferNotFoundException)
-            {
-                throw;
-            }
+            int newJobOfferId = Source.UpdateJobOffer(newJobOffer);
+            return GetById(newJobOfferId);
         }
 
     }

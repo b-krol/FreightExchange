@@ -29,18 +29,7 @@ namespace Application.Users
 
         public void Delete(int id)
         {
-            try
-            {
-                Source.DeleteUser(Source.GetUserById(id));
-            }
-            catch(UserNotDeletedException) 
-            {
-                throw;
-            }
-            catch (UserNotFoundException)
-            {
-                throw;
-            }
+            Source.DeleteUser(Source.GetUserById(id));
         }
 
         public IEnumerable<UserDto> GetAll()
@@ -55,25 +44,14 @@ namespace Application.Users
 
         public UserDto GetById(int id)
         {
-            User? user = Source.GetUserById(id);
-            if (user == null)
-            {
-                throw new UserNotFoundException();
-            }
+            User user = Source.GetUserById(id);
             return CreateUserDto(user);
         }
 
         public UserDto Update(UserDto user)
         {
-            try
-            {
-                int newUserId = Source.UpdateUser(new User() { Id = (int)user.Id, Name = user.Name, Email = user.Email });
-                return GetById(newUserId);
-            }
-            catch (UserNotFoundException)
-            {
-                throw;
-            }
+            int newUserId = Source.UpdateUser(new User() { Id = (int)user.Id, Name = user.Name, Email = user.Email });
+            return GetById(newUserId);
         }
     }
 }
