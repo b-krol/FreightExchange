@@ -50,7 +50,7 @@ namespace Application.Users
 
         public UserDto Update(UserDto user)
         {
-            int newUserId = Source.UpdateUser(new User() { Id = (int)user.Id, Name = user.Name, Email = user.Email });
+            int newUserId = Source.UpdateUser(new User() { Id = user.Id ?? 0, Name = user.Name, Email = user.Email });
             return GetById(newUserId);
         }
     }
