@@ -28,25 +28,36 @@ namespace WebApi.Controllers
         [HttpGet("Active")]
         public IEnumerable<JobOfferDto> GetActiveJobOffers()
         {
-            var jobOffers = new List<JobOfferDto>();
-            foreach(var jobOffer in GetJobOffers())
-            {
-                if((bool)jobOffer.IsActive)
-                    jobOffers.Add(jobOffer);
-            }
-            return jobOffers;
+            return GetJobOffers().Where(
+                    (jobOffer) => jobOffer.IsActive ?? false
+                );
+
+
+            //var jobOffers = new List<JobOfferDto>();
+            //foreach (var jobOffer in GetJobOffers())
+            //{
+            //    if (jobOffer.IsActive ?? false)
+            //    {
+            //        jobOffers.Add(jobOffer);
+            //    }
+            //}
+            //return jobOffers;
         }
 
         [HttpGet("Finished")]
         public IEnumerable<JobOfferDto> GetFinishedJobOffers()
         {
-            var jobOffers = new List<JobOfferDto>();
-            foreach (var jobOffer in GetJobOffers())
-            {
-                if (!(bool)jobOffer.IsActive)
-                    jobOffers.Add(jobOffer);
-            }
-            return jobOffers;
+            return GetJobOffers().Where(
+                    (jobOffer) => !jobOffer.IsActive ?? false
+                );
+
+            //var jobOffers = new List<JobOfferDto>();
+            //foreach (var jobOffer in GetJobOffers())
+            //{
+            //    if (!jobOffer.IsActive ?? false)
+            //        jobOffers.Add(jobOffer);
+            //}
+            //return jobOffers;
         }
 
         [HttpPost]
