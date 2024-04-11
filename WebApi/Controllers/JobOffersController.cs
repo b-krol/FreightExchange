@@ -25,6 +25,19 @@ namespace WebApi.Controllers
             return JobOfferService.GetAll();
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetJobOfferById(int id)
+        {
+            try
+            {
+                return Ok(JobOfferService.GetById(id));
+            }
+            catch (JobOfferNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
+        }
+
         [HttpGet("Active")]
         public IEnumerable<JobOfferDto> GetActiveJobOffers()
         {

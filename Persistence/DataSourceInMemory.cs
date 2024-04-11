@@ -1,4 +1,6 @@
 ﻿using Application;
+using Application.JobOffers;
+using Application.Users;
 using Domain.JobOffer;
 using Domain.User;
 using System;
@@ -13,6 +15,21 @@ namespace Persistence
     internal class DataSourceInMemory : IDataSource
     {
 
+        private static List<User> Users = new List<User>()
+        {
+            new User()
+            {
+                Id = 1,
+                Name = "Test",
+                Email = "Test"
+            },
+            new User()
+            {
+                Id = 2,
+                Name = "Test2",
+                Email = "Test2"
+            }
+        };
         private static List<JobOffer> Jobs = new List<JobOffer>()
         {
             new JobOffer()
@@ -43,53 +60,53 @@ namespace Persistence
                 ExeciutionStatus = JobOfferExeciutionStatus.Active
             }
         };
-
-        private static List<User> Users = new List<User>()
-        {
-            new User()
-            {
-                Id = 1,
-                Name = "Test",
-                Email = "Test"
-            },
-            new User()
-            {
-                Id = 2,
-                Name = "Test2",
-                Email = "Test2"
-            }
-        };
+        private static int JobsNextId = Jobs.Count() + 1;
+        private static int UsersNextId = Users.Count() + 1;
 
         public int CreateJobOffer(JobOffer jobOffer)
         {
-            throw new NotImplementedException();
+            jobOffer.Id = JobsNextId++;
+            Jobs.Add(jobOffer);
+            return jobOffer.Id;
         }
 
         public int CreateUser(User user)
         {
-            throw new NotImplementedException();
+            user.Id = JobsNextId++;
+            Users.Add(user);
+            return user.Id;
         }
 
         public JobOffer GetJobOfferById(int id)
         {
-            throw new NotImplementedException();
+            var jobOffer = Jobs.FirstOrDefault(jobOffer => jobOffer.Id == id);
+            if (jobOffer == null)
+            {
+                throw new JobOfferNotFoundException();
+            }
+            return jobOffer;
         }
 
         public IEnumerable<JobOffer> GetJobOffers()
         {
-            throw new NotImplementedException();
+            return Jobs;
         }
 
         public User GetUserById(int id)
         {
-            throw new NotImplementedException();
+            var user = Users.FirstOrDefault(user => user.Id == id);
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            return user;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            throw new NotImplementedException();
+            return Users;
         }
-
+        //TODO implement rest of DataSourceInMemory method
         public int UpdateJobOffer(JobOffer jobOffer)
         {
             throw new NotImplementedException();
