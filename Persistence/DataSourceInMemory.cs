@@ -50,7 +50,7 @@ namespace Persistence
                 Weight = 9.5f,
                 MaximumPrice = 1000,
                 EndDate = DateTime.Now - new TimeSpan(0, 0, 30),
-                ExeciutionStatus = JobOfferExeciutionStatus.Success
+                ExecutionStatus = JobOfferExecutionStatus.Success
             }
             }
             ,
@@ -66,7 +66,7 @@ namespace Persistence
                 Weight = 9.5f,
                 MaximumPrice = 1000,
                 EndDate = DateTime.Now + new TimeSpan(0, 0, 30),
-                ExeciutionStatus = JobOfferExeciutionStatus.Active
+                ExecutionStatus = JobOfferExecutionStatus.Active
             }
             }
         };

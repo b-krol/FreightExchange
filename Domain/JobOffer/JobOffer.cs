@@ -13,6 +13,6 @@ namespace Domain.JobOffer
         public float Weight { get; set; }
         public int MaximumPrice { get; set; }
         public DateTime EndDate { get; set; }
-        public JobOfferExeciutionStatus ExeciutionStatus { get; set; }
+        public JobOfferExecutionStatus ExecutionStatus { get; set; }
     }
 }

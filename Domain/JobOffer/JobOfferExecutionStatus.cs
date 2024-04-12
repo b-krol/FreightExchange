@@ -1,6 +1,6 @@
 ﻿namespace Domain.JobOffer
 {
-    public enum JobOfferExeciutionStatus
+    public enum JobOfferExecutionStatus
     {
         Active,
         Success,

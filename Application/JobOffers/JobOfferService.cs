@@ -17,7 +17,7 @@ namespace Application.JobOffers
         }
         private static JobOfferDto CreateJobOfferDto(JobOffer jobOffer)
         {
-            if (jobOffer.ExeciutionStatus == JobOfferExeciutionStatus.Active)
+            if (jobOffer.ExecutionStatus == JobOfferExecutionStatus.Active)
                 return new JobOfferDto()
                 {
                     Id = jobOffer.Id,
@@ -59,7 +59,7 @@ namespace Application.JobOffers
             newJobOffer.Weight = jobOfferDto.Weight;
             newJobOffer.MaximumPrice = jobOfferDto.MaximumPrice;
             newJobOffer.EndDate = jobOfferDto.EndDate; //TODO co kiedy data zakończenia ma miejsce w przeszłości
-            newJobOffer.ExeciutionStatus = JobOfferExeciutionStatus.Active;
+            newJobOffer.ExecutionStatus = JobOfferExecutionStatus.Active;
             Source.CreateJobOffer(newJobOffer);
             return newJobOffer.Id;
         }
@@ -97,7 +97,7 @@ namespace Application.JobOffers
             newJobOffer.Weight = jobOfferDto.Weight;
             newJobOffer.MaximumPrice = jobOfferDto.MaximumPrice;
             newJobOffer.EndDate = jobOfferDto.EndDate; //TODO co kiedy data zakończenia ma miejsce w przeszłości
-            newJobOffer.ExeciutionStatus = JobOfferExeciutionStatus.Active;
+            newJobOffer.ExecutionStatus = JobOfferExecutionStatus.Active;
             int newJobOfferId = Source.UpdateJobOffer(newJobOffer);
             return GetById(newJobOfferId);
         }
