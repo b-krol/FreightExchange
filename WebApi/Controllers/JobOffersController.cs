@@ -73,6 +73,24 @@ namespace WebApi.Controllers
             //return jobOffers;
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteJobOfferById(int id)
+        {
+            try
+            {
+                JobOfferService.Delete(id);
+                return Ok();
+            }
+            catch (JobOfferNotFoundException exception)
+            {
+                return NotFound(exception.Message);
+            }
+            catch (JobOfferNotDeletedException exception)
+            {
+                return StatusCode(500, exception.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateJobOffer(JobOfferDto jobOfferDto)
         {

@@ -88,7 +88,7 @@ namespace Application.JobOffers
         public JobOfferDto Update(JobOfferDto jobOfferDto)
         {
             JobOffer newJobOffer = new JobOffer();
-            newJobOffer.Id = 0;
+            newJobOffer.Id = jobOfferDto.Id ?? 0;
             newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
             newJobOffer.GoodsName = jobOfferDto.GoodsName;
             newJobOffer.StartingAdress = jobOfferDto.StartingAdress;

@@ -72,14 +72,14 @@ namespace Persistence
 
         public int CreateUser(User user)
         {
-            user.Id = JobsNextId++;
+            user.Id = UsersNextId++;
             Users.Add(user);
             return user.Id;
         }
 
         public JobOffer GetJobOfferById(int id)
         {
-            var jobOffer = Jobs.FirstOrDefault(jobOffer => jobOffer.Id == id);
+            var jobOffer = Jobs.FirstOrDefault(x => x.Id == id);
             if (jobOffer == null)
             {
                 throw new JobOfferNotFoundException();
@@ -94,7 +94,7 @@ namespace Persistence
 
         public User GetUserById(int id)
         {
-            var user = Users.FirstOrDefault(user => user.Id == id);
+            var user = Users.FirstOrDefault(x => x.Id == id);
             if (user == null)
             {
                 throw new UserNotFoundException();
@@ -106,25 +106,44 @@ namespace Persistence
         {
             return Users;
         }
-        //TODO implement rest of DataSourceInMemory method
+        
         public int UpdateJobOffer(JobOffer jobOffer)
         {
-            throw new NotImplementedException();
+
+            var updatedJobOffer = GetJobOfferById(jobOffer.Id);
+            if (updatedJobOffer == null)
+            {
+                throw new UserNotFoundException();
+            }
+            var index = Jobs.IndexOf(updatedJobOffer);
+            Jobs.RemoveAt(index);
+            Jobs.Insert(index, jobOffer);
+            return updatedJobOffer.Id;
         }
 
         public int UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            var updatedUser = GetUserById(user.Id);
+            if (updatedUser == null)
+            {
+                throw new UserNotFoundException();
+            }
+            var index = Users.IndexOf(updatedUser);
+            Users.RemoveAt(index);
+            Users.Insert(index, user);
+            return updatedUser.Id;
         }
 
         void IDataSource.DeleteJobOffer(JobOffer jobOffer)
         {
-            throw new NotImplementedException();
+            if(!Jobs.Remove(jobOffer))
+                throw new JobOfferNotDeletedException();
         }
 
         void IDataSource.DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            if (!Users.Remove(user))
+                throw new UserNotDeletedException();
         }
     }
 }
