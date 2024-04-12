@@ -23,7 +23,7 @@ namespace Application.Users
 
         public int Create(UserDto user)
         {
-            User newUser = new User() { Id = 0, Name = user.Name, Email = user.Email };
+            User newUser = new User(user.Name, user.Email);
             return Source.CreateUser(newUser);
         }
 
@@ -50,7 +50,7 @@ namespace Application.Users
 
         public UserDto Update(UserDto user)
         {
-            int newUserId = Source.UpdateUser(new User() { Id = user.Id ?? 0, Name = user.Name, Email = user.Email });
+            int newUserId = Source.UpdateUser(new User(user.Name, user.Email));
             return GetById(newUserId);
         }
     }

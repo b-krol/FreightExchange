@@ -19,21 +19,11 @@ namespace Persistence
         private static Dictionary<int, User> Users = new Dictionary<int, User>()
         {
             { 1,
-            new User()
-            {
-                Id = 1,
-                Name = "Test",
-                Email = "Test"
-            }
+            new User("Test1", "Test1@domain.com")
             }
             ,
             { 2,
-            new User()
-            {
-                Id = 2,
-                Name = "Test2",
-                Email = "Test2"
-            }
+            new User("Test2", "Test2@domain.com")
             }
         };
         private static Dictionary<int, JobOffer> Jobs = new Dictionary<int, JobOffer>()
@@ -82,7 +72,7 @@ namespace Persistence
 
         public int CreateUser(User user)
         {
-            user.Id = JobsNextId++;
+            user.Id = UsersNextId++;
             Users.Add(user.Id, user);
             return user.Id;
         }
