@@ -20,10 +20,18 @@ namespace Application.Users
             return new UserDto { Name = user.Name, Email = user.Email, Id = user.Id };
         }
 
+        private static User CreateUserFromDto(UserDto user)
+        {
+            var newUser = new User(user.Name, user.Email);
+            if(user.Id != null)
+                newUser.Id = (int)user.Id;
+            return newUser;
+        }
+
 
         public int Create(UserDto user)
         {
-            User newUser = new User(user.Name, user.Email);
+            User newUser = CreateUserFromDto(user);
             return Source.CreateUser(newUser);
         }
 
@@ -50,7 +58,7 @@ namespace Application.Users
 
         public UserDto Update(UserDto user)
         {
-            int newUserId = Source.UpdateUser(new User(user.Name, user.Email));
+            int newUserId = Source.UpdateUser(CreateUserFromDto(user));
             return GetById(newUserId);
         }
     }
