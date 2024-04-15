@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Domain.CartageErrand
 {
@@ -62,7 +63,7 @@ namespace Domain.CartageErrand
         private void ThrowIfDateTimeRefersToPastOrNotEnoughIntoFuture(DateTime dateTime)
         {
             var timeLeft = dateTime.Subtract(DateTime.Now);
-            if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException($"{nameof(dateTime)} must refer at least 1 hour into future");
+            if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException();
         }
 
         public ReadOnlyCollection<CartageOffer.CartageOffer> GetSubmittedCartageOffers()
@@ -83,6 +84,13 @@ namespace Domain.CartageErrand
         public bool TryFinish()
         {
             throw new NotImplementedException();
+        }
+
+        public CartageOffer.CartageOffer? TryGetWinningOffer()
+        {
+            if(SubmittedCartageOffers.Count > 0)
+                return SubmittedCartageOffers.MaxBy();
+            return null;
         }
     }
 }
