@@ -12,13 +12,15 @@ namespace Domain.CartageOffer
         public int Id {  get; set; }
         public User.User Applicant {  get; set; }
         public int Price { get; set; }
+        public CartageOfferConsiderationStatus ConsiderationStatus { get; set; }
 
-        public CartageOffer(CartageErrand.CartageErrand requestedCartageErrand, User.User applicant, int requestedPrice)
+        public CartageOffer(CartageErrand.CartageErrand requestedCartageErrand, User.User applicant, int requestedPrice, CartageOfferConsiderationStatus considerationStatus)
         {
             ThrowIfRequestedPriceIsHigherThanMaximumPrice(requestedCartageErrand, requestedPrice);
 
             Applicant = applicant;
             Price = requestedPrice;
+            ConsiderationStatus = considerationStatus;
         }
 
         private void ThrowIfRequestedPriceIsHigherThanMaximumPrice(CartageErrand.CartageErrand cartageErrand, int price)
