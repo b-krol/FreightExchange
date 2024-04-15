@@ -62,5 +62,15 @@ namespace Domain.CartageErrand
             var timeLeft = dateTime.Subtract(DateTime.Now);
             if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException($"{nameof(dateTime)} must refer at least 1 hour into future");
         }
+
+        public bool TryCancel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryFinish()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
