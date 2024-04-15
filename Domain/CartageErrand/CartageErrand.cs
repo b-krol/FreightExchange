@@ -6,16 +6,16 @@ namespace Domain.CartageErrand
     public class CartageErrand
     {
         public int Id { get; set; }
-        public Domain.User.User Founder { get; set; }
-        public string GoodsName { get; set; }
-        public string StartingAdress { get; set; }
-        public string DestinationAdress { get; set; }
-        public int Distance { get; set; }
-        public float Weight { get; set; }
-        public int MaximumPrice { get; set; }
-        public DateTime EndDate { get; set; }
-        public CartageErrandExecutionStatus ExecutionStatus { get; set; } = CartageErrandExecutionStatus.Active;
-        public List<CartageOffer.CartageOffer> SubmittedCartageOffers { get; set; } = new List<CartageOffer.CartageOffer>();
+        public Domain.User.User Founder { get; private set; }
+        public string GoodsName { get; private set; }
+        public string StartingAdress { get; private set; }
+        public string DestinationAdress { get; private set; }
+        public int Distance { get; private set; }
+        public float Weight { get; private set; }
+        public int MaximumPrice { get; private set; }
+        public DateTime EndDate { get; private set; }
+        public CartageErrandExecutionStatus ExecutionStatus { get; private set; } = CartageErrandExecutionStatus.Active;
+        public List<CartageOffer.CartageOffer> SubmittedCartageOffers { get; private set; } = new List<CartageOffer.CartageOffer>();
 
         public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, CartageErrandExecutionStatus executionStatus)
         {
