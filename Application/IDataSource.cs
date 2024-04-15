@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.User;
-using Domain.JobOffer;
+using Domain.CartageErrand;
 
 namespace Application
 {
@@ -40,32 +40,32 @@ namespace Application
         
 
 
-        IEnumerable<JobOffer> GetJobOffers();
+        IEnumerable<Domain.CartageErrand.CartageErrand> GetCartageErrands();
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="jobOffer"></param>
-        /// <exception cref="JobOffers.JobOfferNotFoundException">Method throws JobOfferNotFoundException when can't find specified jobOffer</exception>
-        JobOffer GetJobOfferById(int id);
+        /// <param name="CartageErrand"></param>
+        /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
+        Domain.CartageErrand.CartageErrand GetCartageErrandById(int id);
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="jobOffer"></param>
-        /// <exception cref="JobOffers.JobOfferNotFoundException">Method throws JobOfferNotFoundException when can't find specified jobOffer</exception>
-        /// <exception cref="JobOffers.JobOfferNotDeletedException">Method throws JobOfferNotDeletedException when can't delete specified jobOffer</exception>
-        void DeleteJobOffer(JobOffer jobOffer);
+        /// <param name="CartageErrand"></param>
+        /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
+        /// <exception cref="CartageErrand.CartageErrandNotDeletedException">Method throws CartageErrandNotDeletedException when can't delete specified CartageErrand</exception>
+        void DeleteCartageErrand(Domain.CartageErrand.CartageErrand cartageErrand);
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="jobOffer"></param>
-        /// <exception cref="JobOffers.JobOfferNotCreatedException">Method throws JobOfferNotCreatedException when can't create specified jobOffer</exception>
-        int CreateJobOffer(JobOffer jobOffer);
+        /// <param name="CartageErrand"></param>
+        /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
+        int CreateCartageErrand(Domain.CartageErrand.CartageErrand cartageErrand);
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="jobOffer"></param>
-        /// <exception cref="JobOffers.JobOfferNotFoundException">Method throws JobOfferNotFoundException when can't find specified jobOffer</exception>
-        /// <exception cref="JobOffers.JobOfferNotUpdatedException">Method throws JobOfferNotUpdatedException when can't update specified jobOffer</exception>
-        int UpdateJobOffer(JobOffer jobOffer);
+        /// <param name="CartageErrand"></param>
+        /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
+        /// <exception cref="CartageErrand.CartageErrandNotUpdatedException">Method throws CartageErrandNotUpdatedException when can't update specified CartageErrand</exception>
+        int UpdateCartageErrand(Domain.CartageErrand.CartageErrand cartageErrand);
     }
 }

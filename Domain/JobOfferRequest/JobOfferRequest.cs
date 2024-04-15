@@ -13,17 +13,17 @@ namespace Domain.JobOfferRequest
         public User.User Applicant {  get; set; }
         public int Price { get; set; }
 
-        public JobOfferRequest(JobOffer.JobOffer requestedJobOffer, User.User applicant, int requestedPrice)
+        public JobOfferRequest(CartageErrand.CartageErrand requestedCartageErrand, User.User applicant, int requestedPrice)
         {
-            ThrowIfRequestedPriceIsHigherThanMaximumPrice(requestedJobOffer, requestedPrice);
+            ThrowIfRequestedPriceIsHigherThanMaximumPrice(requestedCartageErrand, requestedPrice);
 
             Applicant = applicant;
             Price = requestedPrice;
         }
 
-        private void ThrowIfRequestedPriceIsHigherThanMaximumPrice(JobOffer.JobOffer jobOffer, int price)
+        private void ThrowIfRequestedPriceIsHigherThanMaximumPrice(CartageErrand.CartageErrand cartageErrand, int price)
         {
-            if (price > jobOffer.MaximumPrice) throw new ArgumentException();//TODO
+            if (price > cartageErrand.MaximumPrice) throw new ArgumentException();//TODO
         }
 
     }

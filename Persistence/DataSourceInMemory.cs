@@ -1,7 +1,7 @@
 ﻿using Application;
-using Application.JobOffers;
+using Application.CartageErrands;
 using Application.Users;
-using Domain.JobOffer;
+using Domain.CartageErrand;
 using Domain.User;
 using System;
 using System.Collections.Generic;
@@ -27,10 +27,10 @@ namespace Persistence
             new User("Test2", "Test2@domain.com")
             }
         };
-        private static Dictionary<int, JobOffer> Jobs = new Dictionary<int, JobOffer>()
+        private static Dictionary<int, CartageErrand> CartageErrands = new Dictionary<int, CartageErrand>()
         {
             { 1,
-            new JobOffer(
+            new CartageErrand(
                     Users.First(x => x.Key == 1).Value,
                     "Palety",
                     "Radom ul. Jana Pawła II 3",
@@ -38,13 +38,13 @@ namespace Persistence
                     524,
                     9.5f,
                     1000,
-                    DateTime.Now - new TimeSpan(0, 0, 30),
-                    JobOfferExecutionStatus.Success
+                    DateTime.Now + new TimeSpan(10, 0, 0),
+                    CartageErrandExecutionStatus.Success
                         )
             }
             ,
             { 2,
-                new JobOffer(
+                new CartageErrand(
                     Users.First(x => x.Key == 2).Value,
                     "Peryferia komputerowe",
                     "Radom ul. Jana Pawła II 3",
@@ -52,19 +52,19 @@ namespace Persistence
                     600,
                     5.4f,
                     1100,
-                    DateTime.Now + new TimeSpan(0, 0, 30),
-                    JobOfferExecutionStatus.Active
+                    DateTime.Now + new TimeSpan(1, 0, 30),
+                    CartageErrandExecutionStatus.Active
                         )
             }
         };
-        private static int JobsNextId = Jobs.Count() + 1;
+        private static int CartageErrandsNextId = CartageErrands.Count() + 1;
         private static int UsersNextId = Users.Count() + 1;
 
-        public int CreateJobOffer(JobOffer jobOffer)
+        public int CreateCartageErrand(CartageErrand cartageErrand)
         {
-            jobOffer.Id = JobsNextId++;
-            Jobs.Add(jobOffer.Id, jobOffer);
-            return jobOffer.Id;
+            cartageErrand.Id = CartageErrandsNextId++;
+            CartageErrands.Add(cartageErrand.Id, cartageErrand);
+            return cartageErrand.Id;
         }
 
         public int CreateUser(User user)
@@ -74,19 +74,19 @@ namespace Persistence
             return user.Id;
         }
 
-        public JobOffer GetJobOfferById(int id)
+        public CartageErrand GetCartageErrandById(int id)
         {
-            var jobOffer = Jobs.GetValueOrDefault(id);
-            if (jobOffer == null)
+            var cartageErrand = CartageErrands.GetValueOrDefault(id);
+            if (cartageErrand == null)
             {
-                throw new JobOfferNotFoundException();
+                throw new CartageErrandNotFoundException();
             }
-            return jobOffer;
+            return cartageErrand;
         }
 
-        public IEnumerable<JobOffer> GetJobOffers()
+        public IEnumerable<CartageErrand> GetCartageErrands()
         {
-            return Jobs.Values;
+            return CartageErrands.Values;
         }
 
         public User GetUserById(int id)
@@ -104,16 +104,16 @@ namespace Persistence
             return Users.Values;
         }
         
-        public int UpdateJobOffer(JobOffer jobOffer)
+        public int UpdateCartageErrand(CartageErrand cartageErrand)
         {
 
-            if (!Jobs.ContainsKey(jobOffer.Id))
+            if (!CartageErrands.ContainsKey(cartageErrand.Id))
             {
                 throw new UserNotFoundException();
             }
-            Jobs.Remove(jobOffer.Id);
-            Jobs.Add(jobOffer.Id, jobOffer);
-            return jobOffer.Id;
+            CartageErrands.Remove(cartageErrand.Id);
+            CartageErrands.Add(cartageErrand.Id, cartageErrand);
+            return cartageErrand.Id;
         }
 
         public int UpdateUser(User user)
@@ -127,10 +127,10 @@ namespace Persistence
             return user.Id;
         }
 
-        void IDataSource.DeleteJobOffer(JobOffer jobOffer)
+        void IDataSource.DeleteCartageErrand(CartageErrand cartageErrand)
         {
-            if(!Jobs.Remove(Jobs.SingleOrDefault(x => x.Value.Equals(jobOffer)).Key))//TODO rzeczywiste sprawdzanie czy się zgadza
-                throw new JobOfferNotDeletedException();
+            if(!CartageErrands.Remove(CartageErrands.SingleOrDefault(x => x.Value.Equals(cartageErrand)).Key))//TODO rzeczywiste sprawdzanie czy się zgadza
+                throw new CartageErrandNotDeletedException();
         }
 
         void IDataSource.DeleteUser(User user)

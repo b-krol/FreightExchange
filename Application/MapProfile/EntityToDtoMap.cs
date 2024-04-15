@@ -1,7 +1,7 @@
-﻿using Application.JobOffers;
+﻿using Application.CartageErrands;
 using Application.Users;
 using AutoMapper;
-using Domain.JobOffer;
+using Domain.CartageErrand;
 using Domain.User;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Application.MapProfile
         public EntityToDtoMap() 
         {
             CreateMap<User, UserDto>();
-            CreateMap<JobOffer, JobOfferDto>();
+            CreateMap<CartageErrand, CartageErrandDto>();
         }
     }
 }

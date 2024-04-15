@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Domain.JobOffer
+namespace Domain.CartageErrand
 {
-    public class JobOffer
+    public class CartageErrand
     {
         public int Id { get; set; }
         public Domain.User.User Founder { get; set; }
@@ -13,9 +13,9 @@ namespace Domain.JobOffer
         public float Weight { get; set; }
         public int MaximumPrice { get; set; }
         public DateTime EndDate { get; set; }
-        public JobOfferExecutionStatus ExecutionStatus { get; set; }
+        public CartageErrandExecutionStatus ExecutionStatus { get; set; }
 
-        public JobOffer(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, JobOfferExecutionStatus executionStatus)
+        public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, CartageErrandExecutionStatus executionStatus)
         {
             ThrowIfNullOrEmpty(goodsName);
             ThrowIfNullOrEmpty(startingAdress);
@@ -57,7 +57,8 @@ namespace Domain.JobOffer
 
         private void ThrowIfDateTimeRefersToPastOrNotEnoughIntoFuture(DateTime dateTime)
         {
-            if(dateTime - DateTime.Now <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException();
+            var timeLeft = dateTime.Subtract(DateTime.Now);
+            if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException($"{nameof(dateTime)} must refer at least 1 hour into future");
         }
     }
 }

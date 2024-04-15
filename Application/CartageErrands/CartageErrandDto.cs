@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Application.JobOffers
+namespace Application.CartageErrands
 {
-    public class JobOfferDto
+    public class CartageErrandDto
     {
         public int? Id { get; init; }
         public int FounderId { get; init; }
