@@ -14,7 +14,7 @@ namespace Domain.CartageErrand
         public float Weight { get; set; }
         public int MaximumPrice { get; set; }
         public DateTime EndDate { get; set; }
-        public CartageErrandExecutionStatus ExecutionStatus { get; set; }
+        public CartageErrandExecutionStatus ExecutionStatus { get; set; } = CartageErrandExecutionStatus.Active;
         public List<CartageOffer.CartageOffer> SubmittedCartageOffers { get; set; } = new List<CartageOffer.CartageOffer>();
 
         public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, CartageErrandExecutionStatus executionStatus)
