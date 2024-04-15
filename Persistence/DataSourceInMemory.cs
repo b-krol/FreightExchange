@@ -6,6 +6,7 @@ using Domain.User;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -29,35 +30,31 @@ namespace Persistence
         private static Dictionary<int, JobOffer> Jobs = new Dictionary<int, JobOffer>()
         {
             { 1,
-            new JobOffer()
-            {
-                Id = 1,
-                Founder = Users.First(x => x.Key == 1).Value,
-                GoodsName = "Palety",
-                StartingAdress = "Radom ul. Jana Pawła II 3",
-                DestinationAdress = "Gdynia al. Niewiadoma",
-                Distance = 524,
-                Weight = 9.5f,
-                MaximumPrice = 1000,
-                EndDate = DateTime.Now - new TimeSpan(0, 0, 30),
-                ExecutionStatus = JobOfferExecutionStatus.Success
-            }
+            new JobOffer(
+                    Users.First(x => x.Key == 1).Value,
+                    "Palety",
+                    "Radom ul. Jana Pawła II 3",
+                    "Gdynia al. Niewiadoma",
+                    524,
+                    9.5f,
+                    1000,
+                    DateTime.Now - new TimeSpan(0, 0, 30),
+                    JobOfferExecutionStatus.Success
+                        )
             }
             ,
             { 2,
-            new JobOffer()
-            {
-                Id = 2,
-                Founder = Users.First(x => x.Key == 2).Value,
-                GoodsName = "Palety",
-                StartingAdress = "Radom ul. Jana Pawła II 3",
-                DestinationAdress = "Gdynia al. Niewiadoma",
-                Distance = 524,
-                Weight = 9.5f,
-                MaximumPrice = 1000,
-                EndDate = DateTime.Now + new TimeSpan(0, 0, 30),
-                ExecutionStatus = JobOfferExecutionStatus.Active
-            }
+                new JobOffer(
+                    Users.First(x => x.Key == 2).Value,
+                    "Peryferia komputerowe",
+                    "Radom ul. Jana Pawła II 3",
+                    "Gdynia al. Niewiadoma",
+                    600,
+                    5.4f,
+                    1100,
+                    DateTime.Now + new TimeSpan(0, 0, 30),
+                    JobOfferExecutionStatus.Active
+                        )
             }
         };
         private static int JobsNextId = Jobs.Count() + 1;

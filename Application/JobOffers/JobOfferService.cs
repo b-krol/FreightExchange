@@ -17,20 +17,11 @@ namespace Application.JobOffers
         }
         private static JobOfferDto CreateJobOfferDto(JobOffer jobOffer)
         {
+            bool isActive;
             if (jobOffer.ExecutionStatus == JobOfferExecutionStatus.Active)
-                return new JobOfferDto()
-                {
-                    Id = jobOffer.Id,
-                    FounderId = jobOffer.Founder.Id,
-                    GoodsName = jobOffer.GoodsName,
-                    StartingAdress = jobOffer.StartingAdress,
-                    DestinationAdress = jobOffer.DestinationAdress,
-                    Distance = jobOffer.Distance,
-                    Weight = jobOffer.Weight,
-                    MaximumPrice = jobOffer.MaximumPrice,
-                    EndDate = jobOffer.EndDate,
-                    IsActive = true
-                };
+                isActive = true;
+            else
+                isActive = false;
             return new JobOfferDto()
             {
                 Id = jobOffer.Id,
@@ -42,26 +33,25 @@ namespace Application.JobOffers
                 Weight = jobOffer.Weight,
                 MaximumPrice = jobOffer.MaximumPrice,
                 EndDate = jobOffer.EndDate,
-                IsActive = false
+                IsActive = isActive
             };
         }
 
 
         public int Create(JobOfferDto jobOfferDto)
         {
-            JobOffer newJobOffer = new JobOffer();
-            newJobOffer.Id = 0;
-             newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
-            newJobOffer.GoodsName = jobOfferDto.GoodsName;
-            newJobOffer.StartingAdress = jobOfferDto.StartingAdress;
-            newJobOffer.DestinationAdress = jobOfferDto.DestinationAdress;
-            newJobOffer.Distance = jobOfferDto.Distance;
-            newJobOffer.Weight = jobOfferDto.Weight;
-            newJobOffer.MaximumPrice = jobOfferDto.MaximumPrice;
-            newJobOffer.EndDate = jobOfferDto.EndDate; //TODO co kiedy data zakończenia ma miejsce w przeszłości
-            newJobOffer.ExecutionStatus = JobOfferExecutionStatus.Active;
-            Source.CreateJobOffer(newJobOffer);
-            return newJobOffer.Id;
+            JobOffer newJobOffer = new JobOffer(
+                    Source.GetUserById(jobOfferDto.FounderId),
+                    jobOfferDto.GoodsName,
+                    jobOfferDto.StartingAdress,
+                    jobOfferDto.DestinationAdress,
+                    jobOfferDto.Distance,
+                    jobOfferDto.Weight,
+                    jobOfferDto.MaximumPrice,
+                    jobOfferDto.EndDate,
+                    JobOfferExecutionStatus.Active
+                );
+            return Source.CreateJobOffer(newJobOffer);
         }
 
         public void Delete(int id)
@@ -87,17 +77,17 @@ namespace Application.JobOffers
 
         public JobOfferDto Update(JobOfferDto jobOfferDto)
         {
-            JobOffer newJobOffer = new JobOffer();
-            newJobOffer.Id = jobOfferDto.Id ?? 0;
-            newJobOffer.Founder = Source.GetUserById(jobOfferDto.FounderId);
-            newJobOffer.GoodsName = jobOfferDto.GoodsName;
-            newJobOffer.StartingAdress = jobOfferDto.StartingAdress;
-            newJobOffer.DestinationAdress = jobOfferDto.DestinationAdress;
-            newJobOffer.Distance = jobOfferDto.Distance;
-            newJobOffer.Weight = jobOfferDto.Weight;
-            newJobOffer.MaximumPrice = jobOfferDto.MaximumPrice;
-            newJobOffer.EndDate = jobOfferDto.EndDate; //TODO co kiedy data zakończenia ma miejsce w przeszłości
-            newJobOffer.ExecutionStatus = JobOfferExecutionStatus.Active;
+            JobOffer newJobOffer = new JobOffer(
+                    Source.GetUserById(jobOfferDto.FounderId),
+                    jobOfferDto.GoodsName,
+                    jobOfferDto.StartingAdress,
+                    jobOfferDto.DestinationAdress,
+                    jobOfferDto.Distance,
+                    jobOfferDto.Weight,
+                    jobOfferDto.MaximumPrice,
+                    jobOfferDto.EndDate,
+                    JobOfferExecutionStatus.Active//TODO can be updated only active JobOffers?
+                );
             int newJobOfferId = Source.UpdateJobOffer(newJobOffer);
             return GetById(newJobOfferId);
         }
