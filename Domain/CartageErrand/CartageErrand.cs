@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.CartageErrand
 {
@@ -14,6 +15,7 @@ namespace Domain.CartageErrand
         public int MaximumPrice { get; set; }
         public DateTime EndDate { get; set; }
         public CartageErrandExecutionStatus ExecutionStatus { get; set; }
+        public List<CartageOffer.CartageOffer> SubmittedCartageOffers { get; set; } = new List<CartageOffer.CartageOffer>();
 
         public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, CartageErrandExecutionStatus executionStatus)
         {
