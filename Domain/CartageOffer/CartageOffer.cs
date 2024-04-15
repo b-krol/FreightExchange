@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.JobOfferRequest
+namespace Domain.CartageOffer
 {
-    public class JobOfferRequest
+    public class CartageOffer
     {
         public int Id {  get; set; }
         public User.User Applicant {  get; set; }
         public int Price { get; set; }
 
-        public JobOfferRequest(CartageErrand.CartageErrand requestedCartageErrand, User.User applicant, int requestedPrice)
+        public CartageOffer(CartageErrand.CartageErrand requestedCartageErrand, User.User applicant, int requestedPrice)
         {
             ThrowIfRequestedPriceIsHigherThanMaximumPrice(requestedCartageErrand, requestedPrice);
 
