@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.CartageOffer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -69,7 +70,7 @@ namespace Domain.CartageErrand
             return SubmittedCartageOffers.AsReadOnly();
         }
 
-        public bool TryAddOffer()
+        public bool TryAddOffer(CartageOffer.CartageOffer cartageOffer)
         {
             throw new NotImplementedException();
         }
