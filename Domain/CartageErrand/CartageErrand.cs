@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Domain.CartageErrand
 {
@@ -15,7 +16,7 @@ namespace Domain.CartageErrand
         public int MaximumPrice { get; private set; }
         public DateTime EndDate { get; private set; }
         public CartageErrandExecutionStatus ExecutionStatus { get; private set; } = CartageErrandExecutionStatus.Active;
-        public List<CartageOffer.CartageOffer> SubmittedCartageOffers { get; private set; } = new List<CartageOffer.CartageOffer>();
+        private List<CartageOffer.CartageOffer> SubmittedCartageOffers = new List<CartageOffer.CartageOffer>();
 
         public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, CartageErrandExecutionStatus executionStatus)
         {
@@ -61,6 +62,11 @@ namespace Domain.CartageErrand
         {
             var timeLeft = dateTime.Subtract(DateTime.Now);
             if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException($"{nameof(dateTime)} must refer at least 1 hour into future");
+        }
+
+        public ReadOnlyCollection<CartageOffer.CartageOffer> GetSubmittedCartageOffers()
+        {
+            return SubmittedCartageOffers.AsReadOnly();
         }
 
         public bool TryAddOffer()
