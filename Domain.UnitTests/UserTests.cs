@@ -92,24 +92,24 @@ namespace Domain.UnitTests
         public void UserCanBeCreatedWithCorrectData()
         {
             var createdUser = new User.User("Normal name", "xyz@domain.com");
-            Assert.That(createdUser.Name, Is.SameAs("Normal name"));
-            Assert.That(createdUser.Email, Is.SameAs("xyz@domain.com"));
+            Assert.That(createdUser.Name, Is.EqualTo("Normal name"));
+            Assert.That(createdUser.Email, Is.EqualTo("xyz@domain.com"));
         }
 
         [Test]
         public void UserCanBeCreatedWithCorrectDataWithNameContainingWhiteSpacesInConstructorAndWithoutThemInNameProperty()
         {
             var createdUser = new User.User("  Normal name ", "xyz@domain.com");
-            Assert.That(createdUser.Name, Is.SameAs("Normal name"));
-            Assert.That(createdUser.Email, Is.SameAs("xyz@domain.com"));
+            Assert.That(createdUser.Name, Is.EqualTo("Normal name"));
+            Assert.That(createdUser.Email, Is.EqualTo("xyz@domain.com"));
         }
 
         [Test]
         public void UserCanBeCreatedWithCorrectDataWithEmailContainingWhiteSpacesInConstructorAndWithoutThemInEmailProperty()
         {
             var createdUser = new User.User("Normal name", "  xyz@domain.com ");
-            Assert.That(createdUser.Name, Is.SameAs("Normal name"));
-            Assert.That(createdUser.Email, Is.SameAs("xyz@domain.com"));
+            Assert.That(createdUser.Name, Is.EqualTo("Normal name"));
+            Assert.That(createdUser.Email, Is.EqualTo("xyz@domain.com"));
         }
     }
 }

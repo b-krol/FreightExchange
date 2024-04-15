@@ -14,13 +14,13 @@ namespace Domain.User
             ThrowIfNullOrEmpty(email);
             ThrowIfEmailIsIncorrect(email);
 
-            Name = name;
-            Email = email;
+            Name = name.Trim();
+            Email = email.Trim();
         }
 
         private void ThrowIfEmailIsIncorrect(string email)
         {
-            throw new NotImplementedException();//TODO implement email validation
+            if (!email.Contains("@")) throw new ArgumentException();
         }
 
         private void ThrowIfNullOrEmpty(string value)
