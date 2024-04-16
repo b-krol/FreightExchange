@@ -83,7 +83,9 @@ namespace Domain.CartageErrand
 
         public void TryCancel()
         {
-            throw new NotImplementedException();
+            if (ExecutionStatus != CartageErrandExecutionStatus.Active)
+                throw new CartageErrandExecutionStatusChangeNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} was already finished or cancelled");
+            ExecutionStatus = CartageErrandExecutionStatus.Cancelled;
         }
 
         public CartageOffer.CartageOffer? TryFinish()
