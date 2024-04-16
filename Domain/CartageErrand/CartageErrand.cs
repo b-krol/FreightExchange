@@ -53,18 +53,18 @@ namespace Domain.CartageErrand
 
         private void ThrowIfEqualOrLessThanZero(int value)
         {
-            if (value <= 0) throw new ArgumentOutOfRangeException();
+            if (value <= 0) throw new ArgumentException();
         }
 
         private void ThrowIfEqualOrLessThanZero(float value)
         {
-            if (value <= 0) throw new ArgumentOutOfRangeException();
+            if (value <= 0) throw new ArgumentException();
         }
 
         private void ThrowIfDateTimeRefersToPastOrNotEnoughIntoFuture(DateTime dateTime)
         {
             var timeLeft = dateTime.Subtract(DateTime.Now);
-            if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentOutOfRangeException();
+            if (timeLeft <= TimeSpan.FromMinutes(60)) throw new ArgumentException();
         }
 
         public ReadOnlyCollection<CartageOffer.CartageOffer> GetSubmittedCartageOffers()
@@ -72,17 +72,21 @@ namespace Domain.CartageErrand
             return SubmittedCartageOffers.AsReadOnly();
         }
 
-        public bool TryAddOffer(CartageOffer.CartageOffer cartageOffer)
+        public void TryAddOffer(CartageOffer.CartageOffer cartageOffer)
+        {
+            if(ExecutionStatus != CartageErrandExecutionStatus.Active)
+                throw new CartageErrandNewCartageOfferReceivingNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} is not active");
+            if (cartageOffer.Price > MaximumPrice)
+                throw new CartageErrandNewCartageOfferReceivingNotAllowedException($"Price surpassed {nameof(MaximumPrice)}");
+            SubmittedCartageOffers.Add(cartageOffer);
+        }
+
+        public void TryCancel()
         {
             throw new NotImplementedException();
         }
 
-        public bool TryCancel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool TryFinish()
+        public void TryFinish()
         {
             throw new NotImplementedException();
         }
