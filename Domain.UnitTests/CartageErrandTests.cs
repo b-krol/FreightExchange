@@ -100,6 +100,104 @@ namespace Domain.UnitTests
         }
 
         [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroDistance(int distance)
+        {
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(
+                         new User.User("Mr. Founder", "mrF0under@domain.com"),
+                         "deski",
+                         "Radom ul. Zagajnikowa 3s",
+                         "Poznań al. Meblowa 28/3",
+                         distance,
+                         15.3f,
+                         4000,
+                         DateTime.Now + new TimeSpan(12, 0, 0),
+                         CartageErrandExecutionStatus.Active
+                     )
+                );
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroMaximumPrice(int maximumPrice)
+        {
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(
+                         new User.User("Mr. Founder", "mrF0under@domain.com"),
+                         "deski",
+                         "Radom ul. Zagajnikowa 3s",
+                         "Poznań al. Meblowa 28/3",
+                         400,
+                         15.3f,
+                         maximumPrice,
+                         DateTime.Now + new TimeSpan(12, 0, 0),
+                         CartageErrandExecutionStatus.Active
+                     )
+                );
+        }
+
+        [Test]
+        [TestCase(0f)]
+        [TestCase(-0.01f)]
+        public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroWeight(float weight)
+        {
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(
+                         new User.User("Mr. Founder", "mrF0under@domain.com"),
+                         "deski",
+                         "Radom ul. Zagajnikowa 3s",
+                         "Poznań al. Meblowa 28/3",
+                         400,
+                         weight,
+                         4000,
+                         DateTime.Now + new TimeSpan(12, 0, 0),
+                         CartageErrandExecutionStatus.Active
+                     )
+                );
+        }
+
+        [Test]
+        [TestCase(CartageErrandExecutionStatus.Active)]
+        [TestCase(CartageErrandExecutionStatus.Cancelled)]
+        [TestCase(CartageErrandExecutionStatus.Failure)]
+        [TestCase(CartageErrandExecutionStatus.Success)]
+        public void CartageOfferCanBeCreatedWithCorrectData(CartageErrandExecutionStatus executionStatus)
+        {
+            var founder = new User.User("Mr. Founder", "mrF0under@domain.com");
+            var goodsName = "wooden planks  ";
+            var startingAdress = "  Radom ul. Zagajnikowa 3s ";
+            var destinationAdress = "      Poznań al. Meblowa 28/3";
+            var distance = 400;
+            var weight = 15.3f;
+            var maxPrice = 4000;
+            var endDate = DateTime.Now + new TimeSpan(12, 0, 0);
+            var x = new CartageErrand.CartageErrand(
+                founder,
+                goodsName,
+                startingAdress,
+                destinationAdress,
+                distance,
+                weight,
+                maxPrice,
+                endDate,
+                executionStatus
+                );
+
+            Assert.That(x.Founder.Equals(founder));
+            Assert.That(x.GoodsName == goodsName.Trim());
+            Assert.That(x.StartingAdress == startingAdress.Trim());
+            Assert.That(x.DestinationAdress == destinationAdress.Trim());
+            Assert.That(x.Distance == distance);
+            Assert.That(x.Weight == weight);
+            Assert.That(x.MaximumPrice == maxPrice);
+            Assert.That(x.EndDate == endDate);
+            Assert.That(x.ExecutionStatus == executionStatus);
+        }
+
+        [Test]
         [TestCase(CartageErrandExecutionStatus.Cancelled)]
         [TestCase(CartageErrandExecutionStatus.Failure)]
         [TestCase(CartageErrandExecutionStatus.Success)]
