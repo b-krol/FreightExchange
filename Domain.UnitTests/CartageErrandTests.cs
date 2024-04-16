@@ -279,7 +279,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            var winningOffer = testCartageErrand.Finish();
+            var winningOffer = testCartageErrand.Finish()!;
 
             cheapestAcceptableOffer = testCartageErrand.GetSubmittedCartageOffers().Min(
                     Comparer<CartageOffer.CartageOffer>.Create(
@@ -288,7 +288,7 @@ namespace Domain.UnitTests
                                 x.Price < y.Price ? -1 :
                                 0
                         )
-                );
+                )!;
 
             Assert.That(winningOffer.Equals(cheapestAcceptableOffer));
         }
@@ -311,7 +311,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            Assert.That(testCartageErrand.GetWinningOfferOrDefault().Equals(cheapestAcceptableOffer));
+            Assert.That(cheapestAcceptableOffer.Equals(testCartageErrand.GetWinningOfferOrDefault()!));
         }
 
         [Test]
@@ -350,7 +350,7 @@ namespace Domain.UnitTests
                                 x.Price < y.Price ? -1 :
                                 0
                         )
-                );
+                )!;
 
             int acceptedCount = 0;
             foreach (CartageOffer.CartageOffer cartageOffer in testCartageErrand.GetSubmittedCartageOffers())
