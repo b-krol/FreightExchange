@@ -33,7 +33,8 @@ namespace Domain.User
 
         public override bool Equals(object? obj)
         {
-            return Equals(obj as User);
+            if (obj == null) return false;
+            return Equals((obj as User)!);
         }
 
         public bool Equals(User other)

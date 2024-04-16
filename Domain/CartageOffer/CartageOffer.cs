@@ -23,7 +23,8 @@ namespace Domain.CartageOffer
 
         public override bool Equals(object? obj)
         {
-            return Equals(obj as CartageOffer);
+            if (obj == null) return false;
+            return Equals((obj as CartageOffer)!);
         }
 
         public bool Equals(CartageOffer other)
