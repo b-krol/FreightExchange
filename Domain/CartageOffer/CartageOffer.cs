@@ -30,7 +30,7 @@ namespace Domain.CartageOffer
         {
             if(Id != other.Id)
                 return false;
-            if(Applicant != other.Applicant)
+            if(!Applicant.Equals(other.Applicant))
                 return false;
             if(Price != other.Price)
                 return false;

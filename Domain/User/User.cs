@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Domain.User
 {
@@ -28,6 +29,22 @@ namespace Domain.User
             if (value == null) throw new ArgumentException();
             if (value == string.Empty) throw new ArgumentException();
             if (value.Trim() == string.Empty) throw new ArgumentException();
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as User);
+        }
+
+        public bool Equals(User other)
+        {
+            if (Id != other.Id)
+                return false;
+            if (Name != other.Name)
+                return false;
+            if (Email != other.Email)
+                return false;
+            return true;
         }
     }
 }
