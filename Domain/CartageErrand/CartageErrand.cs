@@ -86,9 +86,20 @@ namespace Domain.CartageErrand
             throw new NotImplementedException();
         }
 
-        public void TryFinish()
+        public CartageOffer.CartageOffer? TryFinish()
         {
-            throw new NotImplementedException();
+            if(ExecutionStatus != CartageErrandExecutionStatus.Active)
+                throw new CartageErrandExecutionStatusChangeNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} was already finished or cancelled");
+            var winningOffer = TryGetWinningOffer();
+            if(winningOffer == null)
+            {
+                ExecutionStatus = CartageErrandExecutionStatus.Failure;
+            }
+            else
+            {
+                ExecutionStatus = CartageErrandExecutionStatus.Success;
+            }
+            return winningOffer;
         }
 
         public CartageOffer.CartageOffer? TryGetWinningOffer()
