@@ -11,39 +11,21 @@ namespace Domain.UnitTests
         }
 
         [Test]
-        public void UserCannotBeCreatedWithNullName()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("     ")]
+        public void UserCannotBeCreatedWithEmptyName(string? name)
         {
-            Assert.Throws<ArgumentException>(() => new User.User(null!, "xyz@domain.com"));
+            Assert.Throws<ArgumentException>(() => new User.User(name!, "xyz@domain.com"));
         }
 
         [Test]
-        public void UserCannotBeCreatedWithEmptyName()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("     ")]
+        public void UserCannotBeCreatedWithEmptyEmail(string? email)
         {
-            Assert.Throws<ArgumentException>(() => new User.User(string.Empty, "xyz@domain.com"));
-        }
-
-        [Test]
-        public void UserCannotBeCreatedWithNameMadeOfSpacesOnly()
-        {
-            Assert.Throws<ArgumentException>(() => new User.User("    ", "xyz@domain.com"));
-        }
-
-        [Test]
-        public void UserCannotBeCreatedWithNullEmail()
-        {
-            Assert.Throws<ArgumentException>(() => new User.User("Name", null!));
-        }
-
-        [Test]
-        public void UserCannotBeCreatedWithEmptyEmail()
-        {
-            Assert.Throws<ArgumentException>(() => new User.User("Name", String.Empty));
-        }
-
-        [Test]
-        public void UserCannotBeCreatedWithEmailMadeOfSpacesOnly()
-        {
-            Assert.Throws<ArgumentException>(() => new User.User("Name", "        "));
+            Assert.Throws<ArgumentException>(() => new User.User("Name", email!));
         }
 
         [Test]
@@ -52,64 +34,16 @@ namespace Domain.UnitTests
             Assert.Throws<ArgumentException>(() => new User.User("Name", "xyz#domain.com"));
         }
 
-        //[Test]
-        //public void UserCannotBeCreatedWithoutContainingDotInEmail()
-        //{
-        //    Assert.Throws<ArgumentException>(() => new User.User("Name", "xyz@domain,com"));
-        //}
-
-        //[Test]
-        //public void UserCannotBeCreatedWithoutContainingDotAfterMonkeySymbolInEmail()
-        //{
-        //    Assert.Throws<ArgumentException>(() => new User.User("Name", "xyz.domain@com"));
-        //}
-
-        //[Test]
-        //public void UserCannotBeCreatedWithoutContainingDotAfterMonkeySymbolWithAtLeastOneCharacterBetweenThemInEmail()
-        //{
-        //    Assert.Throws<ArgumentException>(() => new User.User("Name", "xyz@.com"));
-        //}
-
-        //[Test]
-        //public void UserCannotBeCreatedWithoutContainingDotAfterMonkeySymbolWithAtLeastOneCharacterNotBeingSpaceBetweenThemInEmail()
-        //{
-        //    Assert.Throws<ArgumentException>(() => new User.User("Name", "xyz@  .com"));
-        //}
-
-        //[Test]
-        //public void UserCannotBeCreatedWithoutContainingDotAfterMonkeySymbolWithAtLeastOneCharacterBeingLetterBetweenThemInEmail()
-        //{
-        //    throw new NotImplementedException("Test not implemented yet");
-        //}
-
-        //[Test]
-        //public void UserCannotBeCreatedWithContainingAnySpaceInEmail()
-        //{
-        //    Assert.Throws<ArgumentException>(() => new User.User("Name", "xyz @domain.com"));
-        //}
-
         [Test]
-        public void UserCanBeCreatedWithCorrectData()
+        [TestCase("Normal name", "xyz@domain.com")]
+        [TestCase("   Normal name ", "xyz@domain.com")]
+        [TestCase("Normal name", "xyz@domain.com    ")]
+        [TestCase("Normal name  ", "   xyz@domain.com   ")]
+        public void UserCanBeCreatedWithCorrectData(string name, string email)
         {
-            var createdUser = new User.User("Normal name", "xyz@domain.com");
-            Assert.That(createdUser.Name, Is.EqualTo("Normal name"));
-            Assert.That(createdUser.Email, Is.EqualTo("xyz@domain.com"));
-        }
-
-        [Test]
-        public void UserCanBeCreatedWithCorrectDataWithNameContainingWhiteSpacesInConstructorAndWithoutThemInNameProperty()
-        {
-            var createdUser = new User.User("  Normal name ", "xyz@domain.com");
-            Assert.That(createdUser.Name, Is.EqualTo("Normal name"));
-            Assert.That(createdUser.Email, Is.EqualTo("xyz@domain.com"));
-        }
-
-        [Test]
-        public void UserCanBeCreatedWithCorrectDataWithEmailContainingWhiteSpacesInConstructorAndWithoutThemInEmailProperty()
-        {
-            var createdUser = new User.User("Normal name", "  xyz@domain.com ");
-            Assert.That(createdUser.Name, Is.EqualTo("Normal name"));
-            Assert.That(createdUser.Email, Is.EqualTo("xyz@domain.com"));
+            var createdUser = new User.User(name, email);
+            Assert.That(createdUser.Name == name.Trim());
+            Assert.That(createdUser.Email == email.Trim());
         }
     }
 }
