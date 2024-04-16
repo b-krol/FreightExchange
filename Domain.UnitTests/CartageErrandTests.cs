@@ -33,6 +33,70 @@ namespace Domain.UnitTests
         [SetUp]
         public void Setup()
         {
+            
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("     ")]
+        public void CartageErrandCannotBeCreatedWithEmptyGoodsName(string? goodsName)
+        {
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(
+                         new User.User("Mr. Founder", "mrF0under@domain.com"),
+                         goodsName,
+                         "Radom ul. Zagajnikowa 3s",
+                         "Poznań al. Meblowa 28/3",
+                         400,
+                         15.3f,
+                         4000,
+                         DateTime.Now + new TimeSpan(12, 0, 0),
+                         CartageErrandExecutionStatus.Active
+                     )
+                );
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("    ")]
+        public void CartageErrandCannotBeCreatedWithEmptyStartingAdress(string? startingAdress)
+        {
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(
+                         new User.User("Mr. Founder", "mrF0under@domain.com"),
+                         "deski",
+                         startingAdress,
+                         "Poznań al. Meblowa 28/3",
+                         400,
+                         15.3f,
+                         4000,
+                         DateTime.Now + new TimeSpan(12, 0, 0),
+                         CartageErrandExecutionStatus.Active
+                     )
+                );
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("      ")]
+        public void CartageErrandCannotBeCreatedWithEmptyDestinationAdress(string? destinationAdress)
+        {
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(
+                         new User.User("Mr. Founder", "mrF0under@domain.com"),
+                         "deski",
+                         "Radom ul. Zagajnikowa 3s",
+                         destinationAdress,
+                         400,
+                         15.3f,
+                         4000,
+                         DateTime.Now + new TimeSpan(12, 0, 0),
+                         CartageErrandExecutionStatus.Active
+                     )
+                );
         }
 
         [Test]
