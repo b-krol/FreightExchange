@@ -75,9 +75,9 @@ namespace Domain.CartageErrand
         public void TryAddOffer(CartageOffer.CartageOffer cartageOffer)
         {
             if(ExecutionStatus != CartageErrandExecutionStatus.Active)
-                throw new CartageErrandNewCartageOfferReceivingNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} is not active");
+                throw new CartageErrandAddingNewCartageOfferNotAcceptedException($"CartageErrand {nameof(ExecutionStatus)} is not active");
             if (cartageOffer.Price > MaximumPrice)
-                throw new CartageErrandNewCartageOfferReceivingNotAllowedException($"Price surpassed {nameof(MaximumPrice)}");
+                throw new CartageErrandAddingNewCartageOfferNotAcceptedException($"Price surpassed {nameof(MaximumPrice)}");
             SubmittedCartageOffers.Add(cartageOffer);
         }
 

@@ -62,7 +62,7 @@ namespace Domain.UnitTests
         public void CartageErrandCannotReceiveNewCartageOffersWhenItIsNotActive(CartageErrandExecutionStatus executionStatus)
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(executionStatus);
-            Assert.Throws<CartageErrandNewCartageOfferReceivingNotAllowedException>(() => testCartageErrand.TryAddOffer(testCartageErrand.CreateAcceptableOffer()));//TODO why cant use extension method?
+            Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(() => testCartageErrand.TryAddOffer(testCartageErrand.CreateAcceptableOffer()));//TODO why cant use extension method?
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace Domain.UnitTests
         public void CartageErrandCannotAddCartageOfferThatOffersPriceHigherThanMaximumPrice()
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
-            Assert.Throws<CartageErrandNewCartageOfferReceivingNotAllowedException>(
+            Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(
                     () => testCartageErrand.TryAddOffer(testCartageErrand.CreateUnacceptableOffer())
                 );
         }
