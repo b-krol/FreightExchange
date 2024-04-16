@@ -141,7 +141,7 @@ namespace Domain.UnitTests
         }
 
         [Test]
-        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenGetWinningMethodOrDefaultCalled()
+        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenAskedForWinningOffer()
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
             var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
@@ -153,7 +153,7 @@ namespace Domain.UnitTests
         }
 
         [Test]
-        public void CartageErrandHasToChangeAllCartageOffersConsiderationStatusToRejectedWhenCancelMethodCalled()
+        public void CartageErrandHasToChangeAllCartageOffersConsiderationStatusToRejectedWhenCancelled()
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
 
