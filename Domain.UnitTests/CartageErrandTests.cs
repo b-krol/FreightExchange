@@ -117,9 +117,7 @@ namespace Domain.UnitTests
             testCartageErrand.TryAddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.TryAddOffer(cheapestAcceptableOffer);
 
-            testCartageErrand.TryFinish();
-
-            Assert.That(testCartageErrand.TryGetWinningOffer() == cheapestAcceptableOffer);//TODO will them actually be the same object?
+            Assert.That(testCartageErrand.TryFinish().Equals(cheapestAcceptableOffer));
         }
 
         [Test]
@@ -131,6 +129,17 @@ namespace Domain.UnitTests
                 );
         }
 
+        [Test]
+        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenTryGetWinningMethodCalled()
+        {
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
+
+            testCartageErrand.TryAddOffer(testCartageErrand.CreateAcceptableOffer());
+            testCartageErrand.TryAddOffer(cheapestAcceptableOffer);
+
+            Assert.That(testCartageErrand.TryGetWinningOffer().Equals(cheapestAcceptableOffer));
+        }
     }
 
 
