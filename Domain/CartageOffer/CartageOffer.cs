@@ -21,5 +21,22 @@ namespace Domain.CartageOffer
             ConsiderationStatus = considerationStatus;
         }
 
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as CartageOffer);
+        }
+
+        public bool Equals(CartageOffer other)
+        {
+            if(Id != other.Id)
+                return false;
+            if(Applicant != other.Applicant)
+                return false;
+            if(Price != other.Price)
+                return false;
+            if(ConsiderationStatus != other.ConsiderationStatus)
+                return false;
+            return true;
+        }
     }
 }
