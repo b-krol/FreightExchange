@@ -72,7 +72,7 @@ namespace Domain.CartageErrand
             return SubmittedCartageOffers.AsReadOnly();
         }
 
-        public void TryAddOffer(CartageOffer.CartageOffer cartageOffer)
+        public void AddOffer(CartageOffer.CartageOffer cartageOffer)
         {
             if(ExecutionStatus != CartageErrandExecutionStatus.Active)
                 throw new CartageErrandAddingNewCartageOfferNotAcceptedException($"CartageErrand {nameof(ExecutionStatus)} is not active");
@@ -81,18 +81,18 @@ namespace Domain.CartageErrand
             SubmittedCartageOffers.Add(cartageOffer);
         }
 
-        public void TryCancel()
+        public void Cancel()
         {
             if (ExecutionStatus != CartageErrandExecutionStatus.Active)
                 throw new CartageErrandExecutionStatusChangeNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} was already finished or cancelled");
             ExecutionStatus = CartageErrandExecutionStatus.Cancelled;
         }
 
-        public CartageOffer.CartageOffer? TryFinish()
+        public CartageOffer.CartageOffer? Finish()
         {
             if(ExecutionStatus != CartageErrandExecutionStatus.Active)
                 throw new CartageErrandExecutionStatusChangeNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} was already finished or cancelled");
-            var winningOffer = TryGetWinningOffer();
+            var winningOffer = GetWinningOfferOrDefault();
             if(winningOffer == null)
             {
                 ExecutionStatus = CartageErrandExecutionStatus.Failure;
@@ -104,24 +104,23 @@ namespace Domain.CartageErrand
             return winningOffer;
         }
 
-        public CartageOffer.CartageOffer? TryGetWinningOffer()
+        public CartageOffer.CartageOffer? GetWinningOfferOrDefault(CartageOffer.CartageOffer? defaultOffer = null)
         {
-            CartageOffer.CartageOffer? x = null;
-            if (SubmittedCartageOffers.Count > 0)
+            CartageOffer.CartageOffer? winningOffer = null;
+            foreach(CartageOffer.CartageOffer cartageOffer in SubmittedCartageOffers)
             {
-                foreach(CartageOffer.CartageOffer cartageOffer in SubmittedCartageOffers)
+                if(winningOffer == null)
                 {
-                    if(x == null)
-                    {
-                        x = cartageOffer;
-                    }
-                    else if(cartageOffer.Price < x.Price)
-                    {
-                        x.Price = cartageOffer.Price;
-                    }
+                    winningOffer = cartageOffer;
+                }
+                else if(cartageOffer.Price < winningOffer.Price)
+                {
+                    winningOffer.Price = cartageOffer.Price;
                 }
             }
-            return x;
+            if(winningOffer != null)
+                return winningOffer;
+            return defaultOffer;
         }
     }
 }
