@@ -1,5 +1,6 @@
 ﻿using Domain.CartageOffer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -88,9 +89,22 @@ namespace Domain.CartageErrand
 
         public CartageOffer.CartageOffer? TryGetWinningOffer()
         {
-            if(SubmittedCartageOffers.Count > 0)
-                return SubmittedCartageOffers.MaxBy();
-            return null;
+            CartageOffer.CartageOffer? x = null;
+            if (SubmittedCartageOffers.Count > 0)
+            {
+                foreach(CartageOffer.CartageOffer cartageOffer in SubmittedCartageOffers)
+                {
+                    if(x == null)
+                    {
+                        x = cartageOffer;
+                    }
+                    else if(cartageOffer.Price < x.Price)
+                    {
+                        x.Price = cartageOffer.Price;
+                    }
+                }
+            }
+            return x;
         }
     }
 }
