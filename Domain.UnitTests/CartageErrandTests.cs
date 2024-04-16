@@ -117,7 +117,18 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            Assert.That(testCartageErrand.Finish().Equals(cheapestAcceptableOffer));
+            var winningOffer = testCartageErrand.Finish();
+
+            cheapestAcceptableOffer = testCartageErrand.GetSubmittedCartageOffers().Min(
+                    Comparer<CartageOffer.CartageOffer>.Create(
+                            (x, y) =>
+                                x.Price > y.Price ? 1 :
+                                x.Price < y.Price ? -1 :
+                                0
+                        )
+                );
+
+            Assert.That(winningOffer.Equals(cheapestAcceptableOffer));
         }
 
         [Test]
@@ -130,7 +141,7 @@ namespace Domain.UnitTests
         }
 
         [Test]
-        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenTryGetWinningMethodCalled()
+        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenGetWinningMethodOrDefaultCalled()
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
             var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
@@ -141,7 +152,59 @@ namespace Domain.UnitTests
             Assert.That(testCartageErrand.GetWinningOfferOrDefault().Equals(cheapestAcceptableOffer));
         }
 
+        [Test]
+        public void CartageErrandHasToChangeAllCartageOffersConsiderationStatusToRejectedWhenCancelMethodCalled()
+        {
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
 
+            testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
+            testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
+            testCartageErrand.AddOffer(testCartageErrand.CreateCheapestAcceptableOffer());
+
+            testCartageErrand.Cancel();
+
+            foreach(CartageOffer.CartageOffer cartageOffer in testCartageErrand.GetSubmittedCartageOffers())
+            {
+                Assert.That(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Rejected);
+            }
+        }
+
+        [Test]
+        public void CartageErrandHasToChangeWinningCartageOfferConsiderationStatusToAcceptedAndRestToRejectedWhenFinishedWithAtLeastOneOffer()
+        {
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+
+            var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
+            testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
+            testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
+            testCartageErrand.AddOffer(cheapestAcceptableOffer);
+
+            testCartageErrand.Finish();
+
+            cheapestAcceptableOffer = testCartageErrand.GetSubmittedCartageOffers().Min(
+                    Comparer<CartageOffer.CartageOffer>.Create(
+                            (x, y) =>
+                                x.Price > y.Price ? 1 :
+                                x.Price < y.Price ? -1 :
+                                0
+                        )
+                );
+
+            int acceptedCount = 0;
+            foreach (CartageOffer.CartageOffer cartageOffer in testCartageErrand.GetSubmittedCartageOffers())
+            {
+                if(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
+                {
+                    Assert.That(cheapestAcceptableOffer.Equals(cartageOffer));
+                    acceptedCount++;
+                }
+                else
+                {
+                    Assert.That(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Rejected);
+                }
+            }
+            Assert.That(acceptedCount == 1);
+        }
     }
 
 

@@ -86,6 +86,10 @@ namespace Domain.CartageErrand
             if (ExecutionStatus != CartageErrandExecutionStatus.Active)
                 throw new CartageErrandExecutionStatusChangeNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} was already finished or cancelled");
             ExecutionStatus = CartageErrandExecutionStatus.Cancelled;
+            foreach (var offer in SubmittedCartageOffers)
+            {
+                offer.ConsiderationStatus = CartageOfferConsiderationStatus.Rejected;
+            }
         }
 
         public CartageOffer.CartageOffer? Finish()
@@ -100,6 +104,12 @@ namespace Domain.CartageErrand
             else
             {
                 ExecutionStatus = CartageErrandExecutionStatus.Success;
+                SubmittedCartageOffers[SubmittedCartageOffers.IndexOf(winningOffer)].ConsiderationStatus = CartageOfferConsiderationStatus.Accepted;
+                foreach (var offer in SubmittedCartageOffers.Where(x => x.ConsiderationStatus != CartageOfferConsiderationStatus.Accepted))
+                {
+                    offer.ConsiderationStatus = CartageOfferConsiderationStatus.Rejected;
+                }
+                
             }
             return winningOffer;
         }
