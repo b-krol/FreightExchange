@@ -26,11 +26,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        public async Task<IActionResult> GetUserById(int id)
         {
             try
             {
-                return Ok(UserService.GetById(id));
+                return Ok( await UserService.GetById(id));
             }
             catch(UserNotFoundException exception)
             {

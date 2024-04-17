@@ -15,7 +15,7 @@ namespace Application.Users
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
-        UserDto GetById(int id);
+        Task<UserDto> GetById(int id);
         /// <summary>
         /// 
         /// </summary>

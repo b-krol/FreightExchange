@@ -35,9 +35,9 @@ namespace Application.Users
             return Source.AddUser(newUser);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Source.DeleteUser(Source.GetUserById(id));
+            Source.DeleteUser(await Source.GetUserById(id));
         }
 
         public async Task<IEnumerable<UserDto>> GetAll()
@@ -51,9 +51,9 @@ namespace Application.Users
             return userDtos;
         }
 
-        public UserDto GetById(int id)
+        public async Task<UserDto> GetById(int id)
         {
-            User user = Source.GetUserById(id);
+            User user = await Source.GetUserById(id);
             return CreateUserDto(user);
         }
 
@@ -61,7 +61,7 @@ namespace Application.Users
         {
             if (!userDto.Id.HasValue)
                 throw new UserNotFoundException();
-            var user = Source.GetUserById(userDto.Id.Value);
+            var user = await Source.GetUserById(userDto.Id.Value);
             user.SetName(userDto.Name);
             user.SetEmail(userDto.Email);
             

@@ -19,7 +19,7 @@ namespace Application
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
-        User GetUserById(int id);
+        Task<User> GetUserById(int id);
         /// <summary>
         /// 
         /// </summary>

@@ -66,14 +66,14 @@ namespace Persistence
         {
             return Task.FromResult((IEnumerable<User>)Users.Values);
         }
-        public User GetUserById(int id)
+        public Task<User> GetUserById(int id)
         {
             var user = Users.GetValueOrDefault(id);
             if (user == null)
             {
                 throw new UserNotFoundException();
             }
-            return user;
+            return Task.FromResult(user);
         }
         public int AddUser(User user)
         {
