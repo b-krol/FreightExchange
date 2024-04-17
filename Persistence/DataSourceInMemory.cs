@@ -106,9 +106,9 @@ namespace Persistence
         #endregion
 
         #region CartageErrands
-        public IEnumerable<CartageErrand> GetCartageErrands()
+        public Task<IEnumerable<CartageErrand>> GetCartageErrands()
         {
-            return CartageErrands.Values;
+            return Task.FromResult((IEnumerable<CartageErrand>)CartageErrands.Values);
         }
         public CartageErrand GetCartageErrandById(int id)
         {

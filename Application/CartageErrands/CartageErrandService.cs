@@ -59,10 +59,11 @@ namespace Application.CartageErrands
             Source.DeleteCartageErrand(Source.GetCartageErrandById(id));
         }
 
-        public IEnumerable<CartageErrandDto> GetAll()
+        public async Task<IEnumerable<CartageErrandDto>> GetAll()
         {
             var cartageErrandDtos = new List<CartageErrandDto>();
-            foreach(var cartageErrand in Source.GetCartageErrands())
+            var cartageErrands = await Source.GetCartageErrands();
+            foreach (var cartageErrand in cartageErrands)
             {
                 cartageErrandDtos.Add(CreateCartageErrandDto(cartageErrand));
             }

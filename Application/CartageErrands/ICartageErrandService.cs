@@ -10,7 +10,7 @@ namespace Application.CartageErrands
 {
     public interface ICartageErrandService
     {
-        IEnumerable<CartageErrandDto> GetAll();
+        Task<IEnumerable<CartageErrandDto>> GetAll();
         /// <summary>
         /// 
         /// </summary>

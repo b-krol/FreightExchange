@@ -43,7 +43,7 @@ namespace Application
         #endregion
 
         #region CartageErrands
-        IEnumerable<CartageErrand> GetCartageErrands();
+        Task<IEnumerable<CartageErrand>> GetCartageErrands();
         /// <summary>
         /// 
         /// </summary>

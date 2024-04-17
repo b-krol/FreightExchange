@@ -20,9 +20,9 @@ namespace WebApi.Controllers
             CartageErrandService = cartageErrandService;
         }
         [HttpGet]
-        public IEnumerable<CartageErrandDto> GetCartageErrands()
+        public async Task<IEnumerable<CartageErrandDto>> GetCartageErrands()
         {
-            return CartageErrandService.GetAll();
+            return await CartageErrandService.GetAll();
         }
 
         [HttpGet("{id}")]
