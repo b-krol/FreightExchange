@@ -73,7 +73,7 @@ namespace Application
         #endregion
 
         #region CartageOffers
-        IEnumerable<CartageOffer> GetCartageOffersForUser(int userId);
+        Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId);
         //CartageErrand GetCartageOfferById(int id);
         //void DeleteCartageOffer(CartageOffer cartageOffer);
         //int AddCartageOffer(CartageOffer cartageOffer);

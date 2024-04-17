@@ -146,7 +146,7 @@ namespace Persistence
         //}
         #endregion
 
-        public IEnumerable<CartageOffer> GetCartageOffersForUser(int id)//TODO implement GetCartageOffersForUser in DataSourceInMemory
+        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int id)//TODO implement GetCartageOffersForUser in DataSourceInMemory
         {
             throw new NotImplementedException();
         }
