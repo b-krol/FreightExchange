@@ -22,6 +22,13 @@ namespace Application.CartageErrands
                 isActive = true;
             else
                 isActive = false;
+
+            List<int> cartageOffersIds = new List<int>();
+            foreach(var cartageOffer in cartageErrand.GetSubmittedCartageOffers())
+            {
+                cartageOffersIds.Add(cartageOffer.Id);
+            }
+
             return new CartageErrandDto()
             {
                 Id = cartageErrand.Id,
@@ -33,7 +40,8 @@ namespace Application.CartageErrands
                 Weight = cartageErrand.Weight,
                 MaximumPrice = cartageErrand.MaximumPrice,
                 EndDate = cartageErrand.EndDate,
-                IsActive = isActive
+                IsActive = isActive,
+                OffersIds = cartageOffersIds.ToArray()
             };
         }
 
