@@ -44,21 +44,5 @@ namespace Domain.User
             if (value.Trim() == string.Empty) throw new ArgumentException();
         }
 
-        public override bool Equals(object? obj)
-        {
-            if (obj == null) return false;
-            return Equals((obj as User)!);
-        }
-
-        public bool Equals(User other)
-        {
-            if (Id != other.Id)
-                return false;
-            if (Name != other.Name)
-                return false;
-            if (Email != other.Email)
-                return false;
-            return true;
-        }
     }
 }
