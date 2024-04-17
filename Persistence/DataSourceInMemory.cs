@@ -75,11 +75,11 @@ namespace Persistence
             }
             return Task.FromResult(user);
         }
-        public int AddUser(User user)
+        public Task<int> AddUser(User user)
         {
             user.Id = UsersNextId++;
             Users.Add(user.Id, user);
-            return user.Id;
+            return Task.FromResult(user.Id);
         }
         public Task DeleteUser(User user)
         {

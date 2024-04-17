@@ -32,7 +32,7 @@ namespace Application
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotCreatedException">Method throws UserNotCreatedException when can't create specified user</exception>
-        int AddUser(User user);
+        Task<int> AddUser(User user);
         ///// <summary>
         ///// 
         ///// </summary>

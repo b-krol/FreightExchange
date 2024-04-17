@@ -28,7 +28,7 @@ namespace Application.Users
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotCreatedException">Method throws UserNotCreatedException when can't create specified user</exception>
-        int Create(UserDto user);
+        Task<int> Create(UserDto user);
         /// <summary>
         /// 
         /// </summary>

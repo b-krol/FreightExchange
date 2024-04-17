@@ -57,9 +57,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDto userDto)
+        public async Task<IActionResult> CreateUser(UserDto userDto)
         {
-            int id = UserService.Create(userDto);
+            int id = await UserService.Create(userDto);
             return Created($"{Request.GetEncodedUrl()}/{id}", UserService.GetById(id));
         }
 

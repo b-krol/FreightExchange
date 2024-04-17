@@ -29,10 +29,10 @@ namespace Application.Users
         }
 
 
-        public int Create(UserDto user)
+        public async Task<int> Create(UserDto user)
         {
             User newUser = CreateUserFromDto(user);
-            return Source.AddUser(newUser);
+            return await Source.AddUser(newUser);
         }
 
         public async Task Delete(int id)
