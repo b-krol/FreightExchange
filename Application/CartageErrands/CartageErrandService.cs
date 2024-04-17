@@ -38,10 +38,10 @@ namespace Application.CartageErrands
         }
 
 
-        public int Add(CartageErrandDto cartageErrandDto)
+        public async Task<int> Add(CartageErrandDto cartageErrandDto)
         {
-            Domain.CartageErrand.CartageErrand newCartageErrand = new Domain.CartageErrand.CartageErrand(
-                    Source.GetUserById(cartageErrandDto.FounderId),
+            CartageErrand newCartageErrand = new CartageErrand(
+                    await Source.GetUserById(cartageErrandDto.FounderId),
                     cartageErrandDto.GoodsName,
                     cartageErrandDto.StartingAdress,
                     cartageErrandDto.DestinationAdress,
@@ -51,7 +51,7 @@ namespace Application.CartageErrands
                     cartageErrandDto.EndDate,
                     CartageErrandExecutionStatus.Active
                 );
-            return Source.AddCartageErrand(newCartageErrand);
+            return await Source.AddCartageErrand(newCartageErrand);
         }
 
         public async Task Delete(int id)

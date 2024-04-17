@@ -62,7 +62,7 @@ namespace Application
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
-        int AddCartageErrand(CartageErrand cartageErrand);
+        Task<int> AddCartageErrand(CartageErrand cartageErrand);
         ///// <summary>
         ///// 
         ///// </summary>

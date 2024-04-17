@@ -73,9 +73,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCartageErrand(CartageErrandDto cartageErrandDto)
+        public async Task<IActionResult> AddCartageErrand(CartageErrandDto cartageErrandDto)
         {
-            var newCartageErrandId = CartageErrandService.Add(cartageErrandDto);
+            var newCartageErrandId = await CartageErrandService.Add(cartageErrandDto);
             return Created($"{Request.GetEncodedUrl()}/{newCartageErrandId}", CartageErrandService.GetById(newCartageErrandId));
         }
 

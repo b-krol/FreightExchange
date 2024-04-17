@@ -119,13 +119,13 @@ namespace Persistence
             }
             return Task.FromResult(cartageErrand);
         }
-        public int AddCartageErrand(CartageErrand cartageErrand)
+        public Task<int> AddCartageErrand(CartageErrand cartageErrand)
         {
             cartageErrand.Id = CartageErrandsNextId++;
             CartageErrands.Add(cartageErrand.Id, cartageErrand);
-            return cartageErrand.Id;
+            return Task.FromResult(cartageErrand.Id);
         }
-        Task DeleteCartageErrand(CartageErrand cartageErrand)
+        public Task DeleteCartageErrand(CartageErrand cartageErrand)
         {
             if (CartageErrands.Remove(cartageErrand.Id))
             {
