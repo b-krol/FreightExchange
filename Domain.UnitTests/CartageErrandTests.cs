@@ -232,10 +232,13 @@ namespace Domain.UnitTests
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
 
-            testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
-            testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
+            int N = 3;
+            for(int i = 0; i < N; i++)
+            {
+                testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
+            }
 
-            Assert.That(testCartageErrand.GetSubmittedCartageOffers().Count, Is.EqualTo(2));
+            Assert.That(testCartageErrand.GetSubmittedCartageOffers().Count, Is.EqualTo(N));
         }
 
         [Test]
