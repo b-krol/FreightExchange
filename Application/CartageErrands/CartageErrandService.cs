@@ -38,7 +38,7 @@ namespace Application.CartageErrands
         }
 
 
-        public int Create(CartageErrandDto cartageErrandDto)
+        public int Add(CartageErrandDto cartageErrandDto)
         {
             Domain.CartageErrand.CartageErrand newCartageErrand = new Domain.CartageErrand.CartageErrand(
                     Source.GetUserById(cartageErrandDto.FounderId),

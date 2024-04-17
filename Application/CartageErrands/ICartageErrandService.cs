@@ -29,7 +29,7 @@ namespace Application.CartageErrands
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
-        int Create(CartageErrandDto cartageErrandDto);
+        int Add(CartageErrandDto cartageErrandDto);
         /// <summary>
         /// 
         /// </summary>
