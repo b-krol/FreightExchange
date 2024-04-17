@@ -21,11 +21,11 @@ namespace Persistence
         private static Dictionary<int, User> Users = new Dictionary<int, User>()
         {
             { 1,
-            new User("Test1", "Test1@domain.com")
+            new User("Test1", "Test1@domain.com"){ Id = 1}
             }
             ,
             { 2,
-            new User("Test2", "Test2@domain.com")
+            new User("Test2", "Test2@domain.com"){ Id = 2 }
             }
         };
         private static Dictionary<int, CartageErrand> CartageErrands = new Dictionary<int, CartageErrand>()
@@ -41,7 +41,7 @@ namespace Persistence
                     1000,
                     DateTime.Now + new TimeSpan(10, 0, 0),
                     CartageErrandExecutionStatus.Success
-                        )
+                        ){ Id = 1}
             }
             ,
             { 2,
@@ -55,7 +55,7 @@ namespace Persistence
                     1100,
                     DateTime.Now + new TimeSpan(1, 0, 30),
                     CartageErrandExecutionStatus.Active
-                        )
+                        ){ Id = 2 }
             }
         };
         private static int CartageErrandsNextId = CartageErrands.Count() + 1;

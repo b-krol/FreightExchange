@@ -15,7 +15,7 @@ namespace Application.CartageErrands
         {
             Source = source;
         }
-        private static CartageErrandDto CreateCartageErrandDto(Domain.CartageErrand.CartageErrand cartageErrand)
+        private static CartageErrandDto CreateCartageErrandDto(CartageErrand cartageErrand)
         {
             bool isActive;
             if (cartageErrand.ExecutionStatus == CartageErrandExecutionStatus.Active)

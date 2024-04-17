@@ -60,7 +60,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> AddUser(UserDto userDto)
         {
             int id = await UserService.Add(userDto);
-            return Created($"{Request.GetEncodedUrl()}/{id}", UserService.GetById(id));
+            return Created($"{Request.GetEncodedUrl()}/{id}", await UserService.GetById(id));
         }
 
         [HttpPut]
