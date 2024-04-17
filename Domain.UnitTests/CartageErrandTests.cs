@@ -241,11 +241,7 @@ namespace Domain.UnitTests
 
             var winningOffer = testCartageErrand.Finish()!;
 
-            cheapestAcceptableOffer = testCartageErrand.GetSubmittedCartageOffers().Min(
-                    Comparer<CartageOffer.CartageOffer>.Create((x, y) => x.Price - y.Price)
-                )!;
-
-            Assert.That(winningOffer, Is.EqualTo(cheapestAcceptableOffer));
+            Assert.That(winningOffer, Is.EqualTo(testCartageErrand.GetCheapestOfferOrDefault()));
         }
 
         [Test]
