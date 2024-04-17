@@ -79,11 +79,5 @@ namespace WebApi.Controllers
             return Created($"{Request.GetEncodedUrl()}/{newCartageErrandId}", CartageErrandService.GetById(newCartageErrandId));
         }
 
-        [HttpPut]
-        public IActionResult UpdateCartageErrand(CartageErrandDto cartageErrandDto)
-        {
-            return Ok(CartageErrandService.Update(cartageErrandDto));
-        }
-
     }
 }
