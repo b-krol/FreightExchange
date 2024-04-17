@@ -36,6 +36,8 @@ namespace Application.CartageErrands
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
         /// <exception cref="CartageErrand.CartageErrandNotUpdatedException">Method throws CartageErrandNotUpdatedException when can't update specified CartageErrand</exception>
-        CartageErrandDto Update(CartageErrandDto cartageErrandDto);
+
+        //TODO in future mayby allow to update CartageErrand but in scenarios like - no one have assigned offer to the cartage or no one has asked for this cartage
+        //CartageErrandDto Update(CartageErrandDto cartageErrandDto);
     }
 }
