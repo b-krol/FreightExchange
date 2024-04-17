@@ -64,9 +64,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateUser(UserDto userDto)
+        public async Task<IActionResult> UpdateUser(UserDto userDto)
         {
-            return Ok(UserService.Update(userDto));
+            return Ok(await UserService.UpdateAsync(userDto));
         }
 
         //[HttpPatch("{id}")]
