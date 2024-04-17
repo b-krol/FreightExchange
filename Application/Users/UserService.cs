@@ -37,7 +37,7 @@ namespace Application.Users
 
         public async Task Delete(int id)
         {
-            Source.DeleteUser(await Source.GetUserById(id));
+            await Source.DeleteUser(await Source.GetUserById(id));
         }
 
         public async Task<IEnumerable<UserDto>> GetAll()

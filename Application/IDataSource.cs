@@ -26,7 +26,7 @@ namespace Application
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
         /// <exception cref="Users.UserNotDeletedException">Method throws UserNotDeletedException when can't delete specified user</exception>
-        void DeleteUser(User user);
+        Task DeleteUser(User user);
         /// <summary>
         /// 
         /// </summary>

@@ -22,7 +22,7 @@ namespace Application.Users
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
         /// <exception cref="Users.UserNotDeletedException">Method throws UserNotDeletedException when can't delete specified user</exception>
-        void Delete(int id);
+        Task Delete(int id);
         /// <summary>
         /// 
         /// </summary>

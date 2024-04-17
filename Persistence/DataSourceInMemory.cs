@@ -81,10 +81,17 @@ namespace Persistence
             Users.Add(user.Id, user);
             return user.Id;
         }
-        void IDataSource.DeleteUser(User user)
+        public Task DeleteUser(User user)
         {
-            if (!Users.Remove(user.Id))
+            if (Users.Remove(user.Id))
+            {
+                return Task.CompletedTask;
+            }
+            else
+            {
                 throw new UserNotDeletedException();
+            }
+            
         }
         //public int UpdateUser(User user)
         //{

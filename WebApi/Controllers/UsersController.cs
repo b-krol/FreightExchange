@@ -39,11 +39,11 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUserById(int id)
+        public async Task<IActionResult> DeleteUserById(int id)
         {
             try
             {
-                UserService.Delete(id);
+                await UserService.Delete(id);
                 return Ok();
             }
             catch(UserNotFoundException exception)
