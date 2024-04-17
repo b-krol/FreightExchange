@@ -16,7 +16,7 @@ namespace Application.CartageErrands
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
-        CartageErrandDto GetById(int id);
+        Task<CartageErrandDto> GetById(int id);
         /// <summary>
         /// 
         /// </summary>

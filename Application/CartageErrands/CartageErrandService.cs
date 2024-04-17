@@ -70,9 +70,9 @@ namespace Application.CartageErrands
             return cartageErrandDtos;
         }
 
-        public CartageErrandDto GetById(int id)
+        public async Task<CartageErrandDto> GetById(int id)
         {
-            Domain.CartageErrand.CartageErrand cartageErrand = Source.GetCartageErrandById(id);
+            CartageErrand cartageErrand = await Source.GetCartageErrandById(id);
             return CreateCartageErrandDto(cartageErrand);
         }
 

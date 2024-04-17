@@ -26,11 +26,11 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetCartageErrandById(int id)
+        public async Task<IActionResult> GetCartageErrandById(int id)
         {
             try
             {
-                return Ok(CartageErrandService.GetById(id));
+                return Ok(await CartageErrandService.GetById(id));
             }
             catch (CartageErrandNotFoundException exception)
             {

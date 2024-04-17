@@ -110,14 +110,14 @@ namespace Persistence
         {
             return Task.FromResult((IEnumerable<CartageErrand>)CartageErrands.Values);
         }
-        public CartageErrand GetCartageErrandById(int id)
+        public Task<CartageErrand> GetCartageErrandById(int id)
         {
             var cartageErrand = CartageErrands.GetValueOrDefault(id);
             if (cartageErrand == null)
             {
                 throw new CartageErrandNotFoundException();
             }
-            return cartageErrand;
+            return Task.FromResult(cartageErrand);
         }
         public int AddCartageErrand(CartageErrand cartageErrand)
         {

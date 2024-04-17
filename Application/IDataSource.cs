@@ -49,7 +49,7 @@ namespace Application
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
-        CartageErrand GetCartageErrandById(int id);
+        Task<CartageErrand> GetCartageErrandById(int id);
         /// <summary>
         /// 
         /// </summary>
