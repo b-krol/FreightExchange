@@ -125,10 +125,13 @@ namespace Persistence
             CartageErrands.Add(cartageErrand.Id, cartageErrand);
             return cartageErrand.Id;
         }
-        void IDataSource.DeleteCartageErrand(CartageErrand cartageErrand)
+        Task DeleteCartageErrand(CartageErrand cartageErrand)
         {
-            if (!CartageErrands.Remove(cartageErrand.Id))
-                throw new CartageErrandNotDeletedException();
+            if (CartageErrands.Remove(cartageErrand.Id))
+            {
+                return Task.CompletedTask;
+            }
+            throw new CartageErrandNotDeletedException();
         }
         //public int UpdateCartageErrand(CartageErrand cartageErrand)
         //{

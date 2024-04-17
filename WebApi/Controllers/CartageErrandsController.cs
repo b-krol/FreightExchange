@@ -55,11 +55,11 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCartageErrandById(int id)
+        public async Task<IActionResult> DeleteCartageErrandById(int id)
         {
             try
             {
-                CartageErrandService.Delete(id);
+                await CartageErrandService.Delete(id);
                 return Ok();
             }
             catch (CartageErrandNotFoundException exception)

@@ -56,7 +56,7 @@ namespace Application
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
         /// <exception cref="CartageErrand.CartageErrandNotDeletedException">Method throws CartageErrandNotDeletedException when can't delete specified CartageErrand</exception>
-        void DeleteCartageErrand(CartageErrand cartageErrand);
+        Task DeleteCartageErrand(CartageErrand cartageErrand);
         /// <summary>
         /// 
         /// </summary>

@@ -54,9 +54,11 @@ namespace Application.CartageErrands
             return Source.AddCartageErrand(newCartageErrand);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Source.DeleteCartageErrand(Source.GetCartageErrandById(id));
+            await Source.DeleteCartageErrand(
+                    await Source.GetCartageErrandById(id)
+                );
         }
 
         public async Task<IEnumerable<CartageErrandDto>> GetAll()
