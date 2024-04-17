@@ -42,8 +42,8 @@ namespace Domain.UnitTests
         public void UserCanBeCreatedWithCorrectData(string name, string email)
         {
             var createdUser = new User.User(name, email);
-            Assert.That(createdUser.Name == name.Trim());
-            Assert.That(createdUser.Email == email.Trim());
+            Assert.That(createdUser.Name, Is.EqualTo(name.Trim()));
+            Assert.That(createdUser.Email, Is.EqualTo(email.Trim()));
         }
     }
 }
