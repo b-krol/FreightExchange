@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.User;
 using Domain.CartageErrand;
+using Domain.CartageOffer;
 
 namespace Application
 {
@@ -40,32 +41,42 @@ namespace Application
         
 
 
-        IEnumerable<Domain.CartageErrand.CartageErrand> GetCartageErrands();
+        IEnumerable<CartageErrand> GetCartageErrands();
         /// <summary>
         /// 
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
-        Domain.CartageErrand.CartageErrand GetCartageErrandById(int id);
+        CartageErrand GetCartageErrandById(int id);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
         /// <exception cref="CartageErrand.CartageErrandNotDeletedException">Method throws CartageErrandNotDeletedException when can't delete specified CartageErrand</exception>
-        void DeleteCartageErrand(Domain.CartageErrand.CartageErrand cartageErrand);
+        void DeleteCartageErrand(CartageErrand cartageErrand);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
-        int CreateCartageErrand(Domain.CartageErrand.CartageErrand cartageErrand);
+        int CreateCartageErrand(CartageErrand cartageErrand);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
         /// <exception cref="CartageErrand.CartageErrandNotUpdatedException">Method throws CartageErrandNotUpdatedException when can't update specified CartageErrand</exception>
-        int UpdateCartageErrand(Domain.CartageErrand.CartageErrand cartageErrand);
+        int UpdateCartageErrand(CartageErrand cartageErrand);
+
+
+        IEnumerable<CartageOffer> GetCartageOffersByCartageErrand(int id);
+
+
+        IEnumerable<CartageOffer> GetCartageOffers();
+        CartageErrand GetCartageOfferById(int id);
+        void DeleteCartageOffer(CartageOffer cartageOffer);
+        int CreateCartageOffer(CartageOffer cartageOffer);
+        int UpdateCartageOffer(CartageOffer cartageOffer);
     }
 }

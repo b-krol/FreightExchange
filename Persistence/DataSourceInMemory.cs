@@ -2,6 +2,7 @@
 using Application.CartageErrands;
 using Application.Users;
 using Domain.CartageErrand;
+using Domain.CartageOffer;
 using Domain.User;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace Persistence
 {
     internal class DataSourceInMemory : IDataSource
-    {
+    {//TODO implement CartageOffer related methods
 
         private static Dictionary<int, User> Users = new Dictionary<int, User>()
         {
@@ -67,11 +68,21 @@ namespace Persistence
             return cartageErrand.Id;
         }
 
+        public int CreateCartageOffer(CartageOffer cartageOffer)
+        {
+            throw new NotImplementedException();
+        }
+
         public int CreateUser(User user)
         {
             user.Id = UsersNextId++;
             Users.Add(user.Id, user);
             return user.Id;
+        }
+
+        public void DeleteCartageOffer(CartageOffer cartageOffer)
+        {
+            throw new NotImplementedException();
         }
 
         public CartageErrand GetCartageErrandById(int id)
@@ -87,6 +98,21 @@ namespace Persistence
         public IEnumerable<CartageErrand> GetCartageErrands()
         {
             return CartageErrands.Values;
+        }
+
+        public CartageErrand GetCartageOfferById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CartageOffer> GetCartageOffers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CartageOffer> GetCartageOffersByCartageErrand(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public User GetUserById(int id)
@@ -114,6 +140,11 @@ namespace Persistence
             CartageErrands.Remove(cartageErrand.Id);
             CartageErrands.Add(cartageErrand.Id, cartageErrand);
             return cartageErrand.Id;
+        }
+
+        public int UpdateCartageOffer(CartageOffer cartageOffer)
+        {
+            throw new NotImplementedException();
         }
 
         public int UpdateUser(User user)
