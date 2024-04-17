@@ -20,9 +20,9 @@ namespace WebApi.Controllers
         }        
 
         [HttpGet]
-        public IEnumerable<UserDto> GetUsers()
+        public async Task<IEnumerable<UserDto>> GetUsers()
         {
-            return UserService.GetAll();
+            return await UserService.GetAll();
         }
 
         [HttpGet("{id}")]

@@ -13,7 +13,7 @@ namespace Application
     {
         Task SaveChangesAsync();
         #region Users
-        IEnumerable<User> GetUsers();
+        Task<IEnumerable<User>> GetUsers();
         /// <summary>
         /// 
         /// </summary>

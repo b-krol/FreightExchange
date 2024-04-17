@@ -62,9 +62,9 @@ namespace Persistence
         private static int UsersNextId = Users.Count() + 1;
 
         #region users
-        public IEnumerable<User> GetUsers()
+        public Task<IEnumerable<User>> GetUsers()
         {
-            return Users.Values;
+            return Task.FromResult((IEnumerable<User>)Users.Values);
         }
         public User GetUserById(int id)
         {

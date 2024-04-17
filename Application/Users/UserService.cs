@@ -40,10 +40,11 @@ namespace Application.Users
             Source.DeleteUser(Source.GetUserById(id));
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAll()
         {
             var userDtos = new List<UserDto>();
-            foreach (var user in Source.GetUsers())
+            var users = await Source.GetUsers();
+            foreach (var user in users)
             {
                 userDtos.Add(CreateUserDto(user));
             }

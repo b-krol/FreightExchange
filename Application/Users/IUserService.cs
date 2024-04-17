@@ -9,7 +9,7 @@ namespace Application.Users
 {
     public interface IUserService
     {
-        IEnumerable<UserDto> GetAll();
+        Task<IEnumerable<UserDto>> GetAll();
         /// <summary>
         /// 
         /// </summary>
