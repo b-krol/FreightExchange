@@ -16,10 +16,17 @@ namespace Domain.CartageOffer
 
         public CartageOffer(User.User applicant, int requestedPrice, CartageOfferConsiderationStatus considerationStatus)
         {
+            ThrowIfLessThanZero(requestedPrice);
+
             Applicant = applicant;
             Price = requestedPrice;
             ConsiderationStatus = considerationStatus;
         }
 
+        private void ThrowIfLessThanZero(int value)
+        {
+            if (value < 0) 
+                throw new ArgumentException();
+        }
     }
 }
