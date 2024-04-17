@@ -32,7 +32,7 @@ namespace Application.Users
         public int Create(UserDto user)
         {
             User newUser = CreateUserFromDto(user);
-            return Source.CreateUser(newUser);
+            return Source.AddUser(newUser);
         }
 
         public void Delete(int id)
@@ -56,10 +56,16 @@ namespace Application.Users
             return CreateUserDto(user);
         }
 
-        public UserDto Update(UserDto user)
+        public async Task<UserDto> UpdateAsync(UserDto userDto)
         {
-            int newUserId = Source.UpdateUser(CreateUserFromDto(user));
-            return GetById(newUserId);
+            if (!userDto.Id.HasValue)
+                throw new UserNotFoundException();
+            var user = Source.GetUserById(userDto.Id.Value);
+            user.SetName(userDto.Name);
+            user.SetEmail(userDto.Email);
+            
+            await Source.SaveChangesAsync();
+            return CreateUserDto(user);
         }
     }
 }
