@@ -303,7 +303,7 @@ namespace Domain.UnitTests
         }
 
         [Test]
-        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenAskedForWinningOffer()
+        public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenAskedForCheapestOffer()
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
             var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
@@ -311,7 +311,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            Assert.That(testCartageErrand.GetWinningOfferOrDefault()!, Is.EqualTo(cheapestAcceptableOffer));
+            Assert.That(testCartageErrand.GetCheapestOfferOrDefault()!, Is.EqualTo(cheapestAcceptableOffer));
         }
 
         [Test]
@@ -338,7 +338,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            cheapestAcceptableOffer = testCartageErrand.GetWinningOfferOrDefault();
+            cheapestAcceptableOffer = testCartageErrand.GetCheapestOfferOrDefault();
 
             testCartageErrand.Finish();
 

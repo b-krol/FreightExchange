@@ -96,40 +96,40 @@ namespace Domain.CartageErrand
         {
             if(ExecutionStatus != CartageErrandExecutionStatus.Active)
                 throw new CartageErrandExecutionStatusChangeNotAllowedException($"CartageErrand {nameof(ExecutionStatus)} was already finished or cancelled");
-            var winningOffer = GetWinningOfferOrDefault();
-            if(winningOffer == null)
+            var cheapestOffer = GetCheapestOfferOrDefault();
+            if(cheapestOffer == null)
             {
                 ExecutionStatus = CartageErrandExecutionStatus.Failure;
             }
             else
             {
                 ExecutionStatus = CartageErrandExecutionStatus.Success;
-                SubmittedCartageOffers[SubmittedCartageOffers.IndexOf(winningOffer)].ConsiderationStatus = CartageOfferConsiderationStatus.Accepted;
+                SubmittedCartageOffers[SubmittedCartageOffers.IndexOf(cheapestOffer)].ConsiderationStatus = CartageOfferConsiderationStatus.Accepted;
                 foreach (var offer in SubmittedCartageOffers.Where(x => x.ConsiderationStatus != CartageOfferConsiderationStatus.Accepted))
                 {
                     offer.ConsiderationStatus = CartageOfferConsiderationStatus.Rejected;
                 }
                 
             }
-            return winningOffer;
+            return cheapestOffer;
         }
 
-        public CartageOffer.CartageOffer? GetWinningOfferOrDefault(CartageOffer.CartageOffer? defaultOffer = null)
+        public CartageOffer.CartageOffer? GetCheapestOfferOrDefault(CartageOffer.CartageOffer? defaultOffer = null)
         {
-            CartageOffer.CartageOffer? winningOffer = null;
+            CartageOffer.CartageOffer? cheapestOffer = null;
             foreach(CartageOffer.CartageOffer cartageOffer in SubmittedCartageOffers)
             {
-                if(winningOffer == null)
+                if(cheapestOffer == null)
                 {
-                    winningOffer = cartageOffer;
+                    cheapestOffer = cartageOffer;
                 }
-                else if(cartageOffer.Price < winningOffer.Price)
+                else if(cartageOffer.Price < cheapestOffer.Price)
                 {
-                    winningOffer.Price = cartageOffer.Price;
+                    cheapestOffer.Price = cartageOffer.Price;
                 }
             }
-            if(winningOffer != null)
-                return winningOffer;
+            if(cheapestOffer != null)
+                return cheapestOffer;
             return defaultOffer;
         }
     }
