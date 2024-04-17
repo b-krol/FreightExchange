@@ -186,15 +186,15 @@ namespace Domain.UnitTests
                 executionStatus
                 );
 
-            Assert.That(x.Founder.Equals(founder));
-            Assert.That(x.GoodsName == goodsName.Trim());
-            Assert.That(x.StartingAdress == startingAdress.Trim());
-            Assert.That(x.DestinationAdress == destinationAdress.Trim());
-            Assert.That(x.Distance == distance);
-            Assert.That(x.Weight == weight);
-            Assert.That(x.MaximumPrice == maxPrice);
-            Assert.That(x.EndDate == endDate);
-            Assert.That(x.ExecutionStatus == executionStatus);
+            Assert.That(x.Founder, Is.EqualTo(founder));
+            Assert.That(x.GoodsName, Is.EqualTo(goodsName.Trim()));
+            Assert.That(x.StartingAdress, Is.EqualTo(startingAdress.Trim()));
+            Assert.That(x.DestinationAdress, Is.EqualTo(destinationAdress.Trim()));
+            Assert.That(x.Distance, Is.EqualTo(distance));
+            Assert.That(x.Weight, Is.EqualTo(weight));
+            Assert.That(x.MaximumPrice, Is.EqualTo(maxPrice));
+            Assert.That(x.EndDate, Is.EqualTo(endDate));
+            Assert.That(x.ExecutionStatus, Is.EqualTo(executionStatus));
         }
 
         [Test]
@@ -224,7 +224,7 @@ namespace Domain.UnitTests
         public void CartageErrandCannotReceiveNewCartageOffersWhenItIsNotActive(CartageErrandExecutionStatus executionStatus)
         {
             CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(executionStatus);
-            Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(() => testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer()));//TODO why cant use extension method?
+            Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(() => testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer()));
         }
 
         [Test]
@@ -235,7 +235,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
 
-            Assert.That(testCartageErrand.GetSubmittedCartageOffers().Count == 2);
+            Assert.That(testCartageErrand.GetSubmittedCartageOffers().Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -245,7 +245,7 @@ namespace Domain.UnitTests
 
             testCartageErrand.Cancel();
             
-            Assert.That(testCartageErrand.ExecutionStatus == CartageErrandExecutionStatus.Cancelled);
+            Assert.That(testCartageErrand.ExecutionStatus, Is.EqualTo(CartageErrandExecutionStatus.Cancelled));
         }
 
         [Test]
@@ -257,7 +257,7 @@ namespace Domain.UnitTests
 
             testCartageErrand.Finish();
 
-            Assert.That(testCartageErrand.ExecutionStatus == CartageErrandExecutionStatus.Success);
+            Assert.That(testCartageErrand.ExecutionStatus, Is.EqualTo(CartageErrandExecutionStatus.Success));
         }
 
         [Test]
@@ -267,7 +267,7 @@ namespace Domain.UnitTests
 
             testCartageErrand.Finish();
 
-            Assert.That(testCartageErrand.ExecutionStatus == CartageErrandExecutionStatus.Failure);
+            Assert.That(testCartageErrand.ExecutionStatus, Is.EqualTo(CartageErrandExecutionStatus.Failure));
         }
         
         [Test]
@@ -290,7 +290,7 @@ namespace Domain.UnitTests
                         )
                 )!;
 
-            Assert.That(winningOffer.Equals(cheapestAcceptableOffer));
+            Assert.That(winningOffer, Is.EqualTo(cheapestAcceptableOffer));
         }
 
         [Test]
@@ -311,7 +311,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            Assert.That(cheapestAcceptableOffer.Equals(testCartageErrand.GetWinningOfferOrDefault()!));
+            Assert.That(testCartageErrand.GetWinningOfferOrDefault()!, Is.EqualTo(cheapestAcceptableOffer));
         }
 
         [Test]
@@ -338,14 +338,7 @@ namespace Domain.UnitTests
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(cheapestAcceptableOffer);
 
-            cheapestAcceptableOffer = testCartageErrand.GetSubmittedCartageOffers().Min(
-                    Comparer<CartageOffer.CartageOffer>.Create(
-                            (x, y) =>
-                                x.Price > y.Price ? 1 :
-                                x.Price < y.Price ? -1 :
-                                0
-                        )
-                )!;
+            cheapestAcceptableOffer = testCartageErrand.GetWinningOfferOrDefault();
 
             testCartageErrand.Finish();
 
@@ -354,15 +347,15 @@ namespace Domain.UnitTests
             {
                 if(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
                 {
-                    Assert.That(cheapestAcceptableOffer.Equals(cartageOffer));
+                    Assert.That(cartageOffer, Is.EqualTo(cheapestAcceptableOffer));
                     acceptedCount++;
                 }
                 else
                 {
-                    Assert.That(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Rejected);
+                    Assert.That(cartageOffer.ConsiderationStatus, Is.EqualTo(CartageOfferConsiderationStatus.Rejected));
                 }
             }
-            Assert.That(acceptedCount == 1);
+            Assert.That(acceptedCount, Is.EqualTo(1));
         }
     }
 
