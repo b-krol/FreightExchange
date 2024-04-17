@@ -11,6 +11,8 @@ namespace Application
 {
     public interface IDataSource
     {
+        Task SaveChangesAsync();
+        #region Users
         IEnumerable<User> GetUsers();
         /// <summary>
         /// 
@@ -30,17 +32,17 @@ namespace Application
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotCreatedException">Method throws UserNotCreatedException when can't create specified user</exception>
-        int CreateUser(User user);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        /// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
-        /// <exception cref="Users.UserNotUpdatedException">Method throws UserNotUpdatedException when can't update specified user</exception>
-        int UpdateUser(User user);
-        
+        int AddUser(User user);
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="user"></param>
+        ///// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
+        ///// <exception cref="Users.UserNotUpdatedException">Method throws UserNotUpdatedException when can't update specified user</exception>
+        //int UpdateUser(User user);
+        #endregion
 
-
+        #region CartageErrands
         IEnumerable<CartageErrand> GetCartageErrands();
         /// <summary>
         /// 
@@ -60,23 +62,22 @@ namespace Application
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
-        int CreateCartageErrand(CartageErrand cartageErrand);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="CartageErrand"></param>
-        /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
-        /// <exception cref="CartageErrand.CartageErrandNotUpdatedException">Method throws CartageErrandNotUpdatedException when can't update specified CartageErrand</exception>
-        int UpdateCartageErrand(CartageErrand cartageErrand);
+        int AddCartageErrand(CartageErrand cartageErrand);
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="CartageErrand"></param>
+        ///// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
+        ///// <exception cref="CartageErrand.CartageErrandNotUpdatedException">Method throws CartageErrandNotUpdatedException when can't update specified CartageErrand</exception>
+        //int UpdateCartageErrand(CartageErrand cartageErrand);
+        #endregion
 
-
-        IEnumerable<CartageOffer> GetCartageOffersByCartageErrand(int id);
-
-
-        IEnumerable<CartageOffer> GetCartageOffers();
-        CartageErrand GetCartageOfferById(int id);
-        void DeleteCartageOffer(CartageOffer cartageOffer);
-        int CreateCartageOffer(CartageOffer cartageOffer);
-        int UpdateCartageOffer(CartageOffer cartageOffer);
+        #region CartageOffers
+        IEnumerable<CartageOffer> GetCartageOffersForUser(int userId);
+        //CartageErrand GetCartageOfferById(int id);
+        //void DeleteCartageOffer(CartageOffer cartageOffer);
+        //int AddCartageOffer(CartageOffer cartageOffer);
+        //int UpdateCartageOffer(CartageOffer cartageOffer);
+        #endregion
     }
 }
