@@ -61,60 +61,11 @@ namespace Persistence
         private static int CartageErrandsNextId = CartageErrands.Count() + 1;
         private static int UsersNextId = Users.Count() + 1;
 
-        public int CreateCartageErrand(CartageErrand cartageErrand)
+        #region users
+        public IEnumerable<User> GetUsers()
         {
-            cartageErrand.Id = CartageErrandsNextId++;
-            CartageErrands.Add(cartageErrand.Id, cartageErrand);
-            return cartageErrand.Id;
+            return Users.Values;
         }
-
-        public int CreateCartageOffer(CartageOffer cartageOffer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CreateUser(User user)
-        {
-            user.Id = UsersNextId++;
-            Users.Add(user.Id, user);
-            return user.Id;
-        }
-
-        public void DeleteCartageOffer(CartageOffer cartageOffer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CartageErrand GetCartageErrandById(int id)
-        {
-            var cartageErrand = CartageErrands.GetValueOrDefault(id);
-            if (cartageErrand == null)
-            {
-                throw new CartageErrandNotFoundException();
-            }
-            return cartageErrand;
-        }
-
-        public IEnumerable<CartageErrand> GetCartageErrands()
-        {
-            return CartageErrands.Values;
-        }
-
-        public CartageErrand GetCartageOfferById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<CartageOffer> GetCartageOffers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<CartageOffer> GetCartageOffersByCartageErrand(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public User GetUserById(int id)
         {
             var user = Users.GetValueOrDefault(id);
@@ -124,50 +75,75 @@ namespace Persistence
             }
             return user;
         }
-
-        public IEnumerable<User> GetUsers()
+        public int AddUser(User user)
         {
-            return Users.Values;
+            user.Id = UsersNextId++;
+            Users.Add(user.Id, user);
+            return user.Id;
         }
-        
-        public int UpdateCartageErrand(CartageErrand cartageErrand)
+        void IDataSource.DeleteUser(User user)
         {
+            if (!Users.Remove(user.Id))
+                throw new UserNotDeletedException();
+        }
+        //public int UpdateUser(User user)
+        //{
+        //    if (!Users.ContainsKey(user.Id))
+        //    {
+        //        throw new UserNotFoundException();
+        //    }
+        //    Users.Remove(user.Id);
+        //    Users.Add(user.Id, user);
+        //    return user.Id;
+        //}
+        #endregion
 
-            if (!CartageErrands.ContainsKey(cartageErrand.Id))
+        #region CartageErrands
+        public IEnumerable<CartageErrand> GetCartageErrands()
+        {
+            return CartageErrands.Values;
+        }
+        public CartageErrand GetCartageErrandById(int id)
+        {
+            var cartageErrand = CartageErrands.GetValueOrDefault(id);
+            if (cartageErrand == null)
             {
-                throw new UserNotFoundException();
+                throw new CartageErrandNotFoundException();
             }
-            CartageErrands.Remove(cartageErrand.Id);
+            return cartageErrand;
+        }
+        public int AddCartageErrand(CartageErrand cartageErrand)
+        {
+            cartageErrand.Id = CartageErrandsNextId++;
             CartageErrands.Add(cartageErrand.Id, cartageErrand);
             return cartageErrand.Id;
         }
+        void IDataSource.DeleteCartageErrand(CartageErrand cartageErrand)
+        {
+            if (!CartageErrands.Remove(cartageErrand.Id))
+                throw new CartageErrandNotDeletedException();
+        }
+        //public int UpdateCartageErrand(CartageErrand cartageErrand)
+        //{
 
-        public int UpdateCartageOffer(CartageOffer cartageOffer)
+        //    if (!CartageErrands.ContainsKey(cartageErrand.Id))
+        //    {
+        //        throw new UserNotFoundException();
+        //    }
+        //    CartageErrands.Remove(cartageErrand.Id);
+        //    CartageErrands.Add(cartageErrand.Id, cartageErrand);
+        //    return cartageErrand.Id;
+        //}
+        #endregion
+
+        public IEnumerable<CartageOffer> GetCartageOffersForUser(int id)//TODO implement GetCartageOffersForUser in DataSourceInMemory
         {
             throw new NotImplementedException();
         }
 
-        public int UpdateUser(User user)
+        public Task SaveChangesAsync()//TODO implement SaveChangesAsync in DataSourceInMemory
         {
-            if (!Users.ContainsKey(user.Id))
-            {
-                throw new UserNotFoundException();
-            }
-            Users.Remove(user.Id);
-            Users.Add(user.Id, user);
-            return user.Id;
-        }
-
-        void IDataSource.DeleteCartageErrand(CartageErrand cartageErrand)
-        {
-            if(!CartageErrands.Remove(CartageErrands.SingleOrDefault(x => x.Value.Equals(cartageErrand)).Key))//TODO rzeczywiste sprawdzanie czy się zgadza
-                throw new CartageErrandNotDeletedException();
-        }
-
-        void IDataSource.DeleteUser(User user)
-        {
-            if (!Users.Remove(Users.SingleOrDefault(x => x.Value.Equals(user)).Key))//TODO rzeczywiste sprawdzanie czy się zgadza
-                throw new UserNotDeletedException();
+            throw new NotImplementedException();
         }
     }
 }
