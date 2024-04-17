@@ -15,6 +15,7 @@ namespace Domain.UnitTests
     [TestFixture]
     public class CartageErrandTests
     {
+        private (User.User, string?, string?, string?, int, float, int, DateTime, CartageErrandExecutionStatus) CorrectValuesTuple;
         private static CartageErrand.CartageErrand CreateAcceptableCartageErrand(CartageErrandExecutionStatus executionStatus)
         {
             return new CartageErrand.CartageErrand(
@@ -33,7 +34,17 @@ namespace Domain.UnitTests
         [SetUp]
         public void Setup()
         {
-            
+            CorrectValuesTuple = (
+                new User.User("Mr. Founder", "mrF0under@domain.com"),
+                "wooden planks",
+                "Radom ul. Zagajnikowa 3s",
+                "Poznań al. Meblowa 28/3",
+                400,
+                15.3f,
+                4000,
+                DateTime.Now + new TimeSpan(12, 0, 0),
+                CartageErrandExecutionStatus.Active
+            );
         }
 
         [Test]
@@ -42,18 +53,9 @@ namespace Domain.UnitTests
         [TestCase("     ")]
         public void CartageErrandCannotBeCreatedWithEmptyGoodsName(string? goodsName)
         {
+            CorrectValuesTuple.Item2 = goodsName;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(
-                         new User.User("Mr. Founder", "mrF0under@domain.com"),
-                         goodsName!,
-                         "Radom ul. Zagajnikowa 3s",
-                         "Poznań al. Meblowa 28/3",
-                         400,
-                         15.3f,
-                         4000,
-                         DateTime.Now + new TimeSpan(12, 0, 0),
-                         CartageErrandExecutionStatus.Active
-                     )
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
                 );
         }
 
@@ -63,18 +65,9 @@ namespace Domain.UnitTests
         [TestCase("    ")]
         public void CartageErrandCannotBeCreatedWithEmptyStartingAdress(string? startingAdress)
         {
+            CorrectValuesTuple.Item3 = startingAdress;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(
-                         new User.User("Mr. Founder", "mrF0under@domain.com"),
-                         "deski",
-                         startingAdress!,
-                         "Poznań al. Meblowa 28/3",
-                         400,
-                         15.3f,
-                         4000,
-                         DateTime.Now + new TimeSpan(12, 0, 0),
-                         CartageErrandExecutionStatus.Active
-                     )
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
                 );
         }
 
@@ -84,18 +77,9 @@ namespace Domain.UnitTests
         [TestCase("      ")]
         public void CartageErrandCannotBeCreatedWithEmptyDestinationAdress(string? destinationAdress)
         {
+            CorrectValuesTuple.Item4 = destinationAdress;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(
-                         new User.User("Mr. Founder", "mrF0under@domain.com"),
-                         "deski",
-                         "Radom ul. Zagajnikowa 3s",
-                         destinationAdress!,
-                         400,
-                         15.3f,
-                         4000,
-                         DateTime.Now + new TimeSpan(12, 0, 0),
-                         CartageErrandExecutionStatus.Active
-                     )
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
                 );
         }
 
@@ -104,38 +88,9 @@ namespace Domain.UnitTests
         [TestCase(-1)]
         public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroDistance(int distance)
         {
+            CorrectValuesTuple.Item5 = distance;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(
-                         new User.User("Mr. Founder", "mrF0under@domain.com"),
-                         "deski",
-                         "Radom ul. Zagajnikowa 3s",
-                         "Poznań al. Meblowa 28/3",
-                         distance,
-                         15.3f,
-                         4000,
-                         DateTime.Now + new TimeSpan(12, 0, 0),
-                         CartageErrandExecutionStatus.Active
-                     )
-                );
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(-1)]
-        public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroMaximumPrice(int maximumPrice)
-        {
-            Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(
-                         new User.User("Mr. Founder", "mrF0under@domain.com"),
-                         "deski",
-                         "Radom ul. Zagajnikowa 3s",
-                         "Poznań al. Meblowa 28/3",
-                         400,
-                         15.3f,
-                         maximumPrice,
-                         DateTime.Now + new TimeSpan(12, 0, 0),
-                         CartageErrandExecutionStatus.Active
-                     )
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
                 );
         }
 
@@ -144,18 +99,20 @@ namespace Domain.UnitTests
         [TestCase(-0.01f)]
         public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroWeight(float weight)
         {
+            CorrectValuesTuple.Item6 = weight;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(
-                         new User.User("Mr. Founder", "mrF0under@domain.com"),
-                         "deski",
-                         "Radom ul. Zagajnikowa 3s",
-                         "Poznań al. Meblowa 28/3",
-                         400,
-                         weight,
-                         4000,
-                         DateTime.Now + new TimeSpan(12, 0, 0),
-                         CartageErrandExecutionStatus.Active
-                     )
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                );
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void CartageOfferCannotBeCreatedWithLowerOrEqualZeroMaximumPrice(int maximumPrice)
+        {
+            CorrectValuesTuple.Item7 = maximumPrice;
+            Assert.Throws<ArgumentException>(
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
                 );
         }
 
