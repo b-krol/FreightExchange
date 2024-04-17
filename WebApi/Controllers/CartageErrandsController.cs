@@ -39,17 +39,19 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("Active")]
-        public IEnumerable<CartageErrandDto> GetActiveCartageErrands()
+        public async Task<IEnumerable<CartageErrandDto>> GetActiveCartageErrands()
         {
-            return GetCartageErrands().Where(
+            var allCartageErrands = await GetCartageErrands();
+            return allCartageErrands.Where(
                     (cartageErrand) => cartageErrand.IsActive ?? false
                 );
         }
 
         [HttpGet("Finished")]
-        public IEnumerable<CartageErrandDto> GetFinishedCartageErrands()
+        public async Task<IEnumerable<CartageErrandDto>> GetFinishedCartageErrands()
         {
-            return GetCartageErrands().Where(
+            var allCartageErrands = await GetCartageErrands();
+            return allCartageErrands.Where(
                     (cartageErrand) => !cartageErrand.IsActive ?? false
                 );
         }
@@ -76,7 +78,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> AddCartageErrand(CartageErrandDto cartageErrandDto)
         {
             var newCartageErrandId = await CartageErrandService.Add(cartageErrandDto);
-            return Created($"{Request.GetEncodedUrl()}/{newCartageErrandId}", CartageErrandService.GetById(newCartageErrandId));
+            return Created($"{Request.GetEncodedUrl()}/{newCartageErrandId}", await CartageErrandService.GetById(newCartageErrandId));
         }
 
     }
