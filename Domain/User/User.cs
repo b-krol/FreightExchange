@@ -19,6 +19,19 @@ namespace Domain.User
             Email = email.Trim();
         }
 
+        public void SetName(string name)
+        {
+            ThrowIfNullOrEmpty(name);
+            Name = name.Trim();
+        }
+
+        public void SetEmail(string email)
+        {
+            ThrowIfNullOrEmpty(email);
+            ThrowIfEmailIsIncorrect(email);
+            Email = email.Trim();
+        }
+
         private void ThrowIfEmailIsIncorrect(string email)
         {
             if (!email.Contains("@")) throw new ArgumentException();
