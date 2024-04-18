@@ -1,5 +1,7 @@
-﻿using Application.Users;
+﻿using Application.CartageOffers;
+using Application.Users;
 using Domain.CartageErrand;
+using Domain.CartageOffer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +46,31 @@ namespace Application.CartageErrands
             };
         }
 
+        private static CartageOfferDto CreateCartageOfferDto(CartageOffer cartageOffer)
+        {
+            bool hasBeenConsidered;
+            bool hasBeenAccepted = false;
+            if (cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Waiting)
+            {
+                hasBeenConsidered = false;
+            }
+            else
+            {
+                hasBeenConsidered = true;
+                if(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
+                {
+                    hasBeenAccepted = true;
+                }
+            }
+            return new CartageOfferDto()
+            {
+                Id = cartageOffer.Id,
+                BidderId = cartageOffer.Applicant.Id,
+                Price = cartageOffer.Price,
+                HasBeenConsidered = hasBeenConsidered,
+                HasBeenAccepted = hasBeenAccepted
+            };
+        }
 
         public async Task<int> Add(CartageErrandDto cartageErrandDto)
         {
@@ -82,7 +109,9 @@ namespace Application.CartageErrands
         public async Task<CartageErrandDto> GetById(int id)
         {
             CartageErrand cartageErrand = await Source.GetCartageErrandById(id);
-            return CreateCartageErrandDto(cartageErrand);
+            var cartageErrandDto = CreateCartageErrandDto(cartageErrand);
+            cartageErrandDto.Offers = cartageErrand.GetSubmittedCartageOffers().Select(x => CreateCartageOfferDto(x)).ToList();
+            return cartageErrandDto;
         }
 
         //public CartageErrandDto Update(CartageErrandDto cartageErrandDto)
