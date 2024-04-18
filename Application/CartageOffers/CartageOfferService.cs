@@ -13,27 +13,28 @@ namespace Application.CartageOffers
         {
             Source = source;
         }
-        public int Create(CartageOfferDto cartageoffer)
+
+        public Task<int> Add(CartageOfferDto cartageoffer)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public Task Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CartageOfferDto> GetAll()
+        public Task<IEnumerable<CartageOfferDto>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public CartageOfferDto GetById(int id)
+        public Task<CartageOfferDto> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public CartageOfferDto Update(CartageOfferDto cartageoffer)
+        public Task<int> UpdateAsync(CartageOfferDto cartageoffer)
         {
             throw new NotImplementedException();
         }
