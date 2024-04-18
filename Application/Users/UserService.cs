@@ -23,8 +23,6 @@ namespace Application.Users
         private static User CreateUserFromDto(UserDto user)
         {
             var newUser = new User(user.Name, user.Email);
-            if(user.Id != null)
-                newUser.Id = (int)user.Id;
             return newUser;
         }
 
