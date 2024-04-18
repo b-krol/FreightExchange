@@ -6,10 +6,10 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartageOfferController : ControllerBase
+    public class CartageOffersController : ControllerBase
     {
         private ICartageOfferService CartageOfferService { get;}
-        public CartageOfferController(ICartageOfferService cartageOfferService)
+        public CartageOffersController(ICartageOfferService cartageOfferService)
         {
             CartageOfferService = cartageOfferService;
         }
