@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.CartageOffers;
 
 namespace Application
 {
@@ -16,6 +17,7 @@ namespace Application
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICartageErrandService, CartageErrandService>();
+            services.AddScoped<ICartageOfferService, CartageOfferService>();
             return services;
         }
     }
