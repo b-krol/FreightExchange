@@ -66,7 +66,8 @@ namespace WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUser(UserDto userDto)
         {
-            return Ok(await UserService.UpdateAsync(userDto));
+            int id = await UserService.UpdateAsync(userDto);
+            return Ok(await UserService.GetById(id));
         }
 
         //[HttpPatch("{id}")]

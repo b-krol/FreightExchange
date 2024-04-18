@@ -57,7 +57,7 @@ namespace Application.Users
             return CreateUserDto(user);
         }
 
-        public async Task<UserDto> UpdateAsync(UserDto userDto)
+        public async Task<int> UpdateAsync(UserDto userDto)
         {
             if (!userDto.Id.HasValue)
                 throw new UserNotFoundException();
@@ -66,7 +66,7 @@ namespace Application.Users
             user.SetEmail(userDto.Email);
             
             await Source.SaveChangesAsync();
-            return CreateUserDto(user);
+            return user.Id;
         }
     }
 }
