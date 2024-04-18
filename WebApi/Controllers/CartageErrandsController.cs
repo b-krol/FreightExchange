@@ -52,33 +52,6 @@ namespace WebApi.Controllers
                 );
         }
 
-        [HttpGet("Finished")]
-        public async Task<IEnumerable<CartageErrandDto>> GetFinishedCartageErrands()
-        {
-            var allCartageErrands = await GetCartageErrands();
-            return allCartageErrands.Where(
-                    (cartageErrand) => !cartageErrand.IsActive ?? false
-                );
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCartageErrandById(int id)
-        {
-            try
-            {
-                await CartageErrandService.Delete(id);
-                return Ok();
-            }
-            catch (CartageErrandNotFoundException exception)
-            {
-                return NotFound(exception.Message);
-            }
-            catch (CartageErrandNotDeletedException exception)
-            {
-                return StatusCode(500, exception.Message);
-            }
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddCartageErrand(CartageErrandDto cartageErrandDto)
         {
