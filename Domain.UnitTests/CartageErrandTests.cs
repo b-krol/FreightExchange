@@ -15,8 +15,8 @@ namespace Domain.UnitTests
     [TestFixture]
     public class CartageErrandTests
     {
-        private (User.User, string?, string?, string?, int, float, int, DateTime, CartageErrandExecutionStatus) CorrectValuesTuple;
-        private static CartageErrand.CartageErrand CreateAcceptableCartageErrand(CartageErrandExecutionStatus executionStatus)
+        private (User.User, string?, string?, string?, int, float, int, DateTime) CorrectValuesTuple;
+        private static CartageErrand.CartageErrand CreateAcceptableCartageErrand()
         {
             return new CartageErrand.CartageErrand(
                 new User.User("Mr. Founder", "mrF0under@domain.com"),
@@ -26,8 +26,7 @@ namespace Domain.UnitTests
                 400,
                 15.3f,
                 4000,
-                DateTime.Now + new TimeSpan(12, 0, 0),
-                executionStatus
+                DateTime.Now + new TimeSpan(12, 0, 0)
                 );
         }
 
@@ -42,8 +41,7 @@ namespace Domain.UnitTests
                 400,
                 15.3f,
                 4000,
-                DateTime.Now + new TimeSpan(12, 0, 0),
-                CartageErrandExecutionStatus.Active
+                DateTime.Now + new TimeSpan(12, 0, 0)
             );
         }
 
@@ -55,7 +53,7 @@ namespace Domain.UnitTests
         {
             CorrectValuesTuple.Item2 = goodsName;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8)
                 );
         }
 
@@ -67,7 +65,7 @@ namespace Domain.UnitTests
         {
             CorrectValuesTuple.Item3 = startingAdress;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8)
                 );
         }
 
@@ -79,7 +77,7 @@ namespace Domain.UnitTests
         {
             CorrectValuesTuple.Item4 = destinationAdress;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8)
                 );
         }
 
@@ -90,7 +88,7 @@ namespace Domain.UnitTests
         {
             CorrectValuesTuple.Item5 = distance;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8)
                 );
         }
 
@@ -101,7 +99,7 @@ namespace Domain.UnitTests
         {
             CorrectValuesTuple.Item6 = weight;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8)
                 );
         }
 
@@ -112,16 +110,12 @@ namespace Domain.UnitTests
         {
             CorrectValuesTuple.Item7 = maximumPrice;
             Assert.Throws<ArgumentException>(
-                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8, CorrectValuesTuple.Item9)
+                    () => new CartageErrand.CartageErrand(CorrectValuesTuple.Item1, CorrectValuesTuple.Item2!, CorrectValuesTuple.Item3!, CorrectValuesTuple.Item4!, CorrectValuesTuple.Item5, CorrectValuesTuple.Item6, CorrectValuesTuple.Item7, CorrectValuesTuple.Item8)
                 );
         }
 
         [Test]
-        [TestCase(CartageErrandExecutionStatus.Active)]
-        [TestCase(CartageErrandExecutionStatus.Cancelled)]
-        [TestCase(CartageErrandExecutionStatus.Failure)]
-        [TestCase(CartageErrandExecutionStatus.Success)]
-        public void CartageOfferCanBeCreatedWithCorrectData(CartageErrandExecutionStatus executionStatus)
+        public void CartageOfferCanBeCreatedWithCorrectData()
         {
             var founder = new User.User("Mr. Founder", "mrF0under@domain.com");
             var goodsName = "wooden planks  ";
@@ -139,8 +133,7 @@ namespace Domain.UnitTests
                 distance,
                 weight,
                 maxPrice,
-                endDate,
-                executionStatus
+                endDate
                 );
 
             Assert.That(x.Founder, Is.EqualTo(founder));
@@ -151,43 +144,45 @@ namespace Domain.UnitTests
             Assert.That(x.Weight, Is.EqualTo(weight));
             Assert.That(x.MaximumPrice, Is.EqualTo(maxPrice));
             Assert.That(x.EndDate, Is.EqualTo(endDate));
-            Assert.That(x.ExecutionStatus, Is.EqualTo(executionStatus));
+            Assert.That(x.ExecutionStatus, Is.EqualTo(CartageErrandExecutionStatus.Active));
         }
 
         [Test]
-        [TestCase(CartageErrandExecutionStatus.Cancelled)]
-        [TestCase(CartageErrandExecutionStatus.Failure)]
-        [TestCase(CartageErrandExecutionStatus.Success)]
-        public void CartageErrandCannotGetCancelledWhenItIsNotActive(CartageErrandExecutionStatus executionStatus)
+        public void CartageErrandCannotGetCancelledWhenItIsNotActive()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(executionStatus);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
+            testCartageErrand.Cancel();
             Assert.Throws<CartageErrandExecutionStatusChangeNotAllowedException>(() => testCartageErrand.Cancel());
         }
 
         [Test]
-        [TestCase(CartageErrandExecutionStatus.Cancelled)]
-        [TestCase(CartageErrandExecutionStatus.Failure)]
-        [TestCase(CartageErrandExecutionStatus.Success)]
-        public void CartageErrandCannotGetFinishedWhenItIsNotActive(CartageErrandExecutionStatus executionStatus)
+        public void CartageErrandCannotGetFinishedWhenItIsNotActive()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(executionStatus);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
+            testCartageErrand.Finish();
             Assert.Throws<CartageErrandExecutionStatusChangeNotAllowedException>(() => testCartageErrand.Finish());
         }
 
         [Test]
-        [TestCase(CartageErrandExecutionStatus.Cancelled)]
-        [TestCase(CartageErrandExecutionStatus.Failure)]
-        [TestCase(CartageErrandExecutionStatus.Success)]
-        public void CartageErrandCannotReceiveNewCartageOffersWhenItIsNotActive(CartageErrandExecutionStatus executionStatus)
+        public void CartageErrandCannotReceiveNewCartageOffersWhenItIsFinished()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(executionStatus);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
+            testCartageErrand.Finish();
+            Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(() => testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer()));
+        }
+
+        [Test]
+        public void CartageErrandCannotReceiveNewCartageOffersWhenItIsCancelled()
+        {
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
+            testCartageErrand.Cancel();
             Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(() => testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer()));
         }
 
         [Test]
         public void CartageErrandCanReceiveNewCartageOffersFittingMaximumPriceWhenItIsInActiveState()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
 
             int N = 3;
             for(int i = 0; i < N; i++)
@@ -201,7 +196,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToChangeItsStatusToCancelledAfterItGetsCancelled()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
 
             testCartageErrand.Cancel();
             
@@ -211,7 +206,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToChangeItsStatusToSuccessAfterItGetsFinishedWhileHavingAtLeastOneCartageOffer()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
 
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
 
@@ -223,7 +218,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToChangeItsStatusToFailureAfterItGetsFinishedWhileHavingNoAnyCartageOffer()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
 
             testCartageErrand.Finish();
 
@@ -233,7 +228,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToChooseTheCheapestOfferAfterItGetsFinished()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
             var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
 
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
@@ -247,7 +242,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandCannotAddCartageOfferThatOffersPriceHigherThanMaximumPrice()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
             Assert.Throws<CartageErrandAddingNewCartageOfferNotAcceptedException>(
                     () => testCartageErrand.AddOffer(testCartageErrand.CreateUnacceptableOffer())
                 );
@@ -256,7 +251,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToReturnCheapestOfReceivedCartageOffersWhenAskedForCheapestOffer()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
             var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
 
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
@@ -272,7 +267,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToChangeAllCartageOffersConsiderationStatusToRejectedWhenCancelled()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
 
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
@@ -286,7 +281,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageErrandHasToChangeWinningCartageOfferConsiderationStatusToAcceptedAndRestToRejectedWhenFinishedWithAtLeastOneOffer()
         {
-            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand(CartageErrandExecutionStatus.Active);
+            CartageErrand.CartageErrand testCartageErrand = CreateAcceptableCartageErrand();
 
             var cheapestAcceptableOffer = testCartageErrand.CreateCheapestAcceptableOffer();
             testCartageErrand.AddOffer(testCartageErrand.CreateAcceptableOffer());
