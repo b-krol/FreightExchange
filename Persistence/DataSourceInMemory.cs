@@ -146,6 +146,25 @@ namespace Persistence
         //}
         #endregion
 
+        #region CartageOffers
+        public Task<IEnumerable<CartageOffer>> GetCartageOffers()
+        {
+            throw new NotImplementedException();
+        }
+        public Task<CartageOffer> GetCartageOfferById(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public Task DeleteCartageOffer(CartageOffer cartageOffer)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<int> AddCartageOffer(CartageOffer cartageOffer)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
         public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int id)//TODO implement GetCartageOffersForUser in DataSourceInMemory
         {
             return Task.FromResult((IEnumerable<CartageOffer>)CartageErrands.Values.Where(x => x.GetSubmittedCartageOffers().Where(x => x.Applicant.Id == id) != null));

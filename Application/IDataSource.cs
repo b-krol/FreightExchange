@@ -73,11 +73,13 @@ namespace Application
         #endregion
 
         #region CartageOffers
-        Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId);
-        //CartageErrand GetCartageOfferById(int id);
-        //void DeleteCartageOffer(CartageOffer cartageOffer);
-        //int AddCartageOffer(CartageOffer cartageOffer);
-        //int UpdateCartageOffer(CartageOffer cartageOffer);
+        Task<IEnumerable<CartageOffer>> GetCartageOffers();
+        Task<CartageOffer> GetCartageOfferById(int id);
+        Task DeleteCartageOffer(CartageOffer cartageOffer);
+        Task<int> AddCartageOffer(CartageOffer cartageOffer);
         #endregion
+
+        Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId);
+
     }
 }
