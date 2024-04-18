@@ -34,7 +34,7 @@ namespace Domain.User
 
         private void ThrowIfEmailIsIncorrect(string email)
         {
-            if (!email.Contains("@")) throw new ArgumentException();
+            if (!email.Contains("@")) throw new ArgumentException("Email has to cointain @ symbol");
         }
 
         private void ThrowIfNullOrEmpty(string value)
