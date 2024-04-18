@@ -74,8 +74,9 @@ namespace Application.CartageErrands
 
         public async Task<int> Add(CartageErrandDto cartageErrandDto)
         {
+            var founder = await Source.GetUserById(cartageErrandDto.FounderId);
             CartageErrand newCartageErrand = new CartageErrand(
-                    await Source.GetUserById(cartageErrandDto.FounderId),
+                    founder,
                     cartageErrandDto.GoodsName,
                     cartageErrandDto.StartingAdress,
                     cartageErrandDto.DestinationAdress,
@@ -83,9 +84,11 @@ namespace Application.CartageErrands
                     cartageErrandDto.Weight,
                     cartageErrandDto.MaximumPrice,
                     cartageErrandDto.EndDate,
-                    CartageErrandExecutionStatus.Active
+                    CartageErrandExecutionStatus.Active//TODO jako domyślna wartość
                 );
-            return await Source.AddCartageErrand(newCartageErrand);
+            await Source.AddCartageErrand(newCartageErrand);//TODO metoda zwróci voida nie int
+            await Source.SaveChangesAsync();
+            return newCartageErrand.Id;
         }
 
         public async Task<IEnumerable<CartageErrandDto>> GetAll()
@@ -106,23 +109,6 @@ namespace Application.CartageErrands
             cartageErrandDto.Offers = cartageErrand.GetSubmittedCartageOffers().Select(x => CreateCartageOfferDto(x)).ToList();
             return cartageErrandDto;
         }
-
-        //public CartageErrandDto Update(CartageErrandDto cartageErrandDto)
-        //{
-        //    CartageErrand newCartageErrand = new Domain.CartageErrand.CartageErrand(
-        //            Source.GetUserById(cartageErrandDto.FounderId),
-        //            cartageErrandDto.GoodsName,
-        //            cartageErrandDto.StartingAdress,
-        //            cartageErrandDto.DestinationAdress,
-        //            cartageErrandDto.Distance,
-        //            cartageErrandDto.Weight,
-        //            cartageErrandDto.MaximumPrice,
-        //            cartageErrandDto.EndDate,
-        //            CartageErrandExecutionStatus.Active
-        //        );
-        //    int newCartageErrandId = Source.UpdateCartageErrand(newCartageErrand);
-        //    return GetById(newCartageErrandId);
-        //}
 
     }
 }

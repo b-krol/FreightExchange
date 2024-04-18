@@ -43,15 +43,15 @@ namespace Application.CartageOffers
 
         public async Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto)
         {
-            var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
-            var bidder = await Source.GetUserById(cartageOfferDto.BidderId);
-            return cartageErrand.AddOffer(
-                    new CartageOffer(
-                            bidder,
-                            cartageOfferDto.Price,
-                            CartageOfferConsiderationStatus.Waiting
-                        )
-                );
+            //var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
+            //var bidder = await Source.GetUserById(cartageOfferDto.BidderId);
+            //return cartageErrand.AddOffer(
+            //        new CartageOffer(
+            //                bidder,
+            //                cartageOfferDto.Price,
+            //                CartageOfferConsiderationStatus.Waiting
+            //            )
+            //    );
             throw new NotImplementedException();
         }
 
