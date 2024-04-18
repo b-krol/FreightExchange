@@ -1,5 +1,6 @@
 ﻿using Application;
 using Application.CartageErrands;
+using Application.CartageOffers;
 using Application.Users;
 using Domain.CartageErrand;
 using Domain.CartageOffer;
@@ -58,7 +59,9 @@ namespace Persistence
                         ){ Id = 2 }
             }
         };
+        private static Dictionary<int, CartageOffer> CartageOffers = new Dictionary<int, CartageOffer>() { };
         private static int CartageErrandsNextId = CartageErrands.Count() + 1;
+        private static int CartageOffersNextId = CartageOffers.Count() + 1;
         private static int UsersNextId = Users.Count() + 1;
 
         #region users
@@ -149,19 +152,30 @@ namespace Persistence
         #region CartageOffers
         public Task<IEnumerable<CartageOffer>> GetCartageOffers()
         {
-            throw new NotImplementedException();
+            return Task.FromResult((IEnumerable<CartageOffer>)CartageOffers);
         }
         public Task<CartageOffer> GetCartageOfferById(int id)
         {
-            throw new NotImplementedException();
+            var x = CartageOffers.GetValueOrDefault(id);
+            if (x == null)
+            {
+                throw new CartageOfferNotFoundException();
+            }
+            return Task.FromResult(x);
         }
         public Task DeleteCartageOffer(CartageOffer cartageOffer)
         {
-            throw new NotImplementedException();
+            if (CartageOffers.Remove(cartageOffer.Id))
+            {
+                return Task.CompletedTask;
+            }
+            throw new CartageOfferNotDeletedException();
         }
         public Task<int> AddCartageOffer(CartageOffer cartageOffer)
         {
-            throw new NotImplementedException();
+            cartageOffer.Id = CartageOffersNextId++;
+            CartageOffers.Add(cartageOffer.Id, cartageOffer);
+            return Task.FromResult(cartageOffer.Id);
         }
         #endregion
 
