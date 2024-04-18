@@ -89,12 +89,10 @@ namespace WebApi.Controllers
 
         #region CartageOffers
         [HttpGet("{id}/Offers")]
-        public async Task<IEnumerable<CartageOfferDto>> GetCartageOffersByErrand(int id)
+        public async Task<IEnumerable<CartageOfferDto>> GetCartageOffersForErrand(int id)
         {
             return await CartageOfferService.GetAllByCartageErrand(id);
         }
-
-
 
         [HttpPost("{id}/Offers")]
         public async Task<IActionResult> AddCartageOffer(int id, CartageOfferDto cartageOfferDto)
