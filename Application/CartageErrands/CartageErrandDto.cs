@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Application.CartageOffers;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Application.CartageErrands
 {
@@ -14,6 +17,10 @@ namespace Application.CartageErrands
         public int MaximumPrice { get; init; }
         public DateTime EndDate { get; init; }
         public bool? IsActive { get; init; }
-        public int[]? OffersIds { get; init; }
+    }
+
+    public class CartageErrandWithOffersDto : CartageErrandDto
+    {
+        public ICollection<CartageOfferDto> Offers { get; init; }
     }
 }

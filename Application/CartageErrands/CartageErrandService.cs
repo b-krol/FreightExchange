@@ -40,8 +40,7 @@ namespace Application.CartageErrands
                 Weight = cartageErrand.Weight,
                 MaximumPrice = cartageErrand.MaximumPrice,
                 EndDate = cartageErrand.EndDate,
-                IsActive = isActive,
-                OffersIds = cartageOffersIds.ToArray()
+                IsActive = isActive
             };
         }
 
