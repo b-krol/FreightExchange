@@ -93,6 +93,15 @@ namespace WebApi.Controllers
         {
             return await CartageOfferService.GetAllByCartageErrand(id);
         }
+
+
+
+        [HttpPost("{id}/Offers")]
+        public async Task<IActionResult> AddCartageOffer(int id, CartageOfferDto cartageOfferDto)
+        {
+            var newCartageOfferId = await CartageOfferService.Add(id, cartageOfferDto);
+            return Created($"{Request.GetEncodedUrl()}/{newCartageOfferId}", await CartageOfferService.GetById(newCartageOfferId));
+        }
         #endregion
     }
 }

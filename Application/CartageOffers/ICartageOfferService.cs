@@ -8,10 +8,10 @@ namespace Application.CartageOffers
 {
     public interface ICartageOfferService
     {
-        Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int id);
+        Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int cartageErrandId);
         Task<CartageOfferDto> GetById(int id);
         Task Delete(int id);
-        Task<int> Add(CartageOfferDto cartageoffer);
-        Task<int> UpdateAsync(CartageOfferDto cartageoffer);
+        Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto);
+        Task<int> UpdateAsync(CartageOfferDto cartageOfferDto);
     }
 }

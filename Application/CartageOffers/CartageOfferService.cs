@@ -41,8 +41,17 @@ namespace Application.CartageOffers
             };
         }
 
-        public Task<int> Add(CartageOfferDto cartageoffer)
+        public async Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto)
         {
+            var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
+            var bidder = await Source.GetUserById(cartageOfferDto.BidderId);
+            return cartageErrand.AddOffer(
+                    new CartageOffer(
+                            bidder,
+                            cartageOfferDto.Price,
+                            CartageOfferConsiderationStatus.Waiting
+                        )
+                );
             throw new NotImplementedException();
         }
 
@@ -51,9 +60,9 @@ namespace Application.CartageOffers
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int id)
+        public async Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int cartageErrandId)
         {
-            var cartageErrand = await Source.GetCartageErrandById(id);
+            var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
             return cartageErrand.GetSubmittedCartageOffers().Select(CreateCartageOfferDto);
         }
 
