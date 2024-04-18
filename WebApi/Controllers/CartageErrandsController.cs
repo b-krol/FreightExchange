@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         [HttpGet("Active")]
         public async Task<IEnumerable<CartageErrandDto>> GetActiveCartageErrands()
         {
-            var allCartageErrands = await GetCartageErrands();
+            var allCartageErrands = await CartageErrandService.GetAll();
             return allCartageErrands.Where(
                     (cartageErrand) => cartageErrand.IsActive ?? false
                 );
