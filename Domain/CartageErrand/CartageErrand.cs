@@ -72,13 +72,14 @@ namespace Domain.CartageErrand
             return SubmittedCartageOffers.AsReadOnly();
         }
 
-        public void AddOffer(CartageOffer.CartageOffer cartageOffer)
+        public int AddOffer(CartageOffer.CartageOffer cartageOffer)
         {
             if(ExecutionStatus != CartageErrandExecutionStatus.Active)
                 throw new CartageErrandAddingNewCartageOfferNotAcceptedException($"CartageErrand {nameof(ExecutionStatus)} is not active");
             if (cartageOffer.Price > MaximumPrice)
                 throw new CartageErrandAddingNewCartageOfferNotAcceptedException($"Price surpassed {nameof(MaximumPrice)}");
             SubmittedCartageOffers.Add(cartageOffer);
+            throw new NotImplementedException("Method should assignd id to the offer and return it");//TODO finish AddOffer method in CartageErrand
         }
 
         public void Cancel()
