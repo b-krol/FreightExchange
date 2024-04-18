@@ -153,7 +153,7 @@ namespace Persistence
 
         public Task SaveChangesAsync()//TODO implement SaveChangesAsync in DataSourceInMemory
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }
