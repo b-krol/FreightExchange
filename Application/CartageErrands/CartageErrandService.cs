@@ -83,8 +83,7 @@ namespace Application.CartageErrands
                     cartageErrandDto.Distance,
                     cartageErrandDto.Weight,
                     cartageErrandDto.MaximumPrice,
-                    cartageErrandDto.EndDate,
-                    CartageErrandExecutionStatus.Active//TODO jako domyślna wartość
+                    cartageErrandDto.EndDate
                 );
             await Source.AddCartageErrand(newCartageErrand);//TODO metoda zwróci voida nie int
             await Source.SaveChangesAsync();

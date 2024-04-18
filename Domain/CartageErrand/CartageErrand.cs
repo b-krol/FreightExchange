@@ -21,7 +21,7 @@ namespace Domain.CartageErrand
         public CartageErrandExecutionStatus ExecutionStatus { get; private set; } = CartageErrandExecutionStatus.Active;
         private List<CartageOffer.CartageOffer> SubmittedCartageOffers = new List<CartageOffer.CartageOffer>();
 
-        public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate, CartageErrandExecutionStatus executionStatus)
+        public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate)
         {
             ThrowIfNullOrEmpty(goodsName);
             ThrowIfNullOrEmpty(startingAdress);
@@ -41,7 +41,6 @@ namespace Domain.CartageErrand
             Weight = weight;
             MaximumPrice = maximumPrice;
             EndDate = endDate;
-            ExecutionStatus = executionStatus;
         }
 
         private void ThrowIfNullOrEmpty(string value)
