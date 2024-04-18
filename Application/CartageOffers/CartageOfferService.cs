@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.CartageOffer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,32 @@ namespace Application.CartageOffers
             Source = source;
         }
 
+        private static CartageOfferDto CreateCartageOfferDto(CartageOffer cartageOffer)
+        {
+            bool hasBeenConsidered;
+            bool hasBeenAccepted = false;
+            if (cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Waiting)
+            {
+                hasBeenConsidered = false;
+            }
+            else
+            {
+                hasBeenConsidered = true;
+                if (cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
+                {
+                    hasBeenAccepted = true;
+                }
+            }
+            return new CartageOfferDto()
+            {
+                Id = cartageOffer.Id,
+                BidderId = cartageOffer.Applicant.Id,
+                Price = cartageOffer.Price,
+                HasBeenConsidered = hasBeenConsidered,
+                HasBeenAccepted = hasBeenAccepted
+            };
+        }
+
         public Task<int> Add(CartageOfferDto cartageoffer)
         {
             throw new NotImplementedException();
@@ -24,9 +51,10 @@ namespace Application.CartageOffers
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CartageOfferDto>> GetAll()
+        public async Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int id)
         {
-            throw new NotImplementedException();
+            var cartageErrand = await Source.GetCartageErrandById(id);
+            return cartageErrand.GetSubmittedCartageOffers().Select(CreateCartageOfferDto);
         }
 
         public Task<CartageOfferDto> GetById(int id)

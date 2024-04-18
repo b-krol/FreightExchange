@@ -1,4 +1,5 @@
 ﻿using Application.CartageErrands;
+using Application.CartageOffers;
 using Application.Users;
 using Domain.CartageErrand;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +15,15 @@ namespace WebApi.Controllers
     {
 
         private ICartageErrandService CartageErrandService { get; }
+        private ICartageOfferService CartageOfferService { get; }
 
-        public CartageErrandsController(ICartageErrandService cartageErrandService)
+        public CartageErrandsController(ICartageErrandService cartageErrandService, ICartageOfferService cartageOfferService)
         {
             CartageErrandService = cartageErrandService;
+            CartageOfferService = cartageOfferService;
         }
+
+        #region CartageErrands
         [HttpGet]
         public async Task<IEnumerable<CartageErrandDto>> GetCartageErrands()
         {
@@ -80,6 +85,14 @@ namespace WebApi.Controllers
             var newCartageErrandId = await CartageErrandService.Add(cartageErrandDto);
             return Created($"{Request.GetEncodedUrl()}/{newCartageErrandId}", await CartageErrandService.GetById(newCartageErrandId));
         }
+        #endregion
 
+        #region CartageOffers
+        [HttpGet("{id}/Offers")]
+        public async Task<IEnumerable<CartageOfferDto>> GetCartageOffersByErrand(int id)
+        {
+            return await CartageOfferService.GetAllByCartageErrand(id);
+        }
+        #endregion
     }
 }
