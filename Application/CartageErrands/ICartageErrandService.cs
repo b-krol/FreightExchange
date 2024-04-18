@@ -23,12 +23,6 @@ namespace Application.CartageErrands
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
         /// <exception cref="CartageErrand.CartageErrandNotDeletedException">Method throws CartageErrandNotDeletedException when can't delete specified CartageErrand</exception>
-        Task Delete(int id);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="CartageErrand"></param>
-        /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
         Task<int> Add(CartageErrandDto cartageErrandDto);
         /// <summary>
         /// 
