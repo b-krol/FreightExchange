@@ -32,7 +32,7 @@ namespace Application
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotCreatedException">Method throws UserNotCreatedException when can't create specified user</exception>
-        Task<int> AddUser(User user);
+        Task AddUser(User user);
         ///// <summary>
         ///// 
         ///// </summary>
@@ -62,7 +62,7 @@ namespace Application
         /// </summary>
         /// <param name="CartageErrand"></param>
         /// <exception cref="CartageErrand.CartageErrandNotCreatedException">Method throws CartageErrandNotCreatedException when can't create specified CartageErrand</exception>
-        Task<int> AddCartageErrand(CartageErrand cartageErrand);
+        Task AddCartageErrand(CartageErrand cartageErrand);
         ///// <summary>
         ///// 
         ///// </summary>
@@ -76,7 +76,7 @@ namespace Application
         Task<IEnumerable<CartageOffer>> GetCartageOffers();
         Task<CartageOffer> GetCartageOfferById(int id);
         Task DeleteCartageOffer(CartageOffer cartageOffer);
-        Task<int> AddCartageOffer(CartageOffer cartageOffer);
+        Task AddCartageOffer(CartageOffer cartageOffer);
         #endregion
 
         Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId);

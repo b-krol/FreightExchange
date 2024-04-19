@@ -76,11 +76,11 @@ namespace Persistence
             }
             return Task.FromResult(user);
         }
-        public Task<int> AddUser(User user)
+        public Task AddUser(User user)
         {
             user.Id = UsersNextId++;
             Users.Add(user.Id, user);
-            return Task.FromResult(user.Id);
+            return Task.CompletedTask;
         }
         public Task DeleteUser(User user)
         {
@@ -120,11 +120,11 @@ namespace Persistence
             }
             return Task.FromResult(cartageErrand);
         }
-        public Task<int> AddCartageErrand(CartageErrand cartageErrand)
+        public Task AddCartageErrand(CartageErrand cartageErrand)
         {
             cartageErrand.Id = CartageErrandsNextId++;
             CartageErrands.Add(cartageErrand.Id, cartageErrand);
-            return Task.FromResult(cartageErrand.Id);
+            return Task.CompletedTask;
         }
         public Task DeleteCartageErrand(CartageErrand cartageErrand)
         {
@@ -169,11 +169,11 @@ namespace Persistence
             }
             throw new CartageOfferNotDeletedException();
         }
-        public Task<int> AddCartageOffer(CartageOffer cartageOffer)
+        public Task AddCartageOffer(CartageOffer cartageOffer)
         {
             cartageOffer.Id = CartageOffersNextId++;
             CartageOffers.Add(cartageOffer.Id, cartageOffer);
-            return Task.FromResult(cartageOffer.Id);
+            return Task.CompletedTask;
         }
         #endregion
 
