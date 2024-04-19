@@ -56,7 +56,7 @@ namespace Application.UnitTests
         [Test]
         public void CartageErrandCannotBeAddedWithFounderIdOfNotExistingUser()
         {
-            var cartageErrandDto = CreateCartageErrandDto(1);
+            var cartageErrandDto = CreateCartageErrandDto(Rand.Next(2, 2000));
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetUserById(Arg.Is<int>(cartageErrandDto.FounderId)).Returns(Task.FromException<User>(new UserNotFoundException()));
@@ -69,7 +69,15 @@ namespace Application.UnitTests
         [Test]
         public void CartageErrandServiceHasToReturnIdOfCreatedCartageErrand()
         {
-            throw new NotImplementedException();
+            var cartageErrandDto = CreateCartageErrandDto(Rand.Next(2, 2000));
+            int cartageErrandId = Rand.Next(2, 2000);
+
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.When(x => x.AddCartageErrand(Arg.Any<CartageErrand>()))
+                .Do(y => y.Arg<CartageErrand>().Id = cartageErrandId);
+            var service = new CartageErrandService(dataSource);
+            
+            Assert.That(service.Add(cartageErrandDto).Result, Is.EqualTo(cartageErrandId));
         }
 
         [Test]
