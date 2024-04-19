@@ -115,5 +115,30 @@ namespace Application.UnitTests
             Assert.That(service.Add(cartageErrandId, cartageOfferDto).Result, Is.EqualTo(cartageOfferId));
             dataSource.Received(1).GetCartageErrandById(Arg.Is(cartageErrandId));
         }
+
+        //TODO implement CartageOfferServiceTests
+        [Test]
+        public void CartageOfferServiceHasToReturnDtoWithSetIdForRequestedObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void CartageOfferServiceHasToReturnDtoWithIdMatchingWithRequestedObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void CartageOfferServiceHasToReturnCollectionOfDtosWithSetIdForCartageErrand()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void CartageOfferServiceHasToReturnCollectionOfDtosForRequstedOffersForRequestedCartageErrand()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
