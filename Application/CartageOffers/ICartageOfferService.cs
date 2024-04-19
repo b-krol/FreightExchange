@@ -12,6 +12,5 @@ namespace Application.CartageOffers
         Task<CartageOfferDto> GetById(int id);
         Task Delete(int id);
         Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto);
-        Task<int> UpdateAsync(CartageOfferDto cartageOfferDto);
     }
 }

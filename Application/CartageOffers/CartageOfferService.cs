@@ -75,9 +75,5 @@ namespace Application.CartageOffers
             throw new NotImplementedException();
         }
 
-        public Task<int> UpdateAsync(CartageOfferDto cartageoffer)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
