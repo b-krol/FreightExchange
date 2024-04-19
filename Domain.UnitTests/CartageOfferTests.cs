@@ -23,8 +23,7 @@ namespace Domain.UnitTests
             Assert.Throws<ArgumentException>(
                     () => new CartageOffer.CartageOffer(
                         new User.User("Mr. Applicant", "Applicant@domain.com"),
-                        price,
-                        CartageOffer.CartageOfferConsiderationStatus.Waiting
+                        price
                     )
                 );
         }
@@ -36,8 +35,7 @@ namespace Domain.UnitTests
         {
             var newCartageOffer = new CartageOffer.CartageOffer(
                         new User.User("Mr. Applicant", "Applicant@domain.com"),
-                        price,
-                        CartageOffer.CartageOfferConsiderationStatus.Waiting);
+                        price);
             Assert.That(newCartageOffer.Price, Is.EqualTo(price));
         }
     }

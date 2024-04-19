@@ -14,13 +14,13 @@ namespace Domain.CartageOffer
         public int Price { get; set; }
         public CartageOfferConsiderationStatus ConsiderationStatus { get; set; }
 
-        public CartageOffer(User.User bidder, int requestedPrice, CartageOfferConsiderationStatus considerationStatus)
+        public CartageOffer(User.User bidder, int requestedPrice)
         {
             ThrowIfLessThanZero(requestedPrice);
 
             Bidder = bidder;
             Price = requestedPrice;
-            ConsiderationStatus = considerationStatus;
+            ConsiderationStatus = CartageOfferConsiderationStatus.Waiting;
         }
 
         private void ThrowIfLessThanZero(int value)
