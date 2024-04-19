@@ -11,7 +11,7 @@ namespace Application.CartageOffers
         public int? Id { get; init; }
         public int BidderId { get; init; }
         public int Price { get; init; }
-        public bool? HasBeenConsidered { get; init; }
-        public bool? HasBeenAccepted { get; init; }
+        public bool HasBeenConsidered { get; init; } = false;
+        public bool HasBeenAccepted { get; init; } = false;
     }
 }
