@@ -30,7 +30,8 @@ namespace Application.Users
         public async Task<int> Add(UserDto user)
         {
             User newUser = CreateUserFromDto(user);
-            return await Source.AddUser(newUser);
+            await Source.AddUser(newUser);
+            return newUser.Id;
         }
 
         public async Task Delete(int id)
