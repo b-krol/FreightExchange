@@ -65,7 +65,7 @@ namespace Application.CartageErrands
             return new CartageOfferDto()
             {
                 Id = cartageOffer.Id,
-                BidderId = cartageOffer.Applicant.Id,
+                BidderId = cartageOffer.Bidder.Id,
                 Price = cartageOffer.Price,
                 HasBeenConsidered = hasBeenConsidered,
                 HasBeenAccepted = hasBeenAccepted

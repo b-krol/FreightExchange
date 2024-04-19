@@ -179,7 +179,7 @@ namespace Persistence
 
         public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int id)//TODO implement GetCartageOffersForUser in DataSourceInMemory
         {
-            return Task.FromResult((IEnumerable<CartageOffer>)CartageErrands.Values.Where(x => x.GetSubmittedCartageOffers().Where(x => x.Applicant.Id == id) != null));
+            return Task.FromResult((IEnumerable<CartageOffer>)CartageErrands.Values.Where(x => x.GetSubmittedCartageOffers().Where(x => x.Bidder.Id == id) != null));
             throw new NotImplementedException();
         }
 

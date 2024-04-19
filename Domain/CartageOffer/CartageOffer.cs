@@ -10,15 +10,15 @@ namespace Domain.CartageOffer
     public class CartageOffer
     {
         public int Id {  get; set; }
-        public User.User Applicant {  get; set; }
+        public User.User Bidder {  get; set; }
         public int Price { get; set; }
         public CartageOfferConsiderationStatus ConsiderationStatus { get; set; }
 
-        public CartageOffer(User.User applicant, int requestedPrice, CartageOfferConsiderationStatus considerationStatus)
+        public CartageOffer(User.User bidder, int requestedPrice, CartageOfferConsiderationStatus considerationStatus)
         {
             ThrowIfLessThanZero(requestedPrice);
 
-            Applicant = applicant;
+            Bidder = bidder;
             Price = requestedPrice;
             ConsiderationStatus = considerationStatus;
         }

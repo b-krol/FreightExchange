@@ -260,7 +260,7 @@ namespace Domain.UnitTests
             var x = testCartageErrand.GetCheapestOfferOrDefault()!;
 
             Assert.That(x.Id, Is.EqualTo(cheapestAcceptableOffer.Id));
-            Assert.That(x.Applicant.Id, Is.EqualTo(cheapestAcceptableOffer.Applicant.Id));
+            Assert.That(x.Bidder.Id, Is.EqualTo(cheapestAcceptableOffer.Bidder.Id));
             Assert.That(x.Price, Is.EqualTo(cheapestAcceptableOffer.Price));
         }
 
