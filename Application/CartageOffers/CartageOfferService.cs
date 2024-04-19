@@ -51,7 +51,7 @@ namespace Application.CartageOffers
                 bidder,
                 cartageOfferDto.Price
                 );
-            await Source.AddCartageOffer(newCartageOffer);//TODO metoda zwróci voida nie int
+            await Source.AddCartageOffer(newCartageOffer);
 
             cartageErrand.AddOffer(newCartageOffer);
 

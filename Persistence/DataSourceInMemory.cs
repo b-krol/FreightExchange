@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace Persistence
 {
     internal class DataSourceInMemory : IDataSource
-    {//TODO implement CartageOffer related methods
+    {
 
         private static Dictionary<int, User> Users = new Dictionary<int, User>()
         {
@@ -94,16 +94,6 @@ namespace Persistence
             }
             
         }
-        //public int UpdateUser(User user)
-        //{
-        //    if (!Users.ContainsKey(user.Id))
-        //    {
-        //        throw new UserNotFoundException();
-        //    }
-        //    Users.Remove(user.Id);
-        //    Users.Add(user.Id, user);
-        //    return user.Id;
-        //}
         #endregion
 
         #region CartageErrands
@@ -183,7 +173,7 @@ namespace Persistence
             throw new NotImplementedException();
         }
 
-        public Task SaveChangesAsync()//TODO implement SaveChangesAsync in DataSourceInMemory
+        public Task SaveChangesAsync()
         {
             return Task.CompletedTask;
         }

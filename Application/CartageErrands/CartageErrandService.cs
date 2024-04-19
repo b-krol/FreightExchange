@@ -85,7 +85,7 @@ namespace Application.CartageErrands
                     cartageErrandDto.MaximumPrice,
                     cartageErrandDto.EndDate
                 );
-            await Source.AddCartageErrand(newCartageErrand);//TODO metoda zwróci voida nie int
+            await Source.AddCartageErrand(newCartageErrand);
             await Source.SaveChangesAsync();
             return newCartageErrand.Id;
         }
