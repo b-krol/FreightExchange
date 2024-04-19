@@ -98,5 +98,22 @@ namespace Application.UnitTests
             dataSource.Received(1).GetCartageErrandById(Arg.Is(cartageErrandId));
             dataSource.Received(1).SaveChangesAsync();
         }
+
+        [Test]
+        public void CartageOfferServiceHasToReturnIdOfCreatedCartageOffer()
+        {
+            var cartageOfferDto = CreateCartageOfferDto();
+            int cartageErrandId = Rand.Next(2, 2000);
+            int cartageOfferId = Rand.Next(2, 2000);
+
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.GetCartageErrandById(Arg.Is<int>(cartageErrandId)).Returns(CreateCorrectCartageErrand(cartageErrandId));
+            dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
+                .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);
+            var service = new CartageOfferService(dataSource);
+
+            Assert.That(service.Add(cartageErrandId, cartageOfferDto).Result, Is.EqualTo(cartageOfferId));
+            dataSource.Received(1).GetCartageErrandById(Arg.Is(cartageErrandId));
+        }
     }
 }
