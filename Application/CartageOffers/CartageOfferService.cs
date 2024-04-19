@@ -1,4 +1,5 @@
-﻿using Domain.CartageOffer;
+﻿using Domain.CartageErrand;
+using Domain.CartageOffer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,16 +44,19 @@ namespace Application.CartageOffers
 
         public async Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto)
         {
-            //var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
-            //var bidder = await Source.GetUserById(cartageOfferDto.BidderId);
-            //return cartageErrand.AddOffer(
-            //        new CartageOffer(
-            //                bidder,
-            //                cartageOfferDto.Price,
-            //                CartageOfferConsiderationStatus.Waiting
-            //            )
-            //    );
-            throw new NotImplementedException();
+            CartageErrand cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
+            var bidder = await Source.GetUserById(cartageOfferDto.BidderId);
+
+            var newCartageOffer = new CartageOffer(
+                bidder,
+                cartageOfferDto.Price
+                );
+            await Source.AddCartageOffer(newCartageOffer);//TODO metoda zwróci voida nie int
+
+            cartageErrand.AddOffer(newCartageOffer);
+
+            await Source.SaveChangesAsync();
+            return newCartageOffer.Id;
         }
 
         public Task Delete(int id)
