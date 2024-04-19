@@ -81,7 +81,8 @@ namespace Application.UnitTests
             dataSource.GetCartageErrandById(Arg.Any<int>()).Returns(Task.FromResult(CreateCorrectCartageErrand(cartageErrandId)));
             var service = new CartageErrandService(dataSource);
 
-            Assert.That(dataSource.GetCartageErrandById(cartageErrandId).Result.Id, !Is.Null);
+            Assert.That(service.GetById(cartageErrandId).Result.Id, !Is.Null);
+            dataSource.Received(1).GetCartageErrandById(cartageErrandId);
         }
 
         [Test]
@@ -93,7 +94,8 @@ namespace Application.UnitTests
             dataSource.GetCartageErrandById(Arg.Any<int>()).Returns(Task.FromResult(CreateCorrectCartageErrand(cartageErrandId)));
             var service = new CartageErrandService(dataSource);
 
-            Assert.That(dataSource.GetCartageErrandById(cartageErrandId).Result.Id, Is.EqualTo(cartageErrandId));
+            Assert.That(service.GetById(cartageErrandId).Result.Id, Is.EqualTo(cartageErrandId));
+            dataSource.Received(1).GetCartageErrandById(cartageErrandId);
         }
     }
 }
