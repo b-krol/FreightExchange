@@ -16,7 +16,7 @@ namespace Application.CartageErrands
         public float Weight { get; init; }
         public int MaximumPrice { get; init; }
         public DateTime EndDate { get; init; }
-        public bool? IsActive { get; init; }
+        public bool IsActive { get; init; } = false;
     }
 
     public class CartageErrandWithOffersDto : CartageErrandDto

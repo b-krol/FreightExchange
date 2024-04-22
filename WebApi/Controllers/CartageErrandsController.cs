@@ -48,7 +48,7 @@ namespace WebApi.Controllers
         {
             var allCartageErrands = await CartageErrandService.GetAll();
             return allCartageErrands.Where(
-                    (cartageErrand) => cartageErrand.IsActive ?? false
+                    (cartageErrand) => cartageErrand.IsActive
                 );
         }
 
