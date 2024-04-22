@@ -14,6 +14,10 @@ namespace Domain.CartageOffer
         public int Price { get; set; }
         public CartageOfferConsiderationStatus ConsiderationStatus { get; set; }
 
+        private CartageOffer()
+        {
+            //required by ORM
+        }
         public CartageOffer(User.User bidder, int requestedPrice)
         {
             ThrowIfLessThanZero(requestedPrice);

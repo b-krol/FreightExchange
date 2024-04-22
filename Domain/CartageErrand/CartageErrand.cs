@@ -22,8 +22,12 @@ namespace Domain.CartageErrand
         public int MaximumPrice { get; private set; }
         public DateTime EndDate { get; private set; }
         public CartageErrandExecutionStatus ExecutionStatus { get; private set; } = CartageErrandExecutionStatus.Active;
-        private List<CartageOffer.CartageOffer> SubmittedCartageOffers = new List<CartageOffer.CartageOffer>();
+        internal List<CartageOffer.CartageOffer> SubmittedCartageOffers = new List<CartageOffer.CartageOffer>();
 
+        private CartageErrand()
+        {
+            //required by ORM
+        }
         public CartageErrand(User.User founder, string goodsName, string startingAdress, string destinationAdress, int distance, float weight, int maximumPrice, DateTime endDate)
         {
             ThrowIfNullOrEmpty(goodsName);
