@@ -9,9 +9,9 @@ namespace Application.CartageErrands
     {
         public int? Id { get; init; }
         public int FounderId { get; init; }
-        public string GoodsName { get; init; }
-        public string StartingAdress { get; init; }
-        public string DestinationAdress { get; init; }
+        public required string GoodsName { get; init; }
+        public required string StartingAdress { get; init; }
+        public required string DestinationAdress { get; init; }
         public int Distance { get; init; }
         public float Weight { get; init; }
         public int MaximumPrice { get; init; }
@@ -21,6 +21,6 @@ namespace Application.CartageErrands
 
     public class CartageErrandWithOffersDto : CartageErrandDto
     {
-        public ICollection<CartageOfferDto> Offers { get; init; }
+        public required ICollection<CartageOfferDto> Offers { get; init; }
     }
 }
