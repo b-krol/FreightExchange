@@ -17,35 +17,6 @@ namespace Application.CartageErrands
         {
             Source = source;
         }
-        private static CartageErrandDto CreateCartageErrandDto(CartageErrand cartageErrand)
-        {
-            bool isActive;
-            if (cartageErrand.ExecutionStatus == CartageErrandExecutionStatus.Active)
-                isActive = true;
-            else
-                isActive = false;
-
-            List<int> cartageOffersIds = new List<int>();
-            foreach(var cartageOffer in cartageErrand.GetSubmittedCartageOffers())
-            {
-                cartageOffersIds.Add(cartageOffer.Id);
-            }
-
-            return new CartageErrandDto()
-            {
-                Id = cartageErrand.Id,
-                FounderId = cartageErrand.Founder.Id,
-                GoodsName = cartageErrand.GoodsName,
-                StartingAdress = cartageErrand.StartingAdress,
-                DestinationAdress = cartageErrand.DestinationAdress,
-                Distance = cartageErrand.Distance,
-                Weight = cartageErrand.Weight,
-                MaximumPrice = cartageErrand.MaximumPrice,
-                EndDate = cartageErrand.EndDate,
-                IsActive = isActive
-            };
-        }
-
         private static CartageOfferDto CreateCartageOfferDto(CartageOffer cartageOffer)
         {
             bool hasBeenConsidered;
@@ -57,7 +28,7 @@ namespace Application.CartageErrands
             else
             {
                 hasBeenConsidered = true;
-                if(cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
+                if (cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
                 {
                     hasBeenAccepted = true;
                 }
@@ -71,7 +42,29 @@ namespace Application.CartageErrands
                 HasBeenAccepted = hasBeenAccepted
             };
         }
+        private static CartageErrandDto CreateCartageErrandDto(CartageErrand cartageErrand)
+        {
+            bool isActive;
+            if (cartageErrand.ExecutionStatus == CartageErrandExecutionStatus.Active)
+                isActive = true;
+            else
+                isActive = false;
 
+            return new CartageErrandDto()
+            {
+                Id = cartageErrand.Id,
+                FounderId = cartageErrand.Founder.Id,
+                GoodsName = cartageErrand.GoodsName,
+                StartingAdress = cartageErrand.StartingAdress,
+                DestinationAdress = cartageErrand.DestinationAdress,
+                Distance = cartageErrand.Distance,
+                Weight = cartageErrand.Weight,
+                MaximumPrice = cartageErrand.MaximumPrice,
+                EndDate = cartageErrand.EndDate,
+                IsActive = isActive,
+                Offers = cartageErrand.GetSubmittedCartageOffers().Select(CreateCartageOfferDto).ToList()
+            };
+        }
         public async Task<int> Add(CartageErrandDto cartageErrandDto)
         {
             var founder = await Source.GetUserById(cartageErrandDto.FounderId);
@@ -104,9 +97,7 @@ namespace Application.CartageErrands
         public async Task<CartageErrandDto> GetById(int id)
         {
             CartageErrand cartageErrand = await Source.GetCartageErrandById(id);
-            var cartageErrandDto = CreateCartageErrandDto(cartageErrand);
-            cartageErrandDto.Offers = cartageErrand.GetSubmittedCartageOffers().Select(x => CreateCartageOfferDto(x)).ToList();
-            return cartageErrandDto;
+            return CreateCartageErrandDto(cartageErrand);
         }
 
     }
