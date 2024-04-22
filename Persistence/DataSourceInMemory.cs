@@ -167,10 +167,9 @@ namespace Persistence
         }
         #endregion
 
-        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int id)//TODO implement GetCartageOffersForUser in DataSourceInMemory
+        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int id)
         {
             return Task.FromResult((IEnumerable<CartageOffer>)CartageErrands.Values.Where(x => x.GetSubmittedCartageOffers().Where(x => x.Bidder.Id == id) != null));
-            throw new NotImplementedException();
         }
 
         public Task SaveChangesAsync()
