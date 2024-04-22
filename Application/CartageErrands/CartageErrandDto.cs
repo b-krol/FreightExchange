@@ -17,11 +17,10 @@ namespace Application.CartageErrands
         public int MaximumPrice { get; init; }
         public DateTime EndDate { get; init; }
         public bool? IsActive { get; init; }
-        public ICollection<CartageOfferDto>? Offers { get; set; }
     }
 
     public class CartageErrandWithOffersDto : CartageErrandDto
     {
-        public ICollection<CartageOfferDto> Offers { get; set; }
+        public ICollection<CartageOfferDto> Offers { get; init; }
     }
 }
