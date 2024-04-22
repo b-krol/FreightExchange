@@ -31,7 +31,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCartageErrandById(int id)
+        public async Task<ActionResult<CartageErrandWithOffersDto>> GetCartageErrandById(int id)
         {
             try
             {
