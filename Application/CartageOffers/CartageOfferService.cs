@@ -1,4 +1,5 @@
-﻿using Domain.CartageErrand;
+﻿using AutoMapper;
+using Domain.CartageErrand;
 using Domain.CartageOffer;
 using System;
 using System.Collections.Generic;
@@ -11,35 +12,12 @@ namespace Application.CartageOffers
     internal class CartageOfferService : ICartageOfferService
     {
         private readonly IDataSource Source;
-        public CartageOfferService(IDataSource source)
+        private readonly IMapper Mapper;
+
+        public CartageOfferService(IDataSource source, IMapper mapper)
         {
             Source = source;
-        }
-
-        private static CartageOfferDto CreateCartageOfferDto(CartageOffer cartageOffer)
-        {
-            bool hasBeenConsidered;
-            bool hasBeenAccepted = false;
-            if (cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Waiting)
-            {
-                hasBeenConsidered = false;
-            }
-            else
-            {
-                hasBeenConsidered = true;
-                if (cartageOffer.ConsiderationStatus == CartageOfferConsiderationStatus.Accepted)
-                {
-                    hasBeenAccepted = true;
-                }
-            }
-            return new CartageOfferDto()
-            {
-                Id = cartageOffer.Id,
-                BidderId = cartageOffer.Bidder.Id,
-                Price = cartageOffer.Price,
-                HasBeenConsidered = hasBeenConsidered,
-                HasBeenAccepted = hasBeenAccepted
-            };
+            Mapper = mapper;
         }
 
         public async Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto)
@@ -67,13 +45,13 @@ namespace Application.CartageOffers
         public async Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int cartageErrandId)
         {
             var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
-            return cartageErrand.GetSubmittedCartageOffers().Select(CreateCartageOfferDto);
+            return Mapper.Map<IEnumerable<CartageOfferDto>>(cartageErrand.GetSubmittedCartageOffers());
         }
 
         public async Task<CartageOfferDto> GetById(int id)
         {
             var cartageOffer = await Source.GetCartageOfferById(id);
-            return CreateCartageOfferDto(cartageOffer);
+            return Mapper.Map<CartageOfferDto>(cartageOffer);
         }
 
     }

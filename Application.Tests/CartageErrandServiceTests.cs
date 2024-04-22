@@ -1,5 +1,7 @@
 ﻿using Application.CartageErrands;
+using Application.MapProfile;
 using Application.Users;
+using AutoMapper;
 using Domain.CartageErrand;
 using Domain.User;
 using NSubstitute;
@@ -16,7 +18,7 @@ namespace Application.UnitTests
     public class CartageErrandServiceTests
     {
         private Randomizer Rand = Randomizer.CreateRandomizer();
-
+        private IMapper Mapper;
         #region staticMethods
         private static User CreateCorrectUser(int id)
         {
@@ -52,6 +54,13 @@ namespace Application.UnitTests
             };
         }
         #endregion
+        [SetUp]
+        public void Setup()
+        {
+            var myProfile = new EntityToDtoMap();
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
+            Mapper = new Mapper(configuration);
+        }
 
         [Test]
         public void CartageErrandCannotBeAddedWithFounderIdOfNotExistingUser()
@@ -60,7 +69,7 @@ namespace Application.UnitTests
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetUserById(Arg.Is<int>(cartageErrandDto.FounderId)).Returns(Task.FromException<User>(new UserNotFoundException()));
-            var service = new CartageErrandService(dataSource);
+            var service = new CartageErrandService(dataSource, Substitute.For<IMapper>());
 
             Assert.ThrowsAsync<UserNotFoundException>(async () => await service.Add(cartageErrandDto));
             dataSource.Received(1).GetUserById(cartageErrandDto.FounderId);
@@ -75,8 +84,8 @@ namespace Application.UnitTests
             var dataSource = Substitute.For<IDataSource>();
             dataSource.When(x => x.AddCartageErrand(Arg.Any<CartageErrand>()))
                 .Do(y => y.Arg<CartageErrand>().Id = cartageErrandId);
-            var service = new CartageErrandService(dataSource);
-            
+            var service = new CartageErrandService(dataSource, Substitute.For<IMapper>());
+
             Assert.That(service.Add(cartageErrandDto).Result, Is.EqualTo(cartageErrandId));
         }
 
@@ -87,7 +96,7 @@ namespace Application.UnitTests
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetCartageErrandById(Arg.Any<int>()).Returns(Task.FromResult(CreateCorrectCartageErrand(cartageErrandId)));
-            var service = new CartageErrandService(dataSource);
+            var service = new CartageErrandService(dataSource, Mapper);
 
             Assert.That(service.GetById(cartageErrandId).Result.Id, !Is.Null);
             dataSource.Received(1).GetCartageErrandById(cartageErrandId);
@@ -100,7 +109,7 @@ namespace Application.UnitTests
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetCartageErrandById(Arg.Any<int>()).Returns(Task.FromResult(CreateCorrectCartageErrand(cartageErrandId)));
-            var service = new CartageErrandService(dataSource);
+            var service = new CartageErrandService(dataSource, Mapper);
 
             Assert.That(service.GetById(cartageErrandId).Result.Id, Is.EqualTo(cartageErrandId));
             dataSource.Received(1).GetCartageErrandById(cartageErrandId);

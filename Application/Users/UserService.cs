@@ -1,4 +1,5 @@
-﻿using Domain.User;
+﻿using AutoMapper;
+using Domain.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,12 @@ namespace Application.Users
     internal class UserService : IUserService
     {
         private readonly IDataSource Source;
-        public UserService(IDataSource dataSource) 
+        private readonly IMapper Mapper;
+
+        public UserService(IDataSource dataSource, IMapper mapper) 
         {
             Source = dataSource;
-        }
-
-        private static UserDto CreateUserDto(User user)
-        {
-            return new UserDto { Name = user.Name, Email = user.Email, Id = user.Id };
+            Mapper = mapper;
         }
 
         private static User CreateUserFromDto(UserDto user)
@@ -41,19 +40,14 @@ namespace Application.Users
 
         public async Task<IEnumerable<UserDto>> GetAll()
         {
-            var userDtos = new List<UserDto>();
             var users = await Source.GetUsers();
-            foreach (var user in users)
-            {
-                userDtos.Add(CreateUserDto(user));
-            }
-            return userDtos;
+            return Mapper.Map<IEnumerable<UserDto>>(users);
         }
 
         public async Task<UserDto> GetById(int id)
         {
             User user = await Source.GetUserById(id);
-            return CreateUserDto(user);
+            return Mapper.Map<UserDto>(user);
         }
 
         public async Task<int> UpdateAsync(UserDto userDto)
