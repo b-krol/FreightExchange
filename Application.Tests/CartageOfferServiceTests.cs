@@ -44,6 +44,11 @@ namespace Application.UnitTests
                 ) { Id = id};
         }
 
+        private static CartageOffer CreateCorrectCartageOffer(int id)
+        {
+            return new CartageOffer(CreateCorrectUser(id), 1) { Id = id };
+        }
+
         [Test]
         public void CartageOfferCannotBeAddedToNotExistingCartageErrand()
         {
@@ -116,29 +121,48 @@ namespace Application.UnitTests
             dataSource.Received(1).GetCartageErrandById(Arg.Is(cartageErrandId));
         }
 
-        //TODO implement CartageOfferServiceTests
+        
         [Test]
         public void CartageOfferServiceHasToReturnDtoWithSetIdForRequestedObject()
         {
-            throw new NotImplementedException();
+            int cartageOfferId = Rand.Next(2, 2000);
+
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.GetCartageOfferById(Arg.Is<int>(cartageOfferId)).Returns(CreateCorrectCartageOffer(cartageOfferId));
+            var service = new CartageOfferService(dataSource);
+
+            Assert.That(service.GetById(cartageOfferId).Result.Id, !Is.Null);
+            dataSource.Received(1).GetCartageOfferById(Arg.Is(cartageOfferId));
         }
 
         [Test]
         public void CartageOfferServiceHasToReturnDtoWithIdMatchingWithRequestedObject()
         {
-            throw new NotImplementedException();
+            int cartageOfferId = Rand.Next(2, 2000);
+
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.GetCartageOfferById(Arg.Is<int>(cartageOfferId)).Returns(CreateCorrectCartageOffer(cartageOfferId));
+            var service = new CartageOfferService(dataSource);
+
+            Assert.That(service.GetById(cartageOfferId).Result.Id, Is.EqualTo(cartageOfferId));
+            dataSource.Received(1).GetCartageOfferById(Arg.Is(cartageOfferId));
         }
 
         [Test]
         public void CartageOfferServiceHasToReturnCollectionOfDtosWithSetIdForCartageErrand()
         {
-            throw new NotImplementedException();
+            int cartageOfferId = Rand.Next(2, 2000);
+            int cartageErrandId = Rand.Next(2, 2000);
+            var cartageErrand = CreateCorrectCartageErrand(cartageErrandId);
+            cartageErrand.AddOffer(CreateCorrectCartageOffer(cartageOfferId));
+            cartageErrand.AddOffer(CreateCorrectCartageOffer(cartageOfferId + 1));
+
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.GetCartageErrandById(Arg.Is<int>(cartageErrandId)).Returns(cartageErrand);
+            var service = new CartageOfferService(dataSource);
+
+            Assert.That(service.GetAllByCartageErrand(cartageErrandId).Result.All(x => x.Id.HasValue), Is.True);
         }
 
-        [Test]
-        public void CartageOfferServiceHasToReturnCollectionOfDtosForRequstedOffersForRequestedCartageErrand()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
