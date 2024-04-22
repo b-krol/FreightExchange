@@ -1,0 +1,11 @@
+GET https://localhost:7249/api/FreightExchange/
+
+###
+
+POST https://localhost:7249/api/FreightExchange/
+Content-Type: application/json
+
+{
+  "name": "Testm",
+  "email": "Testm"
+}

@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "Domain.UnitTests\Domain.UnitTests.csproj", "{4B0283C0-A355-44A7-9CB0-095607C794AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "Application.Tests\Application.UnitTests.csproj", "{EDEE737B-ABDC-46CF-A6C4-9E177F3D14BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "Application.Tests\Application.UnitTests.csproj", "{EDEE737B-ABDC-46CF-A6C4-9E177F3D14BB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9D7AA5CB-0BF5-47CB-A008-746054F0B73F} = {9D7AA5CB-0BF5-47CB-A008-746054F0B73F}
 	EndProjectSection

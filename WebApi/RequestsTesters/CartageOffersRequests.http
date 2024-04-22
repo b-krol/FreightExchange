@@ -1,0 +1,8 @@
+
+POST https://localhost:7249/api/CartageErrands/1/Offers
+Content-Type: application/json
+
+{
+  "BidderId": "1",
+  "Price": "10"
+}
