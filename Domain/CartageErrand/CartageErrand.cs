@@ -45,9 +45,7 @@ namespace Domain.CartageErrand
 
         private void ThrowIfNullOrEmpty(string value)
         {
-            if (value == null) throw new ArgumentException();
-            if (value == string.Empty) throw new ArgumentException();
-            if (value.Trim() == string.Empty) throw new ArgumentException();
+            if (String.IsNullOrWhiteSpace(value)) throw new ArgumentException();
         }
 
         private void ThrowIfEqualOrLessThanZero(int value)
