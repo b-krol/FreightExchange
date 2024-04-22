@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.CartageOffers;
+using AutoMapper;
+using System.Reflection;
 
 namespace Application
 {
@@ -18,6 +20,7 @@ namespace Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICartageErrandService, CartageErrandService>();
             services.AddScoped<ICartageOfferService, CartageOfferService>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }
