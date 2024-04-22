@@ -9,6 +9,9 @@ namespace Domain.CartageErrand
 {
     public class CartageErrand
     {
+        public const int GoodsNameMaxLength = 100;
+        public const int StartingAdressMaxLength = 200;
+        public const int DestinationAdressMaxLength = 200;
         public int Id { get; set; }
         public Domain.User.User Founder { get; private set; }
         public string GoodsName { get; private set; }

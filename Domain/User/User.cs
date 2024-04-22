@@ -5,6 +5,8 @@ namespace Domain.User
 {
     public class User
     {
+        public const int NameMaxLength = 64;
+        public const int EmailMaxLength = 100;
         public int Id { get; set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
