@@ -14,10 +14,10 @@ namespace Persistence
     {
         public static IServiceCollection AddPersistenceInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services
-                .AddDbContext<DataSourceContext>(options => SetupApplicationDbContextOptions(options, configuration));
+            return services
+                .AddDbContext<IDataSource, DataSourceContext>(options => SetupApplicationDbContextOptions(options, configuration));
             
-            return services.AddSingleton<IDataSource, DataSourceInMemory>();
+            //return services.AddSingleton<IDataSource, DataSourceInMemory>();
         }
 
         private static void SetupApplicationDbContextOptions(this DbContextOptionsBuilder optionsBuilder, IConfiguration configuration)
