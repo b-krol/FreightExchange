@@ -75,8 +75,7 @@ namespace Application
         #region CartageOffers
         Task<IEnumerable<CartageOffer>> GetCartageOffers();
         Task<CartageOffer> GetCartageOfferById(int id);
-        Task DeleteCartageOffer(CartageOffer cartageOffer);
-        Task AddCartageOffer(CartageOffer cartageOffer);
+        Task DeleteCartageOffer(CartageOffer cartageOffer);//TODO do skasowania
         #endregion
 
         Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId);

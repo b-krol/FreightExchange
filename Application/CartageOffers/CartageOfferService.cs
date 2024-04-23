@@ -29,7 +29,6 @@ namespace Application.CartageOffers
                 bidder,
                 cartageOfferDto.Price
                 );
-            await Source.AddCartageOffer(newCartageOffer);
 
             cartageErrand.AddOffer(newCartageOffer);
 

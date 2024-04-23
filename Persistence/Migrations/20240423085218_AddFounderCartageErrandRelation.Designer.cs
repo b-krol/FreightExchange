@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataSourceContext))]
-    partial class DataSourceContextModelSnapshot : ModelSnapshot
+    [Migration("20240423085218_AddFounderCartageErrandRelation")]
+    partial class AddFounderCartageErrandRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,17 +87,12 @@ namespace Persistence.Migrations
                     b.Property<int>("ConsiderationStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("ErrandId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BidderId");
-
-                    b.HasIndex("ErrandId");
 
                     b.ToTable("CartageOffers");
                 });
@@ -138,21 +136,10 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.User.User", "Bidder")
                         .WithMany()
                         .HasForeignKey("BidderId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Domain.CartageErrand.CartageErrand", null)
-                        .WithMany("SubmittedCartageOffers")
-                        .HasForeignKey("ErrandId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Bidder");
-                });
-
-            modelBuilder.Entity("Domain.CartageErrand.CartageErrand", b =>
-                {
-                    b.Navigation("SubmittedCartageOffers");
                 });
 #pragma warning restore 612, 618
         }

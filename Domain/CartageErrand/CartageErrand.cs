@@ -13,6 +13,7 @@ namespace Domain.CartageErrand
         public const int StartingAdressMaxLength = 200;
         public const int DestinationAdressMaxLength = 200;
         public int Id { get; set; }
+        public int FounderId { get; init; }
         public Domain.User.User Founder { get; private set; }
         public string GoodsName { get; private set; }
         public string StartingAdress { get; private set; }

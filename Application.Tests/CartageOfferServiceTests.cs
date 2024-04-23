@@ -103,8 +103,8 @@ namespace Application.UnitTests
             dataSource.GetUserById(Arg.Is<int>(cartageOfferDto.BidderId)).Returns(CreateCorrectUser(cartageOfferDto.BidderId));
             dataSource.GetCartageErrandById(Arg.Is<int>(cartageErrandId)).Returns(CreateCorrectCartageErrand(cartageErrandId));
 
-            dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
-                .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);
+            //dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
+            //    .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);//TODO do poprawienia
 
             var service = new CartageOfferService(dataSource, Substitute.For<IMapper>());
             var newOfferId = service.Add(cartageErrandId, cartageOfferDto).Result;
@@ -124,8 +124,8 @@ namespace Application.UnitTests
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetCartageErrandById(Arg.Is<int>(cartageErrandId)).Returns(CreateCorrectCartageErrand(cartageErrandId));
-            dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
-                .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);
+            //dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
+            //    .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);//TODO do poprawienia
             var service = new CartageOfferService(dataSource, Substitute.For<IMapper>());
 
             Assert.That(service.Add(cartageErrandId, cartageOfferDto).Result, Is.EqualTo(cartageOfferId));

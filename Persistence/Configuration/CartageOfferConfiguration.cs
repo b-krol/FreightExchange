@@ -20,8 +20,13 @@ namespace Persistence.Configuration
                 .IsRequired();
             builder.Property(x => x.ConsiderationStatus)
                 .IsRequired();
-            //builder.Property(x => x.Bidder)
-            //    .IsRequired();
+            //builder.Property(x => x.ErrandId);
+            builder.Property(x => x.BidderId);
+            builder.HasOne(x => x.Bidder)
+                .WithMany()
+                .HasForeignKey(x => x.BidderId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

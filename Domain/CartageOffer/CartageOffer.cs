@@ -9,7 +9,9 @@ namespace Domain.CartageOffer
 {
     public class CartageOffer
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
+        internal int ErrandId { get; init; }
+        public int BidderId { get; init; }
         public User.User Bidder {  get; set; }
         public int Price { get; set; }
         public CartageOfferConsiderationStatus ConsiderationStatus { get; set; }

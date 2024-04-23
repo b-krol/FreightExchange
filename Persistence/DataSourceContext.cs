@@ -1,4 +1,6 @@
 ﻿using Application;
+using Application.CartageErrands;
+using Application.CartageOffers;
 using Application.Users;
 using Domain.CartageErrand;
 using Domain.CartageOffer;
@@ -61,49 +63,63 @@ namespace Persistence
         #endregion
 
         #region CartageErrand
-        public Task<IEnumerable<CartageErrand>> GetCartageErrands()
+        public async Task<IEnumerable<CartageErrand>> GetCartageErrands()
         {
-            throw new NotImplementedException();
+            return await CartageErrands.ToListAsync();
         }
 
-        public Task<CartageErrand> GetCartageErrandById(int id)
+        public async Task<CartageErrand> GetCartageErrandById(int id)
         {
-            throw new NotImplementedException();
+            var cartageErrand = await CartageErrands
+                .Where(x => x.Id == id)
+                .Include(x => x.Founder)
+                .Include(x => x.SubmittedCartageOffers)
+                .FirstOrDefaultAsync();
+            if(cartageErrand == null)
+            {
+                throw new CartageErrandNotFoundException();
+            }
+            return cartageErrand;
         }
 
         public Task DeleteCartageErrand(CartageErrand cartageErrand)
         {
-            throw new NotImplementedException();
+            CartageErrands.Remove(cartageErrand);
+            return Task.CompletedTask;
         }
 
         public Task AddCartageErrand(CartageErrand cartageErrand)
         {
-            throw new NotImplementedException();
+            CartageErrands.AddAsync(cartageErrand);
+            return Task.CompletedTask;
         }
         #endregion
 
         #region CartageOffer
-        public Task<IEnumerable<CartageOffer>> GetCartageOffers()
+        public async Task<IEnumerable<CartageOffer>> GetCartageOffers()
         {
-            throw new NotImplementedException();
+            return await CartageOffers.ToListAsync();
         }
 
-        public Task<CartageOffer> GetCartageOfferById(int id)
+        public async Task<CartageOffer> GetCartageOfferById(int id)
         {
-            throw new NotImplementedException();
+            var cartageOffer = await CartageOffers.Where(x => x.Id == id)
+                .Include(x => x.Bidder)
+                .FirstOrDefaultAsync();
+            if(cartageOffer == null)
+            {
+                throw new CartageOfferNotFoundException();
+            }
+            return cartageOffer;
         }
 
         public Task DeleteCartageOffer(CartageOffer cartageOffer)
         {
-            throw new NotImplementedException();
+            CartageOffers.Remove(cartageOffer);
+            return Task.CompletedTask;
         }
 
-        public Task AddCartageOffer(CartageOffer cartageOffer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId)
+        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId)//TODO implement GetCartageOffersForUser method
         {
             throw new NotImplementedException();
         }

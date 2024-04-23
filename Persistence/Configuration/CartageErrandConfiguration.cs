@@ -33,8 +33,17 @@ namespace Persistence.Configuration
                 .IsRequired();
             builder.Property(x => x.EndDate)
                 .IsRequired();
-            //builder.Property(x => x.Founder)
-            //    .IsRequired();
+            builder.Property(x => x.FounderId);
+            builder.HasOne(x => x.Founder)
+                .WithMany()
+                .HasForeignKey(x => x.FounderId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(x => x.SubmittedCartageOffers)
+                .WithOne()
+                .HasForeignKey(x => x.ErrandId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
