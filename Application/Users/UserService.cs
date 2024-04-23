@@ -30,12 +30,14 @@ namespace Application.Users
         {
             User newUser = CreateUserFromDto(user);
             await Source.AddUser(newUser);
+            await Source.SaveChangesAsync();
             return newUser.Id;
         }
 
         public async Task Delete(int id)
         {
             await Source.DeleteUser(await Source.GetUserById(id));
+            await Source.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<UserDto>> GetAll()

@@ -40,6 +40,7 @@ namespace Application.CartageOffers
         public Task Delete(int id)
         {
             throw new NotImplementedException();//TODO decide if there should or not be allowed to delete already created offer (first write tests)
+            return Source.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int cartageErrandId)
