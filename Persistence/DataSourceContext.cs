@@ -113,12 +113,6 @@ namespace Persistence
             return cartageOffer;
         }
 
-        public Task DeleteCartageOffer(CartageOffer cartageOffer)
-        {
-            CartageOffers.Remove(cartageOffer);
-            return Task.CompletedTask;
-        }
-
         public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId)//TODO implement GetCartageOffersForUser method
         {
             throw new NotImplementedException();
