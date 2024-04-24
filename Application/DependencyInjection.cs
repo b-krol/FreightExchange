@@ -21,6 +21,10 @@ namespace Application
             services.AddScoped<ICartageErrandService, CartageErrandService>();
             services.AddScoped<ICartageOfferService, CartageOfferService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            //services.Configure<FinalizerConfiguration>(x => { configuration.GetSection(""); });
+            services.AddOptions<FinalizerConfiguration>()
+                .Bind(configuration.GetSection("CartageErrandsFinalizer"));
+            services.AddHostedService<CartageErrandsFinalizer>();
             return services;
         }
     }
