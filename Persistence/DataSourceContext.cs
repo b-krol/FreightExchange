@@ -123,9 +123,9 @@ namespace Persistence
             return cartageOffer;
         }
 
-        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId)//TODO implement GetCartageOffersForUser method
+        public Task<IEnumerable<CartageOffer>> GetCartageOffersForUser(int userId)
         {
-            throw new NotImplementedException();
+            return Task.FromResult((IEnumerable<CartageOffer>)CartageOffers.Where(x => x.BidderId == userId));
         }
         #endregion
     }
