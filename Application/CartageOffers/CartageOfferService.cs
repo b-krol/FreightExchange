@@ -54,5 +54,9 @@ namespace Application.CartageOffers
             return Mapper.Map<CartageOfferDto>(cartageOffer);
         }
 
+        public async Task<IEnumerable<CartageOfferDto>> GetAllByUser(int userId)
+        {
+            return Mapper.Map<IEnumerable<CartageOfferDto>>(await Source.GetCartageOffersForUser(userId));
+        }
     }
 }
