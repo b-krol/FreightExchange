@@ -68,6 +68,16 @@ namespace Persistence
             return await CartageErrands.ToListAsync();
         }
 
+        public async Task<IEnumerable<CartageErrand>> GetCartageErrandsExceedingEndTime()
+        {
+            var cartageErrands = await CartageErrands
+                .Where(x => x.EndDate < DateTime.UtcNow)
+                .Where(x => x.ExecutionStatus == CartageErrandExecutionStatus.Active)
+                .ToListAsync();
+            cartageErrands.Sort((x, y) => x.EndDate.CompareTo(y.EndDate));
+            return cartageErrands;
+        }
+
         public async Task<CartageErrand> GetCartageErrandById(int id)
         {
             var cartageErrand = await CartageErrands
@@ -79,7 +89,7 @@ namespace Persistence
             {
                 throw new CartageErrandNotFoundException();
             }
-            return cartageErrand;
+            return cartageErrand;//TODO now returns unspecified DateTime but should return Utc DateTime. But property is unaccessible from there
         }
 
         public Task DeleteCartageErrand(CartageErrand cartageErrand)

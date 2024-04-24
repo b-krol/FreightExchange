@@ -176,5 +176,10 @@ namespace Persistence
         {
             return Task.CompletedTask;
         }
+
+        public Task<IEnumerable<CartageErrand>> GetCartageErrandsExceedingEndTime()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

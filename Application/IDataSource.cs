@@ -44,6 +44,7 @@ namespace Application
 
         #region CartageErrands
         Task<IEnumerable<CartageErrand>> GetCartageErrands();
+        Task<IEnumerable<CartageErrand>> GetCartageErrandsExceedingEndTime();
         /// <summary>
         /// 
         /// </summary>
