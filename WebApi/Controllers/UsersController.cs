@@ -1,4 +1,5 @@
-﻿using Application.Users;
+﻿using Application.CartageOffers;
+using Application.Users;
 using Domain.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -13,10 +14,12 @@ namespace WebApi.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService UserService { get; }
+        private ICartageOfferService CartageOfferService { get; }
 
-        public UsersController(IUserService userService) 
+        public UsersController(IUserService userService, ICartageOfferService cartageOfferService) 
         {
             UserService = userService;
+            CartageOfferService = cartageOfferService;
         }        
 
         [HttpGet]
@@ -36,6 +39,12 @@ namespace WebApi.Controllers
             {
                 return NotFound(exception.Message);
             }
+        }
+
+        [HttpGet("{id}/Offers")]
+        public async Task<IEnumerable<CartageOfferDto>> GetOffersByUser(int id)
+        {
+            return await CartageOfferService.GetAllByUser(id);
         }
 
         [HttpDelete("{id}")]
