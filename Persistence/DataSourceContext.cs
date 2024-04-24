@@ -89,7 +89,7 @@ namespace Persistence
             {
                 throw new CartageErrandNotFoundException();
             }
-            return cartageErrand;//TODO now returns unspecified DateTime but should return Utc DateTime. But property is unaccessible from there
+            return cartageErrand;
         }
 
         public Task DeleteCartageErrand(CartageErrand cartageErrand)

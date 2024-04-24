@@ -32,7 +32,8 @@ namespace Persistence.Configuration
             builder.Property(x => x.MaximumPrice)
                 .IsRequired();
             builder.Property(x => x.EndDate)
-                .IsRequired();
+                .IsRequired()
+                .HasConversion(dt => dt, dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc));
             builder.Property(x => x.FounderId);
             builder.HasOne(x => x.Founder)
                 .WithMany()
