@@ -2,7 +2,9 @@
 using Application.MapProfile;
 using Application.Users;
 using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using Domain.CartageErrand;
+using Domain.CartageOffer;
 using Domain.User;
 using NSubstitute;
 using NUnit.Framework.Internal;
@@ -121,6 +123,64 @@ namespace Application.UnitTests
 
             Assert.That(service.GetById(cartageErrandId).Result.Id, Is.EqualTo(cartageErrandId));
             dataSource.Received(1).GetCartageErrandById(cartageErrandId);
+        }
+
+        [Test]
+        public void AllCartageErrandsExceedingEndTimeHaveToChangeTheirStateFromActiveWhenServiceAskedToFinishExceedingTimeCartageErrands()
+        {
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.GetCartageErrandsExceedingEndTime()
+                .Returns(
+                    Task.FromResult((IEnumerable<CartageErrand>)new List<CartageErrand>() {
+                        CreateCorrectCartageErrand(1, new TimeSpan(0, 0, 2)),
+                        CreateCorrectCartageErrand(2, new TimeSpan(0, 0, 2))
+                        }
+                ));
+            var service = new CartageErrandService(dataSource, Mapper);
+            var cartageErrands = dataSource.GetCartageErrandsExceedingEndTime().Result;
+            service.FinishErrandsExceedingEndTime().Wait();
+
+            Assert.That(cartageErrands.All(x => x.ExecutionStatus != CartageErrandExecutionStatus.Active), Is.True);
+        }
+
+        [Test]
+        public void AllCartageErrandsExceedingEndTimeAndHavingNoOffersHaveToChangeTheirStateToFailureWhenServiceAskedToFinishExceedingTimeCartageErrands()
+        {
+            var dataSource = Substitute.For<IDataSource>();
+            dataSource.GetCartageErrandsExceedingEndTime()
+                .Returns(
+                    Task.FromResult((IEnumerable<CartageErrand>)new List<CartageErrand>() {
+                        CreateCorrectCartageErrand(1, new TimeSpan(0, 0, 2)),
+                        CreateCorrectCartageErrand(2, new TimeSpan(0, 0, 2))
+                        }
+                ));
+            var service = new CartageErrandService(dataSource, Mapper);
+            var cartageErrands = dataSource.GetCartageErrandsExceedingEndTime().Result;
+            service.FinishErrandsExceedingEndTime().Wait();
+
+            Assert.That(cartageErrands.All(x => x.ExecutionStatus == CartageErrandExecutionStatus.Failure), Is.True);
+        }
+
+        [Test]
+        public void AllCartageErrandsExceedingEndTimeAndHavingAtLeastOneOfferHaveToChangeTheirStateToSuccessWhenServiceAskedToFinishExceedingTimeCartageErrands()
+        {
+            var dataSource = Substitute.For<IDataSource>();
+            var cartageErrandWithOffer1 = CreateCorrectCartageErrand(1, new TimeSpan(0, 0, 2));
+            cartageErrandWithOffer1.AddOffer(CreateCorrectCartageOffer(1));
+            var cartageErrandWithOffer2 = CreateCorrectCartageErrand(2, new TimeSpan(0, 0, 2));
+            cartageErrandWithOffer2.AddOffer(CreateCorrectCartageOffer(2));
+            dataSource.GetCartageErrandsExceedingEndTime()
+                .Returns(
+                    Task.FromResult((IEnumerable<CartageErrand>)new List<CartageErrand>() {
+                        cartageErrandWithOffer1,
+                        cartageErrandWithOffer2
+                        }
+                ));
+            var service = new CartageErrandService(dataSource, Mapper);
+            var cartageErrands = dataSource.GetCartageErrandsExceedingEndTime().Result;
+            service.FinishErrandsExceedingEndTime().Wait();
+
+            Assert.That(cartageErrands.All(x => x.ExecutionStatus == CartageErrandExecutionStatus.Success), Is.True);
         }
     }
 }
