@@ -24,8 +24,16 @@ namespace Application.UnitTests
         {
             return new User("Bidder", "mrBidd3r@domain.com") { Id = id };
         }
+        private static CartageOffer CreateCorrectCartageOffer(int id)
+        {
+            return new CartageOffer(CreateCorrectUser(id), 1) { Id = id };
+        }
 
         private static CartageErrand CreateCorrectCartageErrand(int id)
+        {
+            return CreateCorrectCartageErrand(id, new TimeSpan(0, 30, 0));
+        }
+        private static CartageErrand CreateCorrectCartageErrand(int id, TimeSpan timeToEndTime)
         {
             return new CartageErrand(
                 CreateCorrectUser(id),
@@ -35,7 +43,7 @@ namespace Application.UnitTests
                 500,
                 13.4f,
                 3000,
-                DateTime.Now + new TimeSpan(24, 0, 0)
+                DateTime.UtcNow + timeToEndTime
                 )
             { Id = id };
         }
@@ -50,7 +58,7 @@ namespace Application.UnitTests
                 Distance = 1000,
                 Weight = 13.4f,
                 MaximumPrice = 5000,
-                EndDate = DateTime.Now + new TimeSpan(24, 0, 0)
+                EndDate = DateTime.UtcNow + new TimeSpan(24, 0, 0)
             };
         }
         #endregion

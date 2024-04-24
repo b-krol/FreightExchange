@@ -32,7 +32,7 @@ namespace Application.CartageErrands
                     cartageErrandDto.Distance,
                     cartageErrandDto.Weight,
                     cartageErrandDto.MaximumPrice,
-                    cartageErrandDto.EndDate
+                    cartageErrandDto.EndDate.ToUniversalTime()
                 );
             await Source.AddCartageErrand(newCartageErrand);
             await Source.SaveChangesAsync();

@@ -26,7 +26,7 @@ namespace Domain.UnitTests
                 400,
                 15.3f,
                 4000,
-                DateTime.Now + new TimeSpan(12, 0, 0)
+                DateTime.UtcNow + new TimeSpan(12, 0, 0)
                 );
         }
 
@@ -41,7 +41,7 @@ namespace Domain.UnitTests
                 400,
                 15.3f,
                 4000,
-                DateTime.Now + new TimeSpan(12, 0, 0)
+                DateTime.UtcNow + new TimeSpan(12, 0, 0)
             );
         }
 
@@ -124,7 +124,7 @@ namespace Domain.UnitTests
             var distance = 400;
             var weight = 15.3f;
             var maxPrice = 4000;
-            var endDate = DateTime.Now + new TimeSpan(12, 0, 0);
+            var endDate = DateTime.UtcNow + new TimeSpan(12, 0, 0);
             var x = new CartageErrand.CartageErrand(
                 founder,
                 goodsName,

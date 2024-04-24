@@ -40,7 +40,7 @@ namespace Persistence
                     524,
                     9.5f,
                     1000,
-                    DateTime.Now + new TimeSpan(10, 0, 0)
+                    DateTime.UtcNow + new TimeSpan(10, 0, 0)
                         ){ Id = 1}
             }
             ,
@@ -53,7 +53,7 @@ namespace Persistence
                     600,
                     5.4f,
                     1100,
-                    DateTime.Now + new TimeSpan(1, 0, 30)
+                    DateTime.UtcNow + new TimeSpan(1, 0, 30)
                         ){ Id = 2 }
             }
         };

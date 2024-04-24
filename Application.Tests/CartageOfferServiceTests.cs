@@ -43,7 +43,7 @@ namespace Application.UnitTests
                 500,
                 13.4f,
                 3000,
-                DateTime.Now + new TimeSpan(24, 0, 0)
+                DateTime.UtcNow + new TimeSpan(24, 0, 0)
                 ) { Id = id};
         }
 

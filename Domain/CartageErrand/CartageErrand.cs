@@ -68,8 +68,7 @@ namespace Domain.CartageErrand
 
         private void ThrowIfDateTimeRefersToPastOrNotEnoughIntoFuture(DateTime dateTime)
         {
-            var timeLeft = dateTime.Subtract(DateTime.Now);
-            if (timeLeft <= TimeSpan.FromSeconds(1)) throw new ArgumentException();
+            if (dateTime <= DateTime.UtcNow) throw new ArgumentException();
         }
 
         public ReadOnlyCollection<CartageOffer.CartageOffer> GetSubmittedCartageOffers()
