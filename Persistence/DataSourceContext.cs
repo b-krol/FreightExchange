@@ -73,8 +73,8 @@ namespace Persistence
             var cartageErrands = await CartageErrands
                 .Where(x => x.EndDate < DateTime.UtcNow)
                 .Where(x => x.ExecutionStatus == CartageErrandExecutionStatus.Active)
+                .Include(x => x.SubmittedCartageOffers)
                 .ToListAsync();
-            cartageErrands.Sort((x, y) => x.EndDate.CompareTo(y.EndDate));
             return cartageErrands;
         }
 
