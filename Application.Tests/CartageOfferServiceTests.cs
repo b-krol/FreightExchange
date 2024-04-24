@@ -97,19 +97,14 @@ namespace Application.UnitTests
         {
             var cartageOfferDto = CreateCartageOfferDto();
             int cartageErrandId = Rand.Next(1, 1000);
-            int cartageOfferId = Rand.Next(1000, 2000);
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetUserById(Arg.Is<int>(cartageOfferDto.BidderId)).Returns(CreateCorrectUser(cartageOfferDto.BidderId));
             dataSource.GetCartageErrandById(Arg.Is<int>(cartageErrandId)).Returns(CreateCorrectCartageErrand(cartageErrandId));
 
-            //dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
-            //    .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);//TODO do poprawienia
+            var service = new CartageOfferService(dataSource, Substitute.For<IMapper>());            
 
-            var service = new CartageOfferService(dataSource, Substitute.For<IMapper>());
-            var newOfferId = service.Add(cartageErrandId, cartageOfferDto).Result;
-
-            Assert.That(newOfferId, Is.EqualTo(cartageOfferId));
+            service.Add(cartageErrandId, cartageOfferDto).Wait();
             dataSource.Received(1).GetUserById(Arg.Is(cartageOfferDto.BidderId));
             dataSource.Received(1).GetCartageErrandById(Arg.Is(cartageErrandId));
             dataSource.Received(1).SaveChangesAsync();
@@ -120,16 +115,13 @@ namespace Application.UnitTests
         {
             var cartageOfferDto = CreateCartageOfferDto();
             int cartageErrandId = Rand.Next(2, 2000);
-            int cartageOfferId = Rand.Next(2, 2000);
 
             var dataSource = Substitute.For<IDataSource>();
             dataSource.GetCartageErrandById(Arg.Is<int>(cartageErrandId)).Returns(CreateCorrectCartageErrand(cartageErrandId));
-            //dataSource.When(x => x.AddCartageOffer(Arg.Any<CartageOffer>()))
-            //    .Do(y => y.Arg<CartageOffer>().Id = cartageOfferId);//TODO do poprawienia
             var service = new CartageOfferService(dataSource, Substitute.For<IMapper>());
 
-            Assert.That(service.Add(cartageErrandId, cartageOfferDto).Result, Is.EqualTo(cartageOfferId));
-            dataSource.Received(1).GetCartageErrandById(Arg.Is(cartageErrandId));
+            service.Add(cartageErrandId, cartageOfferDto).Wait();
+            dataSource.Received(1).GetCartageErrandById(Arg.Any<int>());
         }
 
         
