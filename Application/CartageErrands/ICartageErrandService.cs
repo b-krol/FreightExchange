@@ -1,4 +1,5 @@
-﻿using Application.Users;
+﻿using Application.CartageOffers;
+using Application.Users;
 using Domain.CartageErrand;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,7 @@ namespace Application.CartageErrands
         /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
         /// <exception cref="CartageErrand.CartageErrandNotDeletedException">Method throws CartageErrandNotDeletedException when can't delete specified CartageErrand</exception>
         Task<int> Add(CartageErrandDto cartageErrandDto);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="CartageErrand"></param>
-        /// <exception cref="CartageErrand.CartageErrandNotFoundException">Method throws CartageErrandNotFoundException when can't find specified CartageErrand</exception>
-        /// <exception cref="CartageErrand.CartageErrandNotUpdatedException">Method throws CartageErrandNotUpdatedException when can't update specified CartageErrand</exception>
-
+        Task FinishErrandsExceedingEndTime();
         //TODO in future mayby allow to update CartageErrand but in scenarios like - no one have assigned offer to the cartage or no one has asked for this cartage
         //CartageErrandDto Update(CartageErrandDto cartageErrandDto);
     }

@@ -39,6 +39,16 @@ namespace Application.CartageErrands
             return newCartageErrand.Id;
         }
 
+        public async Task FinishErrandsExceedingEndTime()
+        {
+            var x = await Source.GetCartageErrandsExceedingEndTime();
+            foreach (var cartageErrand in x)
+            {
+                cartageErrand.Finish();
+            }
+            await Source.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<CartageErrandDto>> GetAll()
         {
             var cartageErrands = await Source.GetCartageErrands();
