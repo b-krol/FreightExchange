@@ -11,7 +11,6 @@ namespace Application.CartageOffers
         Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int cartageErrandId);
         Task<CartageOfferDto> GetById(int id);
         public Task<IEnumerable<CartageOfferDto>> GetAllByUser(int userId);
-        Task Delete(int id);
         Task<int> Add(int cartageErrandId, CartageOfferDto cartageOfferDto);
     }
 }

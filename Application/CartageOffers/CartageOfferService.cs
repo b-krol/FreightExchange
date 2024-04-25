@@ -36,12 +36,6 @@ namespace Application.CartageOffers
             return newCartageOffer.Id;
         }
 
-        public Task Delete(int id)
-        {
-            throw new NotImplementedException();//TODO decide if there should or not be allowed to delete already created offer (first write tests)
-            return Source.SaveChangesAsync();
-        }
-
         public async Task<IEnumerable<CartageOfferDto>> GetAllByCartageErrand(int cartageErrandId)
         {
             var cartageErrand = await Source.GetCartageErrandById(cartageErrandId);
