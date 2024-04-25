@@ -151,14 +151,6 @@ namespace Persistence
             }
             return Task.FromResult(x);
         }
-        public Task DeleteCartageOffer(CartageOffer cartageOffer)
-        {
-            if (CartageOffers.Remove(cartageOffer.Id))
-            {
-                return Task.CompletedTask;
-            }
-            throw new CartageOfferNotDeletedException();
-        }
         public Task AddCartageOffer(CartageOffer cartageOffer)
         {
             cartageOffer.Id = CartageOffersNextId++;
