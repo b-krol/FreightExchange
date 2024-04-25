@@ -22,11 +22,11 @@ namespace Persistence
         private static Dictionary<int, User> Users = new Dictionary<int, User>()
         {
             { 1,
-            new User("Test1", "Test1@domain.com"){ Id = 1}
+            new User("Test1", "P@ssw0rd", email: "Test1@domain.com"){ Id = 1}
             }
             ,
             { 2,
-            new User("Test2", "Test2@domain.com"){ Id = 2 }
+            new User("Test2", "P@ssw0rd", email: "Test2@domain.com"){ Id = 2 }
             }
         };
         private static Dictionary<int, CartageErrand> CartageErrands = new Dictionary<int, CartageErrand>()

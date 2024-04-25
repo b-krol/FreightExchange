@@ -19,7 +19,7 @@ namespace Domain.UnitTests
         private static CartageErrand.CartageErrand CreateAcceptableCartageErrand()
         {
             return new CartageErrand.CartageErrand(
-                new User.User("Mr. Founder", "mrF0under@domain.com"),
+                new User.User("Mr. Founder", "P@ssw0rd", "mrF0under@domain.com"),
                 "wooden planks",
                 "Radom ul. Zagajnikowa 3s",
                 "Poznań al. Meblowa 28/3",
@@ -34,7 +34,7 @@ namespace Domain.UnitTests
         public void Setup()
         {
             CorrectValuesTuple = (
-                new User.User("Mr. Founder", "mrF0under@domain.com"),
+                new User.User("Mr. Founder", "P@ssw0rd", "mrF0under@domain.com"),
                 "wooden planks",
                 "Radom ul. Zagajnikowa 3s",
                 "Poznań al. Meblowa 28/3",
@@ -117,7 +117,7 @@ namespace Domain.UnitTests
         [Test]
         public void CartageOfferCanBeCreatedWithCorrectData()
         {
-            var founder = new User.User("Mr. Founder", "mrF0under@domain.com");
+            var founder = new User.User("Mr. Founder", "P@ssw0rd", "mrF0under@domain.com");
             var goodsName = "wooden planks  ";
             var startingAdress = "  Radom ul. Zagajnikowa 3s ";
             var destinationAdress = "      Poznań al. Meblowa 28/3";
@@ -315,17 +315,17 @@ namespace Domain.UnitTests
     {
         public static CartageOffer.CartageOffer CreateAcceptableOffer(this CartageErrand.CartageErrand cartageErrand)
         {
-            return new CartageOffer.CartageOffer(new User.User("Użytkownik", "Adres@domena.pl"), (cartageErrand.MaximumPrice / 2));
+            return new CartageOffer.CartageOffer(new User.User("Użytkownik", "P@ssw0rd", "Adres@domena.pl"), (cartageErrand.MaximumPrice / 2));
         }
 
         public static CartageOffer.CartageOffer CreateUnacceptableOffer(this CartageErrand.CartageErrand cartageErrand)
         {
-            return new CartageOffer.CartageOffer(new User.User("Użytkownik", "Adres@domena.pl"), (cartageErrand.MaximumPrice + 1));
+            return new CartageOffer.CartageOffer(new User.User("Użytkownik", "P@ssw0rd", "Adres@domena.pl"), (cartageErrand.MaximumPrice + 1));
         }
 
         public static CartageOffer.CartageOffer CreateCheapestAcceptableOffer(this CartageErrand.CartageErrand cartageErrand)
         {
-            return new CartageOffer.CartageOffer(new User.User("Użytkownik", "Adres@domena.pl"), 0);
+            return new CartageOffer.CartageOffer(new User.User("Użytkownik", "P@ssw0rd", "Adres@domena.pl"), 0);
         }
     }
 }

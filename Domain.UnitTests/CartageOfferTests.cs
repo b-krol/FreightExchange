@@ -22,7 +22,7 @@ namespace Domain.UnitTests
         {
             Assert.Throws<ArgumentException>(
                     () => new CartageOffer.CartageOffer(
-                        new User.User("Mr. Applicant", "Applicant@domain.com"),
+                        new User.User("Mr. Applicant", "P@ssw0rd", "Applicant@domain.com"),
                         price
                     )
                 );
@@ -34,7 +34,7 @@ namespace Domain.UnitTests
         public void CartageOfferCanBeCreatedWithPriceHigherOrEqualZero(int price)
         {
             var newCartageOffer = new CartageOffer.CartageOffer(
-                        new User.User("Mr. Applicant", "Applicant@domain.com"),
+                        new User.User("Mr. Applicant", "P@ssw0rd", "Applicant@domain.com"),
                         price);
             Assert.That(newCartageOffer.Price, Is.EqualTo(price));
         }

@@ -13,7 +13,6 @@ namespace Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            //builder.ToTable("");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd();
@@ -23,6 +22,9 @@ namespace Persistence.Configuration
             builder.Property(x => x.Email)
                 .IsRequired()
                 .HasMaxLength(User.EmailMaxLength);
+            builder.Property(x => x.Password)
+                .IsRequired()
+                .HasMaxLength(User.PasswordMaxLength);
         }
     }
 }

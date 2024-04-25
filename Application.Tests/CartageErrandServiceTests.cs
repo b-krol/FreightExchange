@@ -24,7 +24,7 @@ namespace Application.UnitTests
         #region staticMethods
         private static User CreateCorrectUser(int id)
         {
-            return new User("Bidder", "mrBidd3r@domain.com") { Id = id };
+            return new User("Bidder", "P@ssw0rd", "mrBidd3r@domain.com") { Id = id };
         }
         private static CartageOffer CreateCorrectCartageOffer(int id)
         {

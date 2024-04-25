@@ -19,16 +19,9 @@ namespace Application.Users
             Mapper = mapper;
         }
 
-        private static User CreateUserFromDto(UserDto user)
-        {
-            var newUser = new User(user.Name, user.Email);
-            return newUser;
-        }
-
-
         public async Task<int> Add(UserDto user)
         {
-            User newUser = CreateUserFromDto(user);
+            User newUser = new User(user.Name, @"/-/asł0", user.Email);
             await Source.AddUser(newUser);
             await Source.SaveChangesAsync();
             return newUser.Id;
