@@ -1,8 +1,12 @@
-GET https://localhost:7249/api/FreightExchange/
+GET http://127.0.0.1:8080/api/FreightExchange/
 
 ###
 
-POST https://localhost:7249/api/FreightExchange/
+GET http://127.0.0.1:8080/api/Users/
+
+###
+
+POST http://127.0.0.1:8080/api/FreightExchange/
 Content-Type: application/json
 
 {
