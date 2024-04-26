@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -7,6 +8,13 @@ namespace WebApi.Controllers
     [ApiController]
     public class UsersAuthenticationController : ControllerBase
     {
+        private readonly IUserAuthenticationService AuthenticationService;
+
+        public UsersAuthenticationController(IUserAuthenticationService authenticationService)
+        {
+            AuthenticationService = authenticationService;
+        }
+
         [HttpPost]
         public IActionResult Authenticate(string email, string password)
         {

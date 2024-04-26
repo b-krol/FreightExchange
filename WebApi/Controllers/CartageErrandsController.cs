@@ -11,7 +11,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartageErrandsController : ControllerBase
+    public class CartageErrandsController : AuthorizeController
     {
 
         private ICartageErrandService CartageErrandService { get; }

@@ -127,6 +127,11 @@ namespace Persistence
         {
             return Task.FromResult((IEnumerable<CartageOffer>)CartageOffers.Where(x => x.BidderId == userId));
         }
+
+        public Task<User> FindUser(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

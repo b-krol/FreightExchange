@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Domain.User;
 using Domain.CartageErrand;
 using Domain.CartageOffer;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Application
 {
     public interface IDataSource
     {
         Task SaveChangesAsync();
+
         #region Users
         Task<IEnumerable<User>> GetUsers();
         /// <summary>
@@ -33,14 +35,9 @@ namespace Application
         /// <param name="user"></param>
         /// <exception cref="Users.UserNotCreatedException">Method throws UserNotCreatedException when can't create specified user</exception>
         Task AddUser(User user);
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="user"></param>
-        ///// <exception cref="Users.UserNotFoundException">Method throws UserNotFoundException when can't find specified user</exception>
-        ///// <exception cref="Users.UserNotUpdatedException">Method throws UserNotUpdatedException when can't update specified user</exception>
-        //int UpdateUser(User user);
+        Task<User> FindUser(string email, string password);
         #endregion
+
 
         #region CartageErrands
         Task<IEnumerable<CartageErrand>> GetCartageErrands();

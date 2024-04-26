@@ -173,5 +173,10 @@ namespace Persistence
         {
             throw new NotImplementedException();
         }
+
+        public Task<User> FindUser(string email, string password)//TODO implement FindUser method in DataSourceInMemory
+        {
+            throw new NotImplementedException();
+        }
     }
 }
